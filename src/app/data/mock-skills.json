@@ -1,0 +1,74 @@
+{
+    "path": "skills",
+    "length": "17",
+    "items": [
+        {
+            "title": "c#",
+            "data": []
+        },
+        {
+            "title": "Java",
+            "data": []
+        },
+        {
+            "title": "AngularJS",
+            "data": []
+        },
+        {
+            "title": "Angular",
+            "data": []
+        },
+        {
+            "title": "ASP.net Core",
+            "data": []
+        },
+        {
+            "title": "Azure",
+            "data": []
+        },
+        {
+            "title": "C++",
+            "data": []
+        },
+        {
+            "title": "C",
+            "data": []
+        },
+        {
+            "title": "python",
+            "data": []
+        },
+        {
+            "title": "RESTful web services",
+            "data": []
+        },
+        {
+            "title": "Source control",
+            "data": []
+        },
+        {
+            "title": "Agile",
+            "data": []
+        },
+        {
+            "title": "Http",
+            "data": []
+        },
+        {
+            "title": "Object Orientated Programming",
+            "data": []
+        },
+        {
+            "title": "Functional Programming",
+            "data": []
+        },
+        {
+            "title": "CoffeeScript",
+            "data": []
+        },
+        {
+            "title": "TypeScript",
+            "data": []
+        }
+    ]
+}

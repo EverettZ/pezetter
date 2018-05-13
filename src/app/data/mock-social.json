@@ -1,0 +1,30 @@
+{
+    "path": "social",
+    "length": "3",
+    "items": [
+        {
+            "title": "LinkedIn",
+            "url": "https://stackoverflow.com/users/3072366/everett",
+            "username": "everett",
+            "data": [
+              
+            ]
+        },
+        {
+            "title": "Facebook",
+            "url": "https://www.facebook.com/pezetter",
+            "username": "pezetter",
+            "data": [
+              
+            ]
+        },
+        {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/everett-zettersten-473b9a55/",
+            "username": "Everett Zettersten",
+            "data": [
+              
+            ]
+        }
+    ]
+}
