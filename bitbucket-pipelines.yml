@@ -14,6 +14,7 @@ pipelines:
           - node
         script: # Modify the commands below to build your repository.
           - npm install -g @angular/cli
+          - npm install -g firebase-tools
           - npm install
           - ng build --prod --build-optimizer
           - firebase deploy --only hosting --token "$FIREBASE_TOKEN"
