@@ -8,23 +8,11 @@ image: node:8.11.1
 pipelines:
   default:
     - step:
-        name: 'Install dependencies'
+        name: 'Build and deploy'
         caches:
           - node
         script:
           - npm install -g @angular/cli
           - npm install
-    - step:
-        name: 'Build'
-        caches:
-          - node
-        script: # Modify the commands below to build your repository.
           - ng build --prod --build-optimizer
-          
-    - step:
-        name: 'Deploy'
-        deployment: 'production'
-        caches:
-          - node
-        script:
           - firebase deploy --only hosting --token "$FIREBASE_TOKEN"
