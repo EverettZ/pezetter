@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ResumeService } from '../services/resume/resume.service';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { Experience } from '../shared/models/experience';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'pez-experience',
@@ -8,10 +12,21 @@ import { Component, OnInit } from '@angular/core';
 export class ExperienceComponent implements OnInit {
 
   title = 'experience';
+  experiences$: BehaviorSubject<Experience[]> = new BehaviorSubject<Experience[]>([]);
 
-  constructor() { }
+  constructor(private _resume: ResumeService) {}
 
   ngOnInit() {
+    this.getData();
+  }
+
+  getData() {
+    this._resume.experiences$
+      .pipe(
+        tap(experiences => {
+          this.experiences$.next(experiences);
+        })
+      ).subscribe();
   }
 
 }

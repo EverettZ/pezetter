@@ -1,3 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+body {
+    overflow: hidden;
+    background: orange;
+}
+
+mat-card {
+    height: 100%;
+}
+
+.card-spacing {
+    margin-bottom: 30px;
+}

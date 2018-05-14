@@ -1,1 +1,32 @@
-<pez-title [value]="title"></pez-title>
+<div class="row">
+        <div class="col-12">
+          <pez-title [value]="title"></pez-title>
+        </div>
+      </div>
+      <br>
+      <div class="row" *ngIf="skills$ | async as skills;">
+        <div class="col-12">
+          <div class="row">
+            <div *ngFor="let skill of skills" class="card-spacing col-sm-12 col-xl-6">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>
+                    <h2>
+                      {{skill.title}}
+                    </h2>
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <ul>
+                    <li *ngFor="let val of skill.data;">
+                      <h5>
+                        {{val}}
+                      </h5>
+                    </li>
+                  </ul>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>

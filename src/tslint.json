@@ -12,6 +12,10 @@
             "element",
             "pez",
             "kebab-case"
-        ]
+        ],
+        "no-trailing-whitespace": false,
+        "newline-before-return": false,
+        "max-line-length": false,
+        "eofline": false
     }
 }

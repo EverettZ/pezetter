@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,8 @@ import { PersonalComponent } from './personal/personal.component';
 import { SharedModule } from './shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { ResumeService } from './services/resume/resume.service';
+import { ScrollbarModule } from 'ngx-scrollbar';
+import { AppTitleComponent } from './app-title/app-title.component';
 
 @NgModule({
   declarations: [
@@ -26,17 +29,22 @@ import { ResumeService } from './services/resume/resume.service';
     ExperienceComponent,
     SkillsComponent,
     HomeComponent,
-    PersonalComponent
+    PersonalComponent,
+    AppTitleComponent
   ],
   imports: [
-    SharedModule,
     BrowserModule,
+    SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
+    HttpClientModule,
+    ScrollbarModule
   ],
-  providers: [ResumeService],
+  providers: [
+    ResumeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

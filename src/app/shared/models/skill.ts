@@ -1,4 +1,6 @@
-export class Charity {
+export class Skill {
+
     title: string;
     data: string[];
+
 }
