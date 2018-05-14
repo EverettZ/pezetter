@@ -43,8 +43,7 @@ import { CachingInterceptor } from './services/interceptors/caching-interceptor'
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    HttpClientModule,
-    ScrollbarModule
+    HttpClientModule
   ],
   providers: [
     ResumeService,
