@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,10 @@ import { MatCardModule } from '@angular/material/card';
 import { ResumeService } from './services/resume/resume.service';
 import { ScrollbarModule } from 'ngx-scrollbar';
 import { AppTitleComponent } from './app-title/app-title.component';
+import { RequestCache, RequestCacheWithMap } from './services/request-cache/request-cache.service';
+import { NoopInterceptor } from './services/interceptors/noop-interceptor';
+import { EnsureHttpsInterceptor } from './services/interceptors/ensure-https-interceptor';
+import { CachingInterceptor } from './services/interceptors/caching-interceptor';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import { AppTitleComponent } from './app-title/app-title.component';
     ScrollbarModule
   ],
   providers: [
-    ResumeService
+    ResumeService,
+    { provide: RequestCache, useClass: RequestCacheWithMap },
+    { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: EnsureHttpsInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
