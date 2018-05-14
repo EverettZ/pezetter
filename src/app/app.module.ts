@@ -23,6 +23,8 @@ import { RequestCache, RequestCacheWithMap } from './services/request-cache/requ
 import { NoopInterceptor } from './services/interceptors/noop-interceptor';
 import { EnsureHttpsInterceptor } from './services/interceptors/ensure-https-interceptor';
 import { CachingInterceptor } from './services/interceptors/caching-interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { CachingInterceptor } from './services/interceptors/caching-interceptor'
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     ResumeService,
