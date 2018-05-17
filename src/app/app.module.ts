@@ -18,13 +18,13 @@ import { SharedModule } from './shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { ResumeService } from './services/resume/resume.service';
 import { ScrollbarModule } from 'ngx-scrollbar';
-import { AppTitleComponent } from './app-title/app-title.component';
 import { RequestCache, RequestCacheWithMap } from './services/request-cache/request-cache.service';
 import { NoopInterceptor } from './services/interceptors/noop-interceptor';
 import { EnsureHttpsInterceptor } from './services/interceptors/ensure-https-interceptor';
 import { CachingInterceptor } from './services/interceptors/caching-interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -35,8 +35,7 @@ import { environment } from '../environments/environment';
     ExperienceComponent,
     SkillsComponent,
     HomeComponent,
-    PersonalComponent,
-    AppTitleComponent
+    PersonalComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +44,7 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
+    MatToolbarModule,
     HttpClientModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
