@@ -4,7 +4,9 @@
 
 body {
     overflow: hidden;
-    background: orange;
+    background-image: url("./assets/svgs/bg.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 mat-card {
