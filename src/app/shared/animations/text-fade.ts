@@ -8,13 +8,13 @@ import {
 
 export const textFade = trigger(
     'textFade', [
-      transition('* => fadeIn', [
+      transition(':enter', [
         style({opacity: 0}),
-        animate('750ms', style({opacity: 1}))
+        animate('250ms', style({opacity: 1}))
       ]),
-      transition('* => fadeOut', [
+      transition(':leave', [
         style({opacity: 1}),
-        animate('750ms', style({opacity: 0}))
+        animate('250ms', style({opacity: 0}))
       ])
     ]
   );

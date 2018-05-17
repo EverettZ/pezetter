@@ -25,6 +25,11 @@ import { CachingInterceptor } from './services/interceptors/caching-interceptor'
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {OverlayModule, OverlayContainer, FullscreenOverlayContainer} from '@angular/cdk/overlay';
+import { MenuOverlayService } from './services/menu-overlay.service.ts/menu-overlay.service';
+import { MenuComponent } from './shared/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -45,11 +50,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
+    MatMenuModule,
+    MatIconModule,
     HttpClientModule,
+    OverlayModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     ResumeService,
+    MenuOverlayService,
     { provide: RequestCache, useClass: RequestCacheWithMap },
     { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: EnsureHttpsInterceptor, multi: true },

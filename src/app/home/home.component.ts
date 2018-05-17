@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Event, NavigationEnd } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { MenuOverlayRef } from '../services/menu-overlay.service.ts/menu-overlay-ref';
+import { MenuOverlayService } from '../services/menu-overlay.service.ts/menu-overlay.service';
 
 @Component({
   selector: 'pez-home',
@@ -9,9 +11,27 @@ import { tap } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {}
+  constructor(private menuDialog: MenuOverlayService, private router: Router) {}
 
   ngOnInit() {
+  }
+  
+  openMenu() {
+
+    const dialogRef: MenuOverlayRef = this.menuDialog.open();
+
+    this.router.events
+    .subscribe((event: Event) => {
+
+      if (event instanceof NavigationEnd) {
+
+        dialogRef.close();
+
+      }
+      
+    });
+
+
   }
 
 }

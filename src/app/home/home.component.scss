@@ -2,27 +2,10 @@
     padding: 15px;
     height: 100vh;
     overflow-y: auto;
-    .big-btn {
-        width: 100%;
-        height: 100px;
-        display: flex;
-        font-size: 3rem;
-        background: darkorange;
-        margin-bottom: 30px;
-    }
-    .big-btn:hover {
-        transition: all .2s ease-in-out;
-        transform: scale(1.05); 
-        text-decoration: none;
-        color: initial;
-    }
-    .active-link {
-        transition: all .2s ease-in-out;
-        transform: scale(1.02);
-        
-        h3 {    
-            transition: all .2s ease-in-out;
-            transform: scale(1.4);
-        }
-    }
+    
 }
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
