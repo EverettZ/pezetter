@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { OverlayModule, OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
 import { MenuOverlayService } from './services/menu-overlay/menu-overlay.service';
 import { MenuComponent } from './shared/menu/menu.component';
+import { ServicesModule } from './services/services.module';
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import { MenuComponent } from './shared/menu/menu.component';
   ],
   imports: [
     BrowserModule,
+    ServicesModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -51,18 +52,9 @@ import { MenuComponent } from './shared/menu/menu.component';
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
-    HttpClientModule,
     OverlayModule,
     SharedModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
-  ],
-  providers: [
-    ResumeService,
-    MenuOverlayService,
-    { provide: RequestCache, useClass: RequestCacheWithMap },
-    { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: EnsureHttpsInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

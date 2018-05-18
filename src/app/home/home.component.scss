@@ -2,10 +2,17 @@
     padding: 15px;
     height: 100vh;
     overflow-y: auto;
+    padding: 0;
     
 }
 .example-fill-remaining-space {
     /* This fills the remaining space, by using flexbox. 
        Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
+  }
+
+  .home-slim-container {
+      height: 100%;
+      padding: 0;
+      background: rgba($color: #fff, $alpha: 0.3)
   }

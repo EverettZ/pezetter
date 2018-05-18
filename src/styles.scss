@@ -2,24 +2,12 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-body {
-    overflow: hidden;
-    background-image: url("./assets/svgs/bg.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.parallax {
-
-    /* Full height */
-    height: 100%; 
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+// body {
+//     overflow: hidden;
+//     background-image: url("./assets/svgs/bg.svg");
+//     background-repeat: no-repeat;
+//     background-size: cover;
+// }
 
 mat-card {
     height: 100%;

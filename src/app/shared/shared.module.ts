@@ -1,3 +1,5 @@
+import { ServicesModule } from './../services/services.module';
+import { ParallaxerDirective } from './../directives/parallaxer.directive';
 import { BackgroundComponent } from './background/background.component';
 import { NgModule } from '@angular/core';
 
@@ -11,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
 import { OverlayContainer, FullscreenOverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { ScrollParallaxService } from '../services/scroll-parallax/scroll-parallax.service';
 
 @NgModule({
   entryComponents: [
@@ -22,7 +25,8 @@ import { OverlayContainer, FullscreenOverlayContainer, OverlayModule } from '@an
     AppTitleComponent,
     TextDecodeComponent,
     MenuComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    ParallaxerDirective
   ],
   exports: [
     TitleComponent,
@@ -35,7 +39,8 @@ import { OverlayContainer, FullscreenOverlayContainer, OverlayModule } from '@an
     BrowserAnimationsModule,
     MatButtonModule,
     RouterModule,
-    OverlayModule
+    OverlayModule,
+    ServicesModule
   ]
 })
 export class SharedModule { }
