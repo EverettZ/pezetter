@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Event, NavigationEnd } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { MenuOverlayRef } from '../services/menu-overlay.service.ts/menu-overlay-ref';
-import { MenuOverlayService } from '../services/menu-overlay.service.ts/menu-overlay.service';
+import { MenuOverlayRef } from '../services/menu-overlay/menu-overlay-ref';
+import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
 
 @Component({
   selector: 'pez-home',

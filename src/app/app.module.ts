@@ -25,10 +25,10 @@ import { CachingInterceptor } from './services/interceptors/caching-interceptor'
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import {OverlayModule, OverlayContainer, FullscreenOverlayContainer} from '@angular/cdk/overlay';
-import { MenuOverlayService } from './services/menu-overlay.service.ts/menu-overlay.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { OverlayModule, OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
+import { MenuOverlayService } from './services/menu-overlay/menu-overlay.service';
 import { MenuComponent } from './shared/menu/menu.component';
 
 @NgModule({
@@ -44,7 +44,6 @@ import { MenuComponent } from './shared/menu/menu.component';
   ],
   imports: [
     BrowserModule,
-    SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -54,6 +53,7 @@ import { MenuComponent } from './shared/menu/menu.component';
     MatIconModule,
     HttpClientModule,
     OverlayModule,
+    SharedModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

@@ -1,3 +1,4 @@
+import { BackgroundComponent } from './background/background.component';
 import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,24 +9,27 @@ import { TextDecodeComponent } from './text-decode/text-decode.component';
 import { MenuComponent } from './menu/menu.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { MenuOverlayService } from '../services/menu-overlay.service.ts/menu-overlay.service';
+import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
 import { OverlayContainer, FullscreenOverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   entryComponents: [
-    MenuComponent
+    MenuComponent,
+    BackgroundComponent,    
   ],
   declarations: [
     TitleComponent,
     AppTitleComponent,
     TextDecodeComponent,
-    MenuComponent
+    MenuComponent,
+    BackgroundComponent
   ],
   exports: [
     TitleComponent,
     AppTitleComponent,
     TextDecodeComponent,
-    MenuComponent
+    MenuComponent,
+    BackgroundComponent
   ],
   imports: [
     BrowserAnimationsModule,

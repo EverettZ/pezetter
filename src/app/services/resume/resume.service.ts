@@ -27,7 +27,7 @@ export class ResumeService {
   constructor(private http: HttpClient) {
 
     this.experiences$ = this.http
-      .get(`${this.url}/experience.json`)
+      .get(`${this.url}/resume_experience.json`)
       .pipe(
         map((model: ResumeREST) => {
           return model.items as Experience[];
@@ -36,7 +36,7 @@ export class ResumeService {
       );
 
     this.educations$ = this.http
-      .get(`${this.url}/education.json`)
+      .get(`${this.url}/resume_education.json`)
       .pipe(
         map((model: ResumeREST) => {
           return model.items as Education[];
@@ -45,7 +45,7 @@ export class ResumeService {
       );
 
     this.skills$ = this.http
-      .get(`${this.url}/skills.json`)
+      .get(`${this.url}/resume_skills.json`)
       .pipe(
         map((model: ResumeREST) => {
           return model.items as Skill[];
@@ -54,7 +54,7 @@ export class ResumeService {
       );
 
     this.socials$ = this.http
-      .get(`${this.url}/social.json`)
+      .get(`${this.url}/resume_social.json`)
       .pipe(
         map((model: ResumeREST) => {
           return model.items as Social[];
@@ -63,7 +63,7 @@ export class ResumeService {
       );
 
     this.personals$ = this.http
-      .get(`${this.url}/personal.json`)
+      .get(`${this.url}/resume_personal.json`)
       .pipe(
         map((model: ResumeREST) => {
           return model.items as Personal[];
@@ -72,7 +72,7 @@ export class ResumeService {
       );
 
     this.charities$ = this.http
-      .get(`${this.url}/charity.json`)
+      .get(`${this.url}/resume_charity.json`)
       .pipe(
         map((model: ResumeREST) => {
           return model.items as Charity[];
