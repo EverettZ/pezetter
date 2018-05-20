@@ -16,6 +16,8 @@
         "no-trailing-whitespace": false,
         "newline-before-return": false,
         "max-line-length": false,
-        "eofline": false
+        "eofline": false,
+        "quotemark": false,
+        "no-inferrable-types":false
     }
 }

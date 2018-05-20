@@ -1,4 +1,5 @@
 import { Component, Input, ViewChildren, HostListener, AfterViewInit, ElementRef } from '@angular/core';
+import { ParallaxerConfig } from '../../directives/parallaxer.config';
 
 @Component({
   selector: 'pez-background',
@@ -6,6 +7,30 @@ import { Component, Input, ViewChildren, HostListener, AfterViewInit, ElementRef
   styleUrls: ['./background.component.scss']
 })
 export class BackgroundComponent implements AfterViewInit {
+
+  aConfig: ParallaxerConfig = {
+    xMax: -20,
+    yMax: -26,
+    increment: 1
+  };
+
+  bConfig: ParallaxerConfig = {
+    xMax: -20,
+    yMax: 26,
+    increment: 1
+  };
+
+  cConfig: ParallaxerConfig = {
+    xMax: -50,
+    yMax: -55,
+    increment: 5
+  };
+
+  dConfig: ParallaxerConfig = {
+    xMax: 50,
+    yMax: -55,
+    increment: 4
+  };
 
   constructor() { }
 
