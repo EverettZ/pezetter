@@ -28,6 +28,13 @@ export class Parallaxer {
 
     constructor(config: ParallaxerConfig) {
 
+        if (window.outerHeight < 900) {
+
+            config.xMax = config.xMax * 2;
+            config.yMax = config.yMax * 2;
+
+        }
+        
         this.x = new ParallaxerDimension(0, 0, config.xMax);
         this.y = new ParallaxerDimension(0, 0, config.yMax);
         this.speed = config.increment || 1;

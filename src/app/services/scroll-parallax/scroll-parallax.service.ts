@@ -12,11 +12,19 @@ export class ScrollParallaxService {
 
   constructor() {
 
-   window.addEventListener('mousewheel', (ev) => {
+    window.addEventListener('mousewheel', (ev) => {
       
       this.shiftElements(ev.deltaY >= 0);
 
     });
+
+    let lastY;
+    window.addEventListener('touchmove', (ev) => {
+       const currentY = ev.changedTouches[0].clientY;
+       this.shiftElements(currentY > lastY);
+       lastY = currentY;
+ 
+     });
 
   }
 
