@@ -1,180 +1,323 @@
-import { Component, ViewChild, Input, OnInit } from '@angular/core';
+import { Component, ViewChild, Input, OnInit, AfterViewInit } from '@angular/core';
+import { textFade } from '../animations/text-fade';
 
 @Component({
   selector: 'pez-text-decode',
   templateUrl: './text-decode.component.html',
-  styleUrls: ['./text-decode.component.scss']
+  styleUrls: ['./text-decode.component.scss'],
+  animations: [
+    textFade
+  ]
 })
-export class TextDecodeComponent implements OnInit {
+export class TextDecodeComponent implements OnInit, AfterViewInit {
 
-  messages = [];
-
-  @ViewChild('messengerContainer') messengerContainer;
-  messenger;
-
-  codeletters = '&#*+%?£@§$';
-  message = 0;
-  current_length = 0;
-  fadeBuffer;
-  numBuffers = 0;
-
-  constructor() { }
+  @Input('value') value = "Paul Everett Zettersten";
+  titleChars: string[] = [];
 
   ngOnInit() {
 
-    this.init();
-
+    this.splitValue();
 
   }
 
-  init() {
+  ngAfterViewInit() {
 
-    if (this.messengerContainer.nativeElement.children !== undefined && this.messengerContainer.nativeElement.children.length) {
+    this.decodeText();
 
-      this.messenger = this.messengerContainer.nativeElement.children[0];
-      this.messenger.classList.add('messenger');
-      this.messages.push(this.messenger.innerHTML);
+  }
+
+  splitValue() {
+
+    this.titleChars = this.value.split('');
+
+  }
+
+
+  decodeText() {
+
+    // get nodelist
+    const text = document.getElementsByClassName('decode-text')[0];
+
+    // console.log(text);
+    // console.log(text.children.length);
+
+    // assign the placeholder array its places
+    const state = [];
+
+    for (let i = 0, j = text.children.length; i < j; i++) {
+
+      state[i] = i;
 
     }
-    
-    this.animateIn();
 
-  }
+    // shuffle the array places to get randomness
+    const shuffled = this.shuffle(state);
 
-  generateRandomString(length) {
+    for (let i = 0, j = shuffled.length; i < j; i++) {
 
-    let random_text = '';
+      const child = text.children[shuffled[i]];
+      const classes = child.classList;
 
-    while (random_text.length < length) {
+      // fire the first one at random times
+      const state1Time = Math.round(Math.random() * (2000 - 300)) + 50;
 
-      random_text += this.codeletters.charAt(Math.floor(Math.random() * this.codeletters.length));
+      if (classes.contains('text-animation')) {
 
-    }
+        setTimeout(() => {
 
-    return random_text;
+          this.firstStages(child);
 
-  }
-
-  animateIn() {
-
-    if (this.current_length < this.messages[this.message].length) {
-
-      this.current_length = this.current_length + 2;
-
-      if (this.current_length > this.messages[this.message].length) {
-
-        this.current_length = this.messages[this.message].length;
+        }, state1Time);
 
       }
+    }
 
-      const message = this.generateRandomString(this.current_length);
+  }
 
-      this.setMessengerContent(message);
+  // send the node for later .state changes
+  firstStages(child) {
+
+    if (child.classList.contains('state-2')) {
+
+      child.classList.add('state-3');
+
+    } else if (child.classList.contains('state-1')) {
+
+      child.classList.add('state-2');
+
+    } else if (!child.classList.contains('state-1')) {
+
+      child.classList.add('state-1');
 
       setTimeout(() => {
 
-        this.animateIn();
+        this.secondStages(child);
 
-      }, 20);
+      }, 100);
 
-    } else {
+
+    }
+  }
+  secondStages(child) {
+
+    if (child.classList.contains('state-1')) {
+
+      child.classList.add('state-2');
 
       setTimeout(() => {
 
-        this.animateFadeBuffer();
+        this.thirdStages(child);
 
-      }, 20);
+      }, 100);
+
+    } else if (!child.classList.contains('state-1')) {
+
+      child.classList.add('state-1');
+
+    }
+  }
+
+  thirdStages(child) {
+
+    if (child.classList.contains('state-2')) {
+
+      child.classList.add('state-3');
 
     }
 
   }
 
-  animateFadeBuffer() {
 
-    if (!this.fadeBuffer) {
+  shuffle(array) {
 
-      this.fadeBuffer = [];
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
-      for (let i = 0; i < this.messages[this.message].length; i++) {
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
 
-        this.fadeBuffer.push({ c: (Math.floor(Math.random() * 12)) + 1, l: this.messages[this.message].charAt(i) });
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
 
-      }
-
-    }
-
-    let do_cycles = false,
-      message = '';
-
-    for (let i = 0; i < this.fadeBuffer.length; i++) {
-
-      const fader = this.fadeBuffer[i];
-
-      if (fader.c > 0) {
-
-        do_cycles = true;
-        fader.c--;
-        message += this.codeletters.charAt(Math.floor(Math.random() * this.codeletters.length));
-
-      } else {
-
-        message += fader.l;
-
-      }
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
 
     }
 
-    this.setMessengerContent(message);
-
-    if (do_cycles === true) {
-
-      this.numBuffers++;
-
-      const timeoutTime = 50 * this.numBuffers / 2.2;
-
-      setTimeout(() => {
-
-        this.animateFadeBuffer();
-
-      }, timeoutTime);
-
-    } else {
-
-      setTimeout(() => {
-
-        this.cycleText();
-
-      }, 1000);
-
-    }
+    return array;
   }
 
-  cycleText() {
 
-    this.message = this.message + 1;
+  // messages = [];
 
-    if (this.message >= this.messages.length) {
+  // @ViewChild('messengerContainer') messengerContainer;
+  // messenger;
 
-      this.message = 0;
-      return;
-    }
+  // codeletters = '&#*+%?£@§$';
+  // message = 0;
+  // current_length = 0;
+  // fadeBuffer;
+  // numBuffers = 0;
 
-    this.current_length = 0;
-    this.fadeBuffer = false;
-    this.setMessengerContent('');
+  // constructor() { }
 
-    setTimeout(() => {
+  // ngOnInit() {
 
-      this.animateIn();
+  //   this.init();
 
-    }, 200);
 
-  }
+  // }
 
-  setMessengerContent(val: string) {
+  // init() {
 
-    this.messenger.innerHTML = val;
+  //   if (this.messengerContainer.nativeElement.children !== undefined && this.messengerContainer.nativeElement.children.length) {
 
-  }
+  //     this.messenger = this.messengerContainer.nativeElement.children[0];
+  //     this.messenger.classList.add('messenger');
+  //     this.messages.push(this.messenger.innerHTML);
+
+  //   }
+
+  //   this.animateIn();
+
+  // }
+
+  // generateRandomString(length) {
+
+  //   let random_text = '';
+
+  //   while (random_text.length < length) {
+
+  //     random_text += this.codeletters.charAt(Math.floor(Math.random() * this.codeletters.length));
+
+  //   }
+
+  //   return random_text;
+
+  // }
+
+  // animateIn() {
+
+  //   if (this.current_length < this.messages[this.message].length) {
+
+  //     this.current_length = this.current_length + 2;
+
+  //     if (this.current_length > this.messages[this.message].length) {
+
+  //       this.current_length = this.messages[this.message].length;
+
+  //     }
+
+  //     const message = this.generateRandomString(this.current_length);
+
+  //     this.setMessengerContent(message);
+
+  //     setTimeout(() => {
+
+  //       this.animateIn();
+
+  //     }, 20);
+
+  //   } else {
+
+  //     setTimeout(() => {
+
+  //       this.animateFadeBuffer();
+
+  //     }, 20);
+
+  //   }
+
+  // }
+
+  // animateFadeBuffer() {
+
+  //   if (!this.fadeBuffer) {
+
+  //     this.fadeBuffer = [];
+
+  //     for (let i = 0; i < this.messages[this.message].length; i++) {
+
+  //       this.fadeBuffer.push({ c: (Math.floor(Math.random() * 12)) + 1, l: this.messages[this.message].charAt(i) });
+
+  //     }
+
+  //   }
+
+  //   let do_cycles = false,
+  //     message = '';
+
+  //   for (let i = 0; i < this.fadeBuffer.length; i++) {
+
+  //     const fader = this.fadeBuffer[i];
+
+  //     if (fader.c > 0) {
+
+  //       do_cycles = true;
+  //       fader.c--;
+  //       message += this.codeletters.charAt(Math.floor(Math.random() * this.codeletters.length));
+
+  //     } else {
+
+  //       message += fader.l;
+
+  //     }
+
+  //   }
+
+  //   this.setMessengerContent(message);
+
+  //   if (do_cycles === true) {
+
+  //     this.numBuffers++;
+
+  //     const timeoutTime = 50 * this.numBuffers / 2.2;
+
+  //     setTimeout(() => {
+
+  //       this.animateFadeBuffer();
+
+  //     }, timeoutTime);
+
+  //   } else {
+
+  //     setTimeout(() => {
+
+  //       this.cycleText();
+
+  //     }, 1000);
+
+  //   }
+  // }
+
+  // cycleText() {
+
+  //   this.message = this.message + 1;
+
+  //   if (this.message >= this.messages.length) {
+
+  //     this.message = 0;
+  //     return;
+  //   }
+
+  //   this.current_length = 0;
+  //   this.fadeBuffer = false;
+  //   this.setMessengerContent('');
+
+  //   setTimeout(() => {
+
+  //     this.animateIn();
+
+  //   }, 200);
+
+  // }
+
+  // setMessengerContent(val: string) {
+
+  //   this.messenger.innerHTML = val;
+
+  // }
 
 }
