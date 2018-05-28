@@ -5,59 +5,105 @@
         {
             "title": "Software Engineer",
             "subTitle": "Web, Mobile, and API",
-            "companyName": "Electronic Transaction Systems",
-            "companyContactPhone": "",
-            "companyContactEmail": "",
             "start": "Wed Jun 01 2016 00:00:00 GMT-0400 (Eastern Daylight Time)",
             "end": "",
             "data": [
-                "Designed, implemented, and tested multiple software applications and products.",
-                "Formed a media library to store company files online securely and conveniently using Angular 2 alpha builds and the back-end using a REST API with ASP.net Core, Azure table storage, and Azure blob storage.",
-                "Constructed multiple additions to an AngularJS enterprise web application including a dynamic email builder, text message builder, customer selector, and document signing interface with a CouchDB and CosmosDB based file system.",
-                "Created and introduced a new mobile wallet application built with Ionic and Angular called EMoney. Facilitated production and development build deployment to the Apple App Store and Google Play Store.",
-                "Gained knowledge of the Agile project management style and developed complex web applications."
+                {
+                    "type": "location",
+                    "value": "Electronic Transaction Systems"
+                },
+                {
+                    "type": "text",
+                    "value": "Designed, implemented, and tested multiple software applications and products."
+                },
+                {
+                    "type": "text",
+                    "value": "Formed a media library to store company files online securely and conveniently using Angular 2 alpha builds and the back-end using a REST API with ASP.net Core, Azure table storage, and Azure blob storage."
+                },
+                {
+                    "type": "text",
+                    "value": "Constructed multiple additions to an AngularJS enterprise web application including a dynamic email builder, text message builder, customer selector, and document signing interface with a CouchDB and CosmosDB based file system."
+                },
+                {
+                    "type": "text",
+                    "value": "Created and introduced a new mobile wallet application built with Ionic and Angular called EMoney. Facilitated production and development build deployment to the Apple App Store and Google Play Store."
+                },
+                {
+                    "type": "text",
+                    "value": "Gained knowledge of the Agile project management style and developed complex web applications."
+                }
             ]
         },
         {
             "title": "Mobile Technician",
             "subTitle": "Family Room Specialist",
-            "companyName": "Apple Inc",
-            "companyContactPhone": "",
-            "companyContactEmail": "",
             "start": "Mon Aug 01 2015 00:00:00 GMT-0400 (Eastern Daylight Time)",
             "end": "Wed Jun 01 2016 00:00:00 GMT-0400 (Eastern Daylight Time)",
             "data": [
-                "Provided insightful advice and friendly technical support in a fast-paced environment.  Acquired time management skills, troubleshooting expertise, and critical communication techniques.",
-                "Applied knowledge of C programming to troubleshoot Linux based environments."
+                {
+                    "type": "location",
+                    "value": "Apple Inc, Reston"
+                },
+                {
+                    "type": "text",
+                    "value": "Provided insightful advice and friendly technical support in a fast-paced environment.  Acquired time management skills, troubleshooting expertise, and critical communication techniques."
+                },
+                {
+                    "type": "text",
+                    "value": "Applied knowledge of C programming to troubleshoot Linux based environments."
+                }
             ]
         },
         {
             "title": "Crew Member",
-            "subTitle": "",
-            "companyName": "Trader Joes",
-            "companyContactPhone": "",
-            "companyContactEmail": "",
+            "subTitle": "Inventory Management",
             "start": "Thu Sep 01 2012 00:00:00 GMT-0400 (Eastern Daylight Time)",
             "end": "Mon Aug 01 2015 00:00:00 GMT-0400 (Eastern Daylight Time)",
             "data": [
-                "Applied leadership skills in a physically demanding environment. Developed employee schedules and daily work flow.",
-                "Managed inventory and dispersed truck load deliveries to the team.",
-                "Trained and provided feedback on performance and potential of new employees."
+                {
+                    "type": "location",
+                    "value": "Trader Joes, Reston"
+                },
+                {
+                    "type": "text",
+                    "value": "Applied leadership skills in a physically demanding environment. Developed employee schedules and daily work flow."
+                },
+                {
+                    "type": "text",
+                    "value": "Managed inventory and dispersed truck load deliveries to the team."
+                },
+                {
+                    "type": "text",
+                    "value": "Trained and provided feedback on performance and potential of new employees."
+                }
             ]
         },
         {
             "title": "Intern",
-            "subTitle": "",
-            "companyName": "Perfect Sense Digital, LLC",
-            "companyContactPhone": "",
-            "companyContactEmail": "",
+            "subTitle": "Content management",
             "start": "Fri Jun 01 2012 00:00:00 GMT-0400 (Eastern Daylight Time)",
             "end": "Thu Aug 30 2012 00:00:00 GMT-0400 (Eastern Daylight Time)",
             "data": [
-                "Worked closely with several teams within the company.",
-                "Collaborated on projects including the Coca-Cola Sustainability Project and Travora.com.",
-                "Exercised clear communication within a team and met aggressive deadlines.",
-                "Introduced to web-development with JavaScript, HTML, and CSS."
+                {
+                    "type": "text",
+                    "value": "Perfect Sense Digital, LLC"
+                },
+                {
+                    "type": "text",
+                    "value": "Worked closely with several teams within the company."
+                },
+                {
+                    "type": "text",
+                    "value": "Collaborated on projects including the Coca-Cola Sustainability Project and Travora.com."
+                },
+                {
+                    "type": "text",
+                    "value": "Exercised clear communication within a team and met aggressive deadlines."
+                },
+                {
+                    "type": "text",
+                    "value": "Introduced to web-development with JavaScript, HTML, and CSS."
+                }
             ]
         }
     ]

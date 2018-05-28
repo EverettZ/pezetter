@@ -1,1 +1,1 @@
-export const RESUME_BUCKET = 'https://bitbucket.org/!api/2.0/snippets/EverettZ/KeG6B8/f9b77ecd72fe4d818229533de3e35588f796a27e/files';
+export const RESUME_BUCKET = 'https://firebasestorage.googleapis.com/v0/b/pezetter-204020.appspot.com/o/mock-resume.json?alt=media&token=26820b39-bbd1-418f-a3a4-e4da04a55893';

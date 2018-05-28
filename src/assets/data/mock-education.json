@@ -5,34 +5,61 @@
         {
             "title": "Arizona State University",
             "subTitle": "Online",
-            "location": "Tucson, AZ",
             "start": "Sun Jan 01 2017 00:00:00 GMT-0500 (Eastern Standard Time)",
             "end": "",
             "data": [
-                "Currently pursuing Software Engineering degree. Expected graduation TBD."
+                {
+                    "type": "location",
+                    "value": "Tucson, AZ"
+                },
+                {
+                    "value": "Currently pursuing Software Engineering degree. Expected graduation TBD.",
+                    "type": "text"
+                }
             ]
         },
         {
             "title": "George Mason University",
             "subTitle": "",
-            "location": "Fairfax, VA",
             "start": "Wed Jan 01 2014 00:00:00 GMT-0500 (Eastern Standard Time)",
             "end": "Fri Jan 01 2016 00:00:00 GMT-0500 (Eastern Standard Time)",
             "data": [
-                "Dean's list covering 9 credit hours during the Summer of 2015",
-                "The Computer Science courses built off of my previous course at the University of Kentucky and include topics such as object oriented programming, data structures in Java, and basic C programming.",
-                "Emphasis on recursion, algorithm design, data structures, and Linux operating systems."
+                {
+                    "type": "location",
+                    "value": "Fairfax, VA"
+                },
+                {
+                    "type": "text",
+                    "value": "Dean's list covering 9 credit hours during the Summer of 2015"
+                },
+                {
+                    "type": "text",
+                    "value": "The Computer Science courses built off of my previous course at the University of Kentucky and include topics such as object oriented programming, data structures in Java, and basic C programming."
+                },
+                {
+                    "type": "text",
+                    "value": "Emphasis on recursion, algorithm design, data structures, and Linux operating systems."
+                }
             ]
         },
         {
             "title": "University of Kentucky",
             "subTitle": "",
-            "location": "Lexington, KY",
             "start": "Tue Jan 01 2013 00:00:00 GMT-0500 (Eastern Standard Time)",
             "end": "Wed Jan 01 2014 00:00:00 GMT-0500 (Eastern Standard Time)",
             "data": [
-                "Dean's list covering 28 credit hours between Fall 2013 and Spring 2014.",
-                "The courses here served as an introduction into Computer Science using Python and C++."
+                {
+                    "type": "location",
+                    "value": "Lexington, KY"
+                },
+                {
+                    "type": "text",
+                    "value": "Dean's list covering 28 credit hours between Fall 2013 and Spring 2014."
+                },
+                {
+                    "type": "text",
+                    "value": "The courses here served as an introduction into Computer Science using Python and C++."
+                }
             ]
         }
     ]

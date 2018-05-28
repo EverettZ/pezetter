@@ -4,70 +4,184 @@
     "items": [
         {
             "title": "c#",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "Java",
-            "data": []
-        },
-        {
-            "title": "AngularJS",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "Angular",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "AngularJS",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "ASP.net Core",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "Azure",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "C++",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "C",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "python",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "RESTful web services",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "Source control",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "Agile",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "Http",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "Object Orientated Programming",
-            "data": []
-        },
-        {
-            "title": "Functional Programming",
+            "subTitle": "OOP",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
             "title": "CoffeeScript",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         },
         {
-            "title": "TypeScript",
+            "title": "Typescript",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "CosmosDB",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "Micro services",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "Functional Programming",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "JavaScript",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "Ionic",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "iOS Deployement",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "Android Deployement",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "Firebase hosting",
+            "subTitle": "",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "Continuos Integration and Deployment",
+            "subTitle": "BitBucket pipelines",
+            "start": "",
+            "end": "",
+            "data": []
+        },
+        {
+            "title": "Angular Animations",
+            "subTitle": "",
+            "start": "",
+            "end": "",
             "data": []
         }
     ]

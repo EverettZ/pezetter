@@ -1,0 +1,34 @@
+{
+    "name": "Paul Everett Zettersten",
+    "dob": "Tue Jul 18 1995 00:00:00 GMT-0400 (EDT)",
+    "email": "everett@zettersten.com",
+    "phone": "(703) 475-3433",
+    "href": "https://firebasestorage.googleapis.com/v0/b/pezetter-204020.appspot.com/o/mock-resume.json?alt=media",
+    "items": [
+        {
+            "name": "education",
+            "length": 4,
+            "href": "https://firebasestorage.googleapis.com/v0/b/pezetter-204020.appspot.com/o/mock-education.json?alt=media"
+        },
+        {
+            "name": "experience",
+            "length": 4,
+            "href": "https://firebasestorage.googleapis.com/v0/b/pezetter-204020.appspot.com/o/mock-experience.json?alt=media"
+        },
+        {
+            "name": "skills",
+            "length": 4,
+            "href": "https://firebasestorage.googleapis.com/v0/b/pezetter-204020.appspot.com/o/mock-skills.json?alt=media"
+        },
+        {
+            "name": "personal",
+            "length": 4,
+            "href": "https://firebasestorage.googleapis.com/v0/b/pezetter-204020.appspot.com/o/mock-personal.json?alt=media"
+        },
+        {
+            "name": "charity",
+            "length": 4,
+            "href": "https://firebasestorage.googleapis.com/v0/b/pezetter-204020.appspot.com/o/mock-charity.json?alt=media"
+        }
+    ]
+}

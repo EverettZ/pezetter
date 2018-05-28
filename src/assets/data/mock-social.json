@@ -3,27 +3,51 @@
     "length": "3",
     "items": [
         {
-            "title": "LinkedIn",
-            "url": "https://stackoverflow.com/users/3072366/everett",
-            "username": "everett",
+            "title": "StackOverflow",
+            "subTitle": "everett",
+            "start": "",
+            "end": "",
             "data": [
-              
+                {
+                    "type": "link",
+                    "value": "https://stackoverflow.com/users/3072366/everett"
+                }
             ]
         },
         {
             "title": "Facebook",
-            "url": "https://www.facebook.com/pezetter",
-            "username": "pezetter",
+            "start": "",
+            "end": "",
+            "subTitle": "pezetter",
             "data": [
-              
+                {
+                    "type": "link",
+                    "value": "https://www.facebook.com/pezetter"
+                }
             ]
         },
         {
             "title": "LinkedIn",
-            "url": "https://www.linkedin.com/in/everett-zettersten-473b9a55/",
-            "username": "Everett Zettersten",
+            "start": "",
+            "end": "",
+            "subTitle": "Everett Zettersten",
             "data": [
-              
+                {
+                    "type": "link",
+                    "value": "https://www.linkedin.com/in/everett-zettersten-473b9a55/"
+                }
+            ]
+        },
+        {
+            "title": "Bitbucket",
+            "start": "",
+            "end": "",
+            "subTitle": "EverettZ",
+            "data": [
+                {
+                    "type": "link",
+                    "value": "https://bitbucket.org/EverettZ/"
+                }
             ]
         }
     ]
