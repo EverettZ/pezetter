@@ -14,11 +14,12 @@ import { RouterModule } from '@angular/router';
 import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
 import { OverlayContainer, FullscreenOverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { ScrollParallaxService } from '../services/scroll-parallax/scroll-parallax.service';
+import { ResumeComponent } from '../resume/resume.component';
 
 @NgModule({
   entryComponents: [
     MenuComponent,
-    BackgroundComponent,    
+    BackgroundComponent
   ],
   declarations: [
     TitleComponent,

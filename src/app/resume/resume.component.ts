@@ -17,37 +17,39 @@ export class ResumeComponent implements OnInit {
   categories$: BehaviorSubject<IResumeCategory[]> = new BehaviorSubject<IResumeCategory[]>([]);
   categories: string[] = [];
 
-  constructor(private _resume: ResumeService, private router: Router, private params: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.params.queryParamMap
-      .pipe(
-        map((p) => {
+    debugger
+    console.log(this.route.snapshot);
+    this.route.snapshot.
+    // this.route.outlet
+    //   .pipe(
+    //     map((p) => {
 
-          this.categories = p.getAll('category') || [];
+    //       this.categories = p.getAll('category') || [];
 
-          let resumeItemsReqs: IResumeItem[] = [];
+    //       let resumeItemsReqs: IResumeItem[] = [];
 
-          if (this.categories.length >= 1) {
+    //       if (this.categories.length >= 1) {
 
-            resumeItemsReqs = this._resume.resumeCategoryRefs
-              .filter(item => (this.categories.indexOf(item.name) >= 0));
+    //         // resumeItemsReqs = this._resume.resumeCategoryRefs
+    //         //   .filter(item => (this.categories.indexOf(item.name) >= 0));
 
-          }
-          debugger;
-          return resumeItemsReqs;
+    //       }
 
-        }),
-        merge((vals) => {
-          debugger;
-          const requests = vals
-            .map(val => this._resume.getCategory(val.href));
+    //       return resumeItemsReqs;
 
-          forkJoin(requests);
+    //     }),
+    //     merge((vals: IResumeItem[]) => {
 
-        })
-      )
-      .subscribe();
+    //       // const requests = vals
+    //       //   .map(val => this._resume.getCategory(val.href));
+
+    //       // return forkJoin(requests);
+
+    //     })
+    //   );
 
     // this.getData();
   }

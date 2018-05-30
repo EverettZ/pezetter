@@ -24,17 +24,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { OverlayModule, OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
 import { MenuOverlayService } from './services/menu-overlay/menu-overlay.service';
 import { MenuComponent } from './shared/menu/menu.component';
-import { ServicesModule } from './services/services.module';
 
 @NgModule({
+  entryComponents: [
+    ResumeComponent
+  ],
   declarations: [
     AppComponent,
-    ResumeComponent,
-    HomeComponent
+    HomeComponent,
+    ResumeComponent
   ],
   imports: [
     BrowserModule,
-    ServicesModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
