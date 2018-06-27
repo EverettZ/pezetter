@@ -1,10 +1,9 @@
-import { ResumeComponent } from './../../resume/resume.component';
-import { ICardModel, IResume, IResumeCategory, IResumeItem } from './../../shared/models/card-model';
+import { BASE_SNIPPET } from './../../shared/models/urls';
+import { IResume, IResumeCategory, IResumeItem, IBaseSnippet } from './../../shared/models/card-model';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { RESUME_BUCKET } from '../../shared/models/urls';
+import { Observable, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable( {
@@ -12,45 +11,69 @@ import { Router } from '@angular/router';
 } )
 export class ResumeService {
 
-  url = RESUME_BUCKET;
+  personalInfo$: Observable<IResume>;
 
-  baseResume$: Observable<IResume>;
-  resume$: Observable<IResumeCategory[]>;
+  constructor ( private http: HttpClient, private router: Router ) { }
 
-  resumeCategoryRefs: IResumeItem[] = [];
+  getBaseSnippet() {
 
-
-  constructor ( private http: HttpClient, private router: Router ) {
-
-    this.baseResume$ = this.http
-      .get<IResume>( this.url )
+    return this.http
+      .get( BASE_SNIPPET )
       .pipe(
-        tap( ( resume: IResume ) => {
+        map( ( snippet: any ) => {
 
-          this.resumeCategoryRefs = resume.items;
+          const files = snippet.files;
 
+          const resumeHrefs: string[] = [];
+
+          for ( const key of Object.keys( files ) ) {
+
+            const resumeHref = files[ key ].links.self.href;
+
+            resumeHrefs.push( resumeHref );
+
+
+
+          }
+
+          return resumeHrefs;
+
+        } ),
+        mergeMap( ( resumeHrefs: string[] ) => {
+
+          return this.getCategories( resumeHrefs );
+
+        } ),
+        map( ( resumeData: ( IResumeCategory | IResume ) ) => {
+          return resumeData;
         } )
+      ).subscribe( ok => {
+        console.log( ok );
+        debugger;
+      } );
+
+  }
+
+
+
+
+  private getCategories( resumeHrefs: string[] ) {
+
+    return from( resumeHrefs )
+      .pipe(
+        mergeMap( href => {
+
+          return <Observable<IResumeCategory | IResume>> this.http.get( href );
+
+        } ),
+        toArray()
       );
-
   }
 
+  getPersonalInfo( href: string ) {
 
-  getCategory( name: string ) {
-
-    const found = this.resumeCategoryRefs
-      .find( el => el.name === name );
-
-    if ( found ) {
-
-      return this.http
-        .get<IResumeCategory>( found.href );
-
-    }
-
-    return of( undefined );
+    this.personalInfo$ = this.http
+      .get<IResume>( href );
 
   }
-
-
-
 }

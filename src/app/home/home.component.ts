@@ -25,35 +25,35 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    this._resume$ = this._resume.baseResume$
-      .pipe(
-        tap( () => {
+    // this._resume$ = this._resume.baseResume$
+    //   .pipe(
+    //     tap( () => {
 
-          this.route.queryParams
-            .subscribe( ( data: Params ) => {
+    //       this.route.queryParams
+    //         .subscribe( ( data: Params ) => {
 
-              console.log( data );
+    //           console.log( data );
 
-              if ( data[ 'category' ] ) {
+    //           if ( data[ 'category' ] ) {
 
-                this.categoryName = data[ 'category' ];
+    //             this.categoryName = data[ 'category' ];
 
-                this._resume.getCategory( this.categoryName )
-                  .pipe(
-                    tap( ok => {
+    //             this._resume.getCategory( this.categoryName )
+    //               .pipe(
+    //                 tap( ok => {
 
-                      this.categoryData = ok;
+    //                   this.categoryData = ok;
 
-                    } )
-                  ).subscribe();
-              }
+    //                 } )
+    //               ).subscribe();
+    //           }
 
-            } );
+    //         } );
 
-        } )
-      );
+    //     } )
+    //   );
 
-
+    this._resume.getBaseSnippet();
 
   }
 
