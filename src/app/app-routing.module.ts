@@ -5,14 +5,14 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'resume',
     component: HomeComponent,
     children: []
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home'
+    redirectTo: 'resume'
   }
 ];
 

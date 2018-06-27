@@ -1,5 +1,5 @@
 <div class="container-fluid home">
-  <div *ngIf="resume$ | async as resume" class="container home-slim-container">
+  <div *ngIf="_resume$ | async as resume" class="container home-slim-container">
     <div class="row">
       <div class="col-sm-12 my-1 px-4">
         <pez-text-decode [value]="resume.name"></pez-text-decode>
@@ -18,6 +18,6 @@
       </div>
     </div>
     <br>
-    <router-outlet></router-outlet>
+    <pez-resume *ngIf="categoryData" [category]="categoryData"></pez-resume>
   </div>
 </div>

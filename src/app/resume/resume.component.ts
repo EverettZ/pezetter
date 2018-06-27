@@ -1,9 +1,6 @@
-import { ICardModel, IResumeCategory, IResumeItem } from './../shared/models/card-model';
-import { Router, Params, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { ResumeService } from '../services/resume/resume.service';
-import { Subject, BehaviorSubject, forkJoin } from 'rxjs';
-import { tap, mergeMap, merge, map } from 'rxjs/operators';
+import { IResumeCategory } from './../shared/models/card-model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'pez-resume',
@@ -14,16 +11,13 @@ export class ResumeComponent implements OnInit {
 
   title = 'resume';
 
-  categories$: BehaviorSubject<IResumeCategory[]> = new BehaviorSubject<IResumeCategory[]>([]);
-  categories: string[] = [];
+  // categories$: BehaviorSubject<IResumeCategory[]> = new BehaviorSubject<IResumeCategory[]>([]);
+  @Input('category') category: IResumeCategory;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    debugger
-    console.log(this.route.snapshot);
-    this.route.snapshot.
-    // this.route.outlet
+    // // this.route.outlet
     //   .pipe(
     //     map((p) => {
 

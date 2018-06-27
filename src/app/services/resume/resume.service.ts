@@ -1,15 +1,15 @@
 import { ResumeComponent } from './../../resume/resume.component';
 import { ICardModel, IResume, IResumeCategory, IResumeItem } from './../../shared/models/card-model';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RESUME_BUCKET } from '../../shared/models/urls';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-@Injectable({
+@Injectable( {
   providedIn: 'root'
-})
+} )
 export class ResumeService {
 
   url = RESUME_BUCKET;
@@ -20,42 +20,34 @@ export class ResumeService {
   resumeCategoryRefs: IResumeItem[] = [];
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor ( private http: HttpClient, private router: Router ) {
 
     this.baseResume$ = this.http
-      .get<IResume>(this.url)
+      .get<IResume>( this.url )
       .pipe(
-        tap((resume: IResume) => {
+        tap( ( resume: IResume ) => {
 
           this.resumeCategoryRefs = resume.items;
 
-          debugger
-          
-          this.resumeCategoryRefs
-          .forEach(category => {
-            
-
-              if (!this.router.config[0].children.some(element => element.path === category.name)) {
-
-                this.router.config[0].children.push({
-                  path: category.name,
-                  component: ResumeComponent
-                });
-
-              }
-
-            });
-
-        })
+        } )
       );
 
   }
 
 
-  getCategory(href: string) {
+  getCategory( name: string ) {
 
-    return this.http
-      .get<IResumeCategory>(href);
+    const found = this.resumeCategoryRefs
+      .find( el => el.name === name );
+
+    if ( found ) {
+
+      return this.http
+        .get<IResumeCategory>( found.href );
+
+    }
+
+    return of( undefined );
 
   }
 
