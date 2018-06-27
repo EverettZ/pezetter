@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-12">
-    <pez-title *ngIf="category?.name" [value]="category.name"></pez-title>
+    <pez-title [value]="title"></pez-title>
   </div>
 </div>
 <br>
-<div class="row" *ngIf="category.items">
+<div class="row" *ngIf="category?.items">
   <div class="col-12">
     <div class="row">
       <div *ngFor="let item of category.items" class="card-spacing col-sm-12 col-xl-6">

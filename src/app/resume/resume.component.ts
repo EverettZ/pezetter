@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ResumeComponent implements OnInit {
 
-  title = 'resume';
+  @Input('title') title = '';
 
   // categories$: BehaviorSubject<IResumeCategory[]> = new BehaviorSubject<IResumeCategory[]>([]);
   @Input('category') category: IResumeCategory;

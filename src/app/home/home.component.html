@@ -18,6 +18,6 @@
       </div>
     </div>
     <br>
-    <pez-resume *ngIf="categoryData" [category]="categoryData"></pez-resume>
+    <pez-resume *ngIf="categoryData && categoryName.length" [category]="categoryData" [title]="categoryName"></pez-resume>
   </div>
 </div>
