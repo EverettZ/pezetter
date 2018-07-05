@@ -17,7 +17,7 @@ export class MenuComponent {
 
   constructor(private _resume: ResumeService) {
 
-    this.routes = _resume.resumeCategoryRefs;
+    this.routes = _resume.resumeRoutes;
 
   }
   

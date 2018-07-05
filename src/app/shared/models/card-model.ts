@@ -29,8 +29,6 @@ export interface IResume {
 
 export interface IResumeItem {
     name: string;
-    length: number;
-    href: string;
 }
 
 export interface IResumeCategory {

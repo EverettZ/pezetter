@@ -3,7 +3,7 @@ import { IResume, IResumeCategory, IResumeItem, IBaseSnippet } from './../../sha
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, toArray } from 'rxjs/operators';
+import { map, mergeMap, toArray, merge, concatMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable( {
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class ResumeService {
 
   personalInfo$: Observable<IResume>;
+
+  resumeRoutes: IResumeItem[] = [];
 
   constructor ( private http: HttpClient, private router: Router ) { }
 
@@ -32,7 +34,13 @@ export class ResumeService {
 
             resumeHrefs.push( resumeHref );
 
+            if ( key.indexOf( 'resume' ) === -1 ) {
 
+              this.resumeRoutes.push( {
+                name: key.split( '.json' )[ 0 ]
+              } );
+
+            }
 
           }
 
@@ -41,11 +49,9 @@ export class ResumeService {
         } ),
         mergeMap( ( resumeHrefs: string[] ) => {
 
+          debugger;
           return this.getCategories( resumeHrefs );
-
-        } ),
-        map( ( resumeData: ( IResumeCategory | IResume ) ) => {
-          return resumeData;
+          // return resumeHrefs;
         } )
       ).subscribe( ok => {
         console.log( ok );
@@ -58,12 +64,12 @@ export class ResumeService {
 
 
   private getCategories( resumeHrefs: string[] ) {
-
+    debugger
     return from( resumeHrefs )
       .pipe(
         mergeMap( href => {
-
-          return <Observable<IResumeCategory | IResume>> this.http.get( href );
+          debugger
+          return this.http.get( href );
 
         } ),
         toArray()
