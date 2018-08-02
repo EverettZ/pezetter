@@ -24,18 +24,20 @@ export interface IResume {
     dob: Date;
     email: string;
     phone: string;
-    href: string;
     items: IResumeItem[];
 }
 
 export interface IResumeItem {
     name: string;
-    length: number;
-    href: string;
 }
 
 export interface IResumeCategory {
-    path: string;
+    name: string;
     length: string;
     items: ICardModel[];
+}
+
+export interface IBaseSnippet {
+    personalInfoHref: string;
+    resumeHrefs: string[];
 }
