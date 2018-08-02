@@ -64,11 +64,11 @@ export class ResumeService {
 
 
   private getCategories( resumeHrefs: string[] ) {
-    debugger
+    debugger;
     return from( resumeHrefs )
       .pipe(
         mergeMap( href => {
-          debugger
+          debugger;
           return this.http.get( href );
 
         } ),

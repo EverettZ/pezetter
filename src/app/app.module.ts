@@ -5,25 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import * as LogRocket from 'logrocket';
+
 import { ResumeComponent } from './resume/resume.component';
 import { HomeComponent } from './home/home.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
-import { ResumeService } from './services/resume/resume.service';
-import { ScrollbarModule } from 'ngx-scrollbar';
-import { RequestCache, RequestCacheWithMap } from './services/request-cache/request-cache.service';
-import { NoopInterceptor } from './services/interceptors/noop-interceptor';
-import { EnsureHttpsInterceptor } from './services/interceptors/ensure-https-interceptor';
-import { CachingInterceptor } from './services/interceptors/caching-interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { OverlayModule, OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
-import { MenuOverlayService } from './services/menu-overlay/menu-overlay.service';
-import { MenuComponent } from './shared/menu/menu.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+
+
+if ( location.hostname !== 'localhost' ) {
+
+  LogRocket.init( '9fzko8/pezetter');
+
+}
 
 @NgModule({
   entryComponents: [
