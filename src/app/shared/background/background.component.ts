@@ -1,8 +1,5 @@
-import { IResumeItem } from './../models/card-model';
 import { Component, Input, ViewChildren, HostListener, AfterViewInit, ElementRef } from '@angular/core';
 import { ParallaxerConfig } from '../../directives/parallaxer.config';
-import { ResumeService } from '../../services/resume/resume.service';
-import { IResumeCategory } from '../models/card-model';
 
 @Component({
   selector: 'pez-background',

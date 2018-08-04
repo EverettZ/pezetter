@@ -1,9 +1,9 @@
-import { BASE_SNIPPET } from './../../shared/models/urls';
-import { IResume, IResumeCategory, IResumeItem, IBaseSnippet } from './../../shared/models/card-model';
+import { ResumeCategoryTypes, IResumeCategory } from './../../shared/models/resume-model';
+import { BASE_GIST } from '../../shared/models/urls';
+import { IResume, IResumePersonal } from '../../shared/models/resume-model';
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, toArray, merge, concatMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable( {
@@ -11,75 +11,51 @@ import { Router } from '@angular/router';
 } )
 export class ResumeService {
 
-  personalInfo$: Observable<IResume>;
+  personal: IResumePersonal;
 
-  resumeRoutes: IResumeItem[] = [];
+  experiences: IResumeCategory;
+  portfolio: IResumeCategory;
+  education: IResumeCategory;
+  skills: IResumeCategory;
+  social: IResumeCategory;
+  
+  allCategories: IResumeCategory[];
 
   constructor ( private http: HttpClient, private router: Router ) { }
 
-  getBaseSnippet() {
+  getResume() {
 
     return this.http
-      .get( BASE_SNIPPET )
+      .get( BASE_GIST )
       .pipe(
-        map( ( snippet: any ) => {
+        tap( ( resume: IResume ) => {
 
-          const files = snippet.files;
+          this.personal = {
+            name: resume.name,
+            avatar: resume.avatar,
+            dob: resume.dob,
+            email: resume.email,
+            phone: resume.phone
+          };
 
-          const resumeHrefs: string[] = [];
+          this.experiences = resume.items.find( el => el.name === ResumeCategoryTypes.experience );
+          this.portfolio = resume.items.find( el => el.name === ResumeCategoryTypes.portfolio );
+          this.education = resume.items.find( el => el.name === ResumeCategoryTypes.education );
+          this.skills = resume.items.find( el => el.name === ResumeCategoryTypes.skills );
+          this.social = resume.items.find( el => el.name === ResumeCategoryTypes.social );
 
-          for ( const key of Object.keys( files ) ) {
+          this.allCategories = [
+            this.experiences,
+            this.portfolio,
+            this.education,
+            this.skills,
+            this.social
+          ];
 
-            const resumeHref = files[ key ].links.self.href;
-
-            resumeHrefs.push( resumeHref );
-
-            if ( key.indexOf( 'resume' ) === -1 ) {
-
-              this.resumeRoutes.push( {
-                name: key.split( '.json' )[ 0 ]
-              } );
-
-            }
-
-          }
-
-          return resumeHrefs;
-
-        } ),
-        mergeMap( ( resumeHrefs: string[] ) => {
-
-          debugger;
-          return this.getCategories( resumeHrefs );
-          // return resumeHrefs;
         } )
-      ).subscribe( ok => {
-        console.log( ok );
-        debugger;
-      } );
-
-  }
-
-
-
-
-  private getCategories( resumeHrefs: string[] ) {
-    debugger;
-    return from( resumeHrefs )
-      .pipe(
-        mergeMap( href => {
-          debugger;
-          return this.http.get( href );
-
-        } ),
-        toArray()
       );
-  }
-
-  getPersonalInfo( href: string ) {
-
-    this.personalInfo$ = this.http
-      .get<IResume>( href );
 
   }
+
+
 }

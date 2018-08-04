@@ -1,7 +1,8 @@
-import { IResumeItem } from './../models/card-model';
+
 import { Component } from '@angular/core';
 import { textFade } from '../animations/text-fade';
 import { ResumeService } from '../../services/resume/resume.service';
+import { IResumeCategory } from '../models/resume-model';
 
 @Component({
   selector: 'pez-menu',
@@ -13,11 +14,11 @@ import { ResumeService } from '../../services/resume/resume.service';
 })
 export class MenuComponent {
 
-  routes: IResumeItem[] = [];
+  routes: IResumeCategory[] = [];
 
   constructor(private _resume: ResumeService) {
 
-    this.routes = _resume.resumeRoutes;
+    this.routes = this._resume.allCategories;
 
   }
   

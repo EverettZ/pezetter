@@ -1,4 +1,4 @@
-import { IResumeCategory } from './../shared/models/card-model';
+import { IResumeCategory } from '../shared/models/resume-model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 
