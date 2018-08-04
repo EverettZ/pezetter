@@ -1,32 +1,24 @@
-sudo: false
-dist: trusty
+#.travis.yml
+
 language: node_js
-
-cache:
-  directories:
-    - node_modules
-
-addons:
-  chrome: stable
-
 node_js:
   - "8"
 
-matrix:
-  fast_finish: true
+branches:
+  only:
+    - master
 
-before_install:
-  - npm install npm@5 -g
-  - npm cache verify
-  - npm prune
-  - npm update
-  - npm install -g @angular/cli
+before_script:
   - npm install -g firebase-tools
-
-install:
-  - npm install
-
+  - npm install -g @angular/cli
 
 script:
-  - ng build --prod --build-optimizer
-  - firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+  - ng build --prod
+
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
