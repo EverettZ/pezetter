@@ -1,23 +1,2 @@
-<div class="container-fluid home">
-  <div *ngIf="_resume$ | async as resume" class="container home-slim-container">
-    <div class="row">
-      <div class="col-sm-12 my-1 px-4">
-        <pez-text-decode [value]="resume.name"></pez-text-decode>
-        <button class="float-right" mat-icon-button (click)="openMenu()">
-          <i class="material-icons">menu</i>
-        </button>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-sm-4">
-        <h5 class="text-center">{{resume.email}}</h5>
-      </div>
-      <div class="col-sm-4">
-        <h5 class="text-center">{{resume.phone}}</h5>
-      </div>
-    </div>
-    <br>
-    <pez-resume *ngIf="categoryData && categoryName.length" [category]="categoryData" [title]="categoryName"></pez-resume>
-  </div>
-</div>
+<pez-menu></pez-menu>
+<router-outlet></router-outlet>

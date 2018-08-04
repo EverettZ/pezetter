@@ -1,4 +1,4 @@
-import { IResumeCategory, IResume } from './../shared/models/card-model';
+import { IResumeCategory, IResume } from '../shared/models/resume-model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Event, NavigationEnd, NavigationStart, Params } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -25,35 +25,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    // this._resume$ = this._resume.baseResume$
-    //   .pipe(
-    //     tap( () => {
-
-    //       this.route.queryParams
-    //         .subscribe( ( data: Params ) => {
-
-    //           console.log( data );
-
-    //           if ( data[ 'category' ] ) {
-
-    //             this.categoryName = data[ 'category' ];
-
-    //             this._resume.getCategory( this.categoryName )
-    //               .pipe(
-    //                 tap( ok => {
-
-    //                   this.categoryData = ok;
-
-    //                 } )
-    //               ).subscribe();
-    //           }
-
-    //         } );
-
-    //     } )
-    //   );
-
-    this._resume.getBaseSnippet();
+    this._resume.getResume()
+      .subscribe();
 
   }
 

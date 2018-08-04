@@ -6,7 +6,7 @@ import { ResumeCategoryTypes } from './shared/models/resume-model';
 
 const routes: Routes = [
   {
-    path: 'resume',
+    path: 'home',
     component: HomeComponent,
     children: [
       {
@@ -28,8 +28,7 @@ const routes: Routes = [
       {
         path: ResumeCategoryTypes.social,
         component: ResumeComponent,
-      },
-
+      }
     ]
   },
   {
