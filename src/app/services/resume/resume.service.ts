@@ -6,9 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-@Injectable( {
+@Injectable({
   providedIn: 'root'
-} )
+})
 export class ResumeService {
 
   personal: IResumePersonal;
@@ -18,31 +18,35 @@ export class ResumeService {
   education: IResumeCategory;
   skills: IResumeCategory;
   social: IResumeCategory;
-  
+
   allCategories: IResumeCategory[];
 
-  constructor ( private http: HttpClient, private router: Router ) { }
+  links: string[] = [];
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   getResume() {
 
     return this.http
-      .get( BASE_GIST )
+      .get(BASE_GIST)
       .pipe(
-        tap( ( resume: IResume ) => {
+        tap((resume: IResume) => {
 
           this.personal = {
             name: resume.name,
             avatar: resume.avatar,
             dob: resume.dob,
             email: resume.email,
-            phone: resume.phone
+            phone: resume.phone,
+            description: resume.description,
+            position: resume.position
           };
 
-          this.experiences = resume.items.find( el => el.name === ResumeCategoryTypes.experience );
-          this.portfolio = resume.items.find( el => el.name === ResumeCategoryTypes.portfolio );
-          this.education = resume.items.find( el => el.name === ResumeCategoryTypes.education );
-          this.skills = resume.items.find( el => el.name === ResumeCategoryTypes.skills );
-          this.social = resume.items.find( el => el.name === ResumeCategoryTypes.social );
+          this.experiences = resume.items.find(el => el.name === ResumeCategoryTypes.experience);
+          this.portfolio = resume.items.find(el => el.name === ResumeCategoryTypes.portfolio);
+          this.education = resume.items.find(el => el.name === ResumeCategoryTypes.education);
+          this.skills = resume.items.find(el => el.name === ResumeCategoryTypes.skills);
+          this.social = resume.items.find(el => el.name === ResumeCategoryTypes.social);
 
           this.allCategories = [
             this.experiences,
@@ -52,7 +56,16 @@ export class ResumeService {
             this.social
           ];
 
-        } )
+          this.links = [];
+          
+          this.allCategories
+            .forEach(element => {
+              if (element.items.length) {
+                this.links.push(element.name);
+              }
+            });
+
+        })
       );
 
   }

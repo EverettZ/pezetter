@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { textFade } from '../animations/text-fade';
 
 @Component({
@@ -9,16 +9,37 @@ import { textFade } from '../animations/text-fade';
     textFade
   ]
 })
-export class TextDecodeComponent implements OnInit, AfterViewInit {
+export class TextDecodeComponent implements AfterViewInit {
 
-  @Input('value') value = "Paul Everett Zettersten";
-  titleChars: string[] = [];
+  _value: string;
 
-  ngOnInit() {
+  @Input('value')
+  set value(val: string) {
 
-    this.splitValue();
+    this._value = val;
+
+    if (val.length) {
+
+      this.splitValue();
+
+      setTimeout(() => {
+
+        this.decodeText();
+
+      }, 1000);
+
+    }
 
   }
+
+  get value() {
+
+    return this._value;
+
+  }
+
+  titleChars: string[] = [];
+
 
   ngAfterViewInit() {
 

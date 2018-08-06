@@ -14,11 +14,11 @@ import { IResumeCategory } from '../models/resume-model';
 })
 export class MenuComponent {
 
-  routes: IResumeCategory[] = [];
+  links: string[] = [];
 
   constructor(private _resume: ResumeService) {
 
-    this.routes = this._resume.allCategories;
+    this.links = this._resume.links;
 
   }
   

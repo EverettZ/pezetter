@@ -18,6 +18,8 @@ export interface  IResumePersonal {
     email: string;
     phone: string;
     avatar: string;
+    position: string;
+    description: string;
 }
 
 export enum ResumeCategoryItemDataType {
@@ -34,6 +36,8 @@ export interface IResume {
     email: string;
     phone: string;
     avatar: string;
+    position: string;
+    description: string;
     items: IResumeCategory[];
 }
 
@@ -49,4 +53,5 @@ export enum ResumeCategoryTypes {
     education = 'education',
     social = 'social',
     portfolio = 'portfolio',
+    personal = 'personal'
 }

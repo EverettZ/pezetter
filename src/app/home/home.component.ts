@@ -2,8 +2,6 @@ import { IResumeCategory, IResume } from '../shared/models/resume-model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Event, NavigationEnd, NavigationStart, Params } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { MenuOverlayRef } from '../services/menu-overlay/menu-overlay-ref';
-import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
 import { ResumeService } from '../services/resume/resume.service';
 import { Subject, Observable } from 'rxjs';
 
@@ -14,41 +12,12 @@ import { Subject, Observable } from 'rxjs';
 } )
 export class HomeComponent implements OnInit {
 
-  resume$: Subject<IResume> = new Subject<IResume>();
-  _resume$: Observable<IResume>;
-
-  categoryData: IResumeCategory;
-
-  categoryName: string = '';
-
-  constructor ( private menuDialog: MenuOverlayService, private router: Router, private _resume: ResumeService, private route: ActivatedRoute ) { }
+  constructor (private router: Router, private _resume: ResumeService, private route: ActivatedRoute ) { }
 
   ngOnInit() {
 
-    this._resume.getResume()
-      .subscribe();
-
   }
 
 
-
-
-  openMenu() {
-
-    const dialogRef: MenuOverlayRef = this.menuDialog.open();
-
-    this.router.events
-      .subscribe( ( event: Event ) => {
-
-        if ( event instanceof NavigationEnd ) {
-
-          dialogRef.close();
-
-        }
-
-      } );
-
-
-  }
 
 }

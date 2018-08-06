@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-// https://www.yearofmoo.com/2017/06/new-wave-of-animation-features.html
+import { textFade } from '../animations/text-fade';
 
 @Component({
   selector: 'pez-app-title',
   templateUrl: './app-title.component.html',
-  styleUrls: ['./app-title.component.scss']
+  styleUrls: ['./app-title.component.scss'],
+  animations: [
+    textFade
+  ]
 })
 export class AppTitleComponent implements OnInit {
 

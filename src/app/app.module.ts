@@ -18,7 +18,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { OverlayModule } from '@angular/cdk/overlay';
-
+import { PersonalComponent } from './personal/personal.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CommonModule } from '@angular/common';
+import { AvatarComponent } from './avatar/avatar.component';
 
 if ( location.hostname !== 'localhost' ) {
 
@@ -33,7 +36,10 @@ if ( location.hostname !== 'localhost' ) {
   declarations: [
     AppComponent,
     HomeComponent,
-    ResumeComponent
+    ResumeComponent,
+    PersonalComponent,
+    PageNotFoundComponent,
+    AvatarComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +52,7 @@ if ( location.hostname !== 'localhost' ) {
     MatIconModule,
     OverlayModule,
     SharedModule,
+    CommonModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   bootstrap: [AppComponent]
