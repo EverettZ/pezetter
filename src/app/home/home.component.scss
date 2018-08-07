@@ -1,8 +1,8 @@
 $nav-gradient: linear-gradient(135deg, #c1c1c1 0%, #ededed 67%, #ffffff 100%);
 :host {
     padding: 15px;
-    height: 100vh;
-    overflow-y: auto;
     padding: 0;
-    background: rgba($color: #000, $alpha: 0.4)
+    display: block;
+    height: 100%;
+    // background: rgba($color: #000, $alpha: 0.4);
 }

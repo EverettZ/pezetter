@@ -1,4 +1,7 @@
+import { NavigationEnd, Router, Event } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
+import { MenuOverlayRef } from '../services/menu-overlay/menu-overlay-ref';
+import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
 
 @Component({
   selector: 'pez-avatar',
@@ -17,9 +20,28 @@ export class AvatarComponent implements OnInit {
     return this.avatarValue;
   }
 
-  constructor() { }
+  constructor(private router: Router, private menuDialog: MenuOverlayService) { }
 
   ngOnInit() {
+  }
+
+
+  openMenu() {
+
+    const dialogRef: MenuOverlayRef = this.menuDialog.open();
+
+    this.router.events
+      .subscribe((event: Event) => {
+
+        if (event instanceof NavigationEnd) {
+
+          dialogRef.close();
+
+        }
+
+      });
+
+
   }
 
 }
