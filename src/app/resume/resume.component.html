@@ -29,9 +29,12 @@
           </mat-card-header>
           <mat-card-content>
             <ul>
-              <li *ngFor="let val of item.data;">
+              <li *ngFor="let val of item.data">
                 <h5>
-                  {{val.value}}
+                  <a *ngIf="val.type == 'link'; else notLink;" [href]="val.value" target="_blank">{{val.value}}</a>
+                  <ng-template #notLink>
+                    {{val.value}}
+                  </ng-template>
                 </h5>
               </li>
             </ul>

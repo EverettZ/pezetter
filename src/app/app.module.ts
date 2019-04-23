@@ -53,7 +53,7 @@ if ( location.hostname !== 'localhost' ) {
     OverlayModule,
     SharedModule,
     CommonModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   bootstrap: [AppComponent]
 })
