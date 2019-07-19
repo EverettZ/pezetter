@@ -12,8 +12,7 @@ export class AvatarComponent implements OnInit {
 
   avatarValue = "url('https://material.angular.io/assets/img/examples/shiba1.jpg')";
 
-  @Input('avatar')
-  set avatar(val: string) {
+  @Input() set avatar(val: string) {
     this.avatarValue = `url(${val})`;
   }
   get avatar() {
