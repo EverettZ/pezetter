@@ -15,13 +15,12 @@ import { DatePipe } from '@angular/common';
 export class PersonalComponent implements OnInit {
 
   personal: IResumePersonal;
-  avatar: string = "url('https://material.angular.io/assets/img/examples/shiba1.jpg')";
+  splitName: string[];
   links: string[] = [];
-  showPhone: boolean = false;
-  age: number = 0;
+  showPhone = false;
+  age = 0;
 
-  constructor(private router: Router, private route: ActivatedRoute, 
-    private datePipe: DatePipe) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -32,9 +31,8 @@ export class PersonalComponent implements OnInit {
       .subscribe((data: { personal: IResumePersonal, links: string[] }) => {
         console.log(data);
         this.personal = data.personal;
-        this.avatar = `url("${this.personal.avatar}")`;
         this.links = data.links;
-
+        this.splitName = data.personal.name.split(' ');
         const ageDifMs = Date.now() - new Date(this.personal.dob).getTime();
         const ageDate = new Date(ageDifMs); // miliseconds from epoch
         this.age = Math.abs(ageDate.getUTCFullYear() - 1970);

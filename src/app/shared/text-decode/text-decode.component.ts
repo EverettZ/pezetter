@@ -1,6 +1,6 @@
 import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { textFade } from '../animations/text-fade';
-
+let count = 0;
 @Component({
   selector: 'pez-text-decode',
   templateUrl: './text-decode.component.html',
@@ -11,10 +11,11 @@ import { textFade } from '../animations/text-fade';
 })
 export class TextDecodeComponent implements AfterViewInit {
 
+  decodeClass = `decode-text-${count++}`;
+
   _value: string;
 
-  @Input('value')
-  set value(val: string) {
+  @Input() set value(val: string) {
 
     this._value = val;
 
@@ -57,7 +58,7 @@ export class TextDecodeComponent implements AfterViewInit {
   decodeText() {
 
     // get nodelist
-    const text = document.getElementsByClassName('decode-text')[0];
+    const text = document.getElementsByClassName(this.decodeClass)[0];
 
     // console.log(text);
     // console.log(text.children.length);
