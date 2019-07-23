@@ -9,7 +9,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
     children: [
       {
@@ -27,11 +27,6 @@ const routes: Routes = [
         }
       }
     ]
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'home'
   },
   { path: '**', component: PageNotFoundComponent }
 ];

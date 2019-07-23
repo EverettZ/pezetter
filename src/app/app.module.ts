@@ -20,6 +20,7 @@ import { PersonalComponent } from './personal/personal.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CommonModule } from '@angular/common';
 import { AvatarComponent } from './avatar/avatar.component';
+import { UserModule } from './modules/user/user.module';
 
 if ( location.hostname !== 'localhost' ) {
 
@@ -43,6 +44,7 @@ if ( location.hostname !== 'localhost' ) {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    UserModule,
     MatButtonModule,
     MatToolbarModule,
     MatMenuModule,

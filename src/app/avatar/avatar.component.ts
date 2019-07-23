@@ -14,7 +14,7 @@ export class AvatarComponent implements OnInit {
 
   @Input('avatar')
   set avatar(val: string) {
-    this.avatarValue = `url(${val})`;
+    this.avatarValue = `${val}`;
   }
   get avatar() {
     return this.avatarValue;

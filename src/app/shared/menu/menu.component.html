@@ -1,13 +1,13 @@
 <div [@textFade] class="row justify-content-center align-items-center">
   <div class="col-btn col-sm-10 col-md-8">
-    <a mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" routerLink="home">
+    <a mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" routerLink="../">
       <h3 class="align-middle text-truncate">
         home
       </h3>
     </a>
   </div>
     <div *ngFor="let route of links" class="col-btn col-sm-10 col-md-8">
-      <a mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="'home/'+route">
+      <a mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="route">
         <h3 class="align-middle text-truncate">
           {{route}}
         </h3>
