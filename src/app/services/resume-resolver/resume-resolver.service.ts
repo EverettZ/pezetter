@@ -17,7 +17,7 @@ export class ResumeResolverService implements Resolve<IResumeCategory | IResumeP
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IResumeCategory | IResumePersonal> {
 
         const category = route.paramMap.get('category');
-        console.log(route.paramMap.keys);
+
         return this._resume.getResume()
             .pipe(
                 map(resume => {

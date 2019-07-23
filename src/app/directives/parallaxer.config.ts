@@ -1,5 +1,10 @@
 import { ElementRef } from "@angular/core";
 
+export enum ParallaxerDirection {
+  positive,
+  negative
+}
+
 export class ParallaxerConfig {
 
     xMax: number = 100;
@@ -34,7 +39,7 @@ export class Parallaxer {
             config.yMax = config.yMax * 2;
 
         }
-        
+
         this.x = new ParallaxerDimension(0, 0, config.xMax);
         this.y = new ParallaxerDimension(0, 0, config.yMax);
         this.speed = config.increment || 1;
@@ -132,9 +137,4 @@ export class ParallaxerDimension {
 
     }
 
-}
-
-export enum ParallaxerDirection {
-    positive,
-    negative
 }

@@ -1,3 +1,4 @@
+import { MatCardModule } from '@angular/material/card';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -11,9 +12,6 @@ import { ResumeComponent } from './resume/resume.component';
 import { HomeComponent } from './home/home.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
-import { MatCardModule } from '@angular/material/card';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -46,11 +44,11 @@ if ( location.hostname !== 'localhost' ) {
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCardModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
     OverlayModule,
+    MatCardModule,
     SharedModule,
     CommonModule,
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
