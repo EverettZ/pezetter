@@ -1,10 +1,9 @@
 <br>
 <div class="row justify-content-center align-items-center">
   <div class="col-12">
-    <div class="header-line "></div>
     <div class="row justify-content-center align-items-center">
-      <div class="col-auto">
-        <pez-avatar class="avatar-img" [avatar]="personal.avatar"></pez-avatar>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <pez-avatar [avatar]="personal.avatar"></pez-avatar>
       </div>
     </div>
   </div>
@@ -13,24 +12,24 @@
 <div class="row" *ngIf="category?.items">
   <div class="col-12">
     <div class="row">
-      <div *ngFor="let item of category.items" class="card-spacing col-sm-12 col-xl-6">
-        <h2>
-          {{item.title}}
-        </h2>
+      <div *ngFor="let item of category.items" class="col-sm-12">
         <h3>
-          {{item.subTitle}}
+          {{item.title}}
         </h3>
+        <h4>
+          {{item.subTitle}}
+        </h4>
         <ul>
           <li *ngFor="let val of item.data">
             <a *ngIf="val.type == 'link'; else notLink;" [href]="val.value" target="_blank">
-              <h5>
+              <p>
                 {{val.value}}
-              </h5>
+              </p>
             </a>
             <ng-template #notLink>
-              <h5>
+              <p>
                 {{val.value}}
-              </h5>
+              </p>
             </ng-template>
           </li>
         </ul>

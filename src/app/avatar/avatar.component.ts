@@ -2,6 +2,7 @@ import { NavigationEnd, Router, Event } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuOverlayRef } from '../services/menu-overlay/menu-overlay-ref';
 import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
+import { take, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'pez-avatar',
@@ -10,15 +11,7 @@ import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.servic
 })
 export class AvatarComponent implements OnInit {
 
-  avatarValue = "url('https://material.angular.io/assets/img/examples/shiba1.jpg')";
-
-  @Input('avatar')
-  set avatar(val: string) {
-    this.avatarValue = `${val}`;
-  }
-  get avatar() {
-    return this.avatarValue;
-  }
+  @Input() avatar: string;
 
   constructor(private router: Router, private menuDialog: MenuOverlayService) { }
 
@@ -30,16 +23,14 @@ export class AvatarComponent implements OnInit {
 
     const dialogRef: MenuOverlayRef = this.menuDialog.open();
 
-    this.router.events
-      .subscribe((event: Event) => {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      take(1)
+    ).subscribe((event: Event) => {
 
-        if (event instanceof NavigationEnd) {
+      dialogRef.close();
 
-          dialogRef.close();
-
-        }
-
-      });
+    });
 
 
   }

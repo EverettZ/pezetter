@@ -23,4 +23,18 @@
         width: 100%;
         background: $border-color;
     }
+    .m-auto {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    pez-text-decode {
+      display: inline-block;
+      &:first-child {
+        margin-right: 1em;
+      }
+    }
+    .header-r {
+      margin-bottom: 1em;
+    }
 }
