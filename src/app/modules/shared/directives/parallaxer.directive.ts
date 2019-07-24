@@ -1,5 +1,5 @@
+import { ScrollParallaxService } from './../../../services/scroll-parallax/scroll-parallax.service';
 import { Directive, Input, ElementRef, OnInit } from '@angular/core';
-import { ScrollParallaxService } from '../services/scroll-parallax/scroll-parallax.service';
 import { ParallaxerConfig } from './parallaxer.config';
 
 const defaultConfig: ParallaxerConfig = {
@@ -13,8 +13,8 @@ const defaultConfig: ParallaxerConfig = {
 })
 export class ParallaxerDirective implements OnInit {
 
-  @Input('pezParallaxer') pezParallaxer: string = "0";
-  @Input('pezParallaxerConfig') pezParallaxerConfig: ParallaxerConfig = defaultConfig;
+  @Input() pezParallaxer = '0';
+  @Input() pezParallaxerConfig: ParallaxerConfig = defaultConfig;
 
   constructor(private elementRef: ElementRef, private _parallaxer: ScrollParallaxService) { }
 

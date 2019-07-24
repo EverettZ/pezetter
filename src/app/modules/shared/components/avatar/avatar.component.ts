@@ -1,7 +1,7 @@
+import { MenuOverlayRef } from './../../../../services/menu-overlay/menu-overlay-ref';
+import { MenuOverlayService } from './../../../../services/menu-overlay/menu-overlay.service';
 import { NavigationEnd, Router, Event } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-import { MenuOverlayRef } from '../services/menu-overlay/menu-overlay-ref';
-import { MenuOverlayService } from '../services/menu-overlay/menu-overlay.service';
 import { take, filter } from 'rxjs/operators';
 
 @Component({

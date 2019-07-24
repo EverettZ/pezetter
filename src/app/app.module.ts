@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as LogRocket from 'logrocket';
 
 import { MatButtonModule } from '@angular/material/button';
-import { SharedModule } from './shared/shared.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -35,7 +34,6 @@ if ( location.hostname !== 'localhost' ) {
     MatButtonModule,
     MatMenuModule,
     OverlayModule,
-    SharedModule,
     CommonModule,
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
