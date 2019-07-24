@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { ResumeService } from '../resume/resume.service';
-import { IResume, ResumeCategoryTypes, IResumeCategory, IResumePersonal } from '../../shared/models/resume-model';
+import { IResume, ResumeCategoryTypes, IResumeCategory, IResumePersonal } from '../../utils/models/resume-model';
 
 
 @Injectable()

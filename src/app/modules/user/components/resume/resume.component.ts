@@ -1,4 +1,4 @@
-import { IResumeCategory, IResumePersonal } from './../../../../shared/models/resume-model';
+import { IResumeCategory, IResumePersonal } from './../../../../utils/models/resume-model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';

@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { textFade } from 'src/app/shared/animations/text-fade';
+import { textFade } from 'src/app/utils/animations/text-fade';
 import { ResumeService } from 'src/app/services/resume/resume.service';
 
 @Component({

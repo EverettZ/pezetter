@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
-import { IResumePersonal } from 'src/app/shared/models/resume-model';
+import { IResumePersonal } from 'src/app/utils/models/resume-model';
 
 @Component({
   selector: 'pez-personal',

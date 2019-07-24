@@ -1,4 +1,4 @@
-import { textFade } from './../../../../shared/animations/text-fade';
+import { textFade } from './../../../../utils/animations/text-fade';
 import { Component, Input, AfterViewInit } from '@angular/core';
 let count = 0;
 @Component({

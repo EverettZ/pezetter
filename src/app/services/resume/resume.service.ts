@@ -1,6 +1,6 @@
-import { ResumeCategoryTypes, IResumeCategory } from './../../shared/models/resume-model';
-import { BASE_GIST } from '../../shared/models/urls';
-import { IResume, IResumePersonal } from '../../shared/models/resume-model';
+import { ResumeCategoryTypes, IResumeCategory } from './../../utils/models/resume-model';
+import { BASE_GIST } from '../../utils/models/urls';
+import { IResume, IResumePersonal } from '../../utils/models/resume-model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
