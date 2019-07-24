@@ -1,3 +1,4 @@
+import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -31,6 +32,7 @@ if ( location.hostname !== 'localhost' ) {
     AppRoutingModule,
     BrowserAnimationsModule,
     UserModule,
+    AdminModule,
     MatButtonModule,
     MatMenuModule,
     OverlayModule,

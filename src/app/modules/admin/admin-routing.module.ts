@@ -1,6 +1,5 @@
 import { AdminComponent } from './components/admin/admin.component';
 import { PublicLayoutComponent } from './../shared/layouts/components/public-layout/public-layout.component';
-import { ResumeResolverService } from './../../services/resume-resolver/resume-resolver.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

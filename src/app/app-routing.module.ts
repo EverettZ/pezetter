@@ -2,30 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-// const routes: Routes = [
-//   {
-//     path: '',
-//     component: HomeComponent,
-//     children: [
-//       {
-//         path: ':category',
-//         component: ResumeComponent,
-//         resolve: {
-//           ResumeResolverService
-//         }
-//       },
-//       {
-//         path: '',
-//         component: PersonalComponent,
-//         resolve: {
-//           ResumeResolverService
-//         }
-//       }
-//     ]
-//   },
-//   { path: '**', component: PageNotFoundComponent }
-// ];
-
 const routes: Routes = [
   {
     path: 'user',
