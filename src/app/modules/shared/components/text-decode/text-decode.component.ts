@@ -13,11 +13,11 @@ export class TextDecodeComponent implements AfterViewInit {
 
   decodeClass = `decode-text-${count++}`;
 
-  _value: string;
+  tempValue: string;
 
   @Input() set value(val: string) {
 
-    this._value = val;
+    this.tempValue = val;
 
     if (val.length) {
 
@@ -35,7 +35,7 @@ export class TextDecodeComponent implements AfterViewInit {
 
   get value() {
 
-    return this._value;
+    return this.tempValue;
 
   }
 
