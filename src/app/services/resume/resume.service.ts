@@ -1,38 +1,47 @@
-import { ResumeCategoryTypes, IResumeCategory } from './../../utils/models/resume-model';
-import { BASE_GIST } from '../../utils/models/urls';
-import { IResume, IResumePersonal } from '../../utils/models/resume-model';
+import { User } from './../../utils/models/user.model';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ResumeCategoryTypes } from './../../utils/models/resume-model';
+import { IResume } from '../../utils/models/resume-model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { switchMap, map, take, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { ResumeGrouping } from 'src/app/utils/models/resume-group.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResumeService {
 
-  personal: IResumePersonal;
+  user$: Observable<User>;
+  resume$: Observable<ResumeGrouping>;
 
-  experiences: IResumeCategory;
-  portfolio: IResumeCategory;
-  education: IResumeCategory;
-  skills: IResumeCategory;
-  social: IResumeCategory;
+  links: string[] = [
+    ResumeCategoryTypes.experience, ResumeCategoryTypes.portfolio,
+    ResumeCategoryTypes.education, ResumeCategoryTypes.skills,
+    ResumeCategoryTypes.social
+  ];
 
-  allCategories: IResumeCategory[];
+  constructor(private afs: AngularFirestore) {
 
-  links: string[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+    this.user$ = this.afs.doc<User>(`users/${environment.userCollectionId}`).valueChanges().pipe(
+      take(1),
+      shareReplay()
+    );
 
-  getResume() {
+    this.resume$ = this.user$.pipe(
+      switchMap(user => {
+        return this.afs.doc<IResume>(`users/${environment.userCollectionId}/${user.resume.path}`).valueChanges().pipe(
+          take(1)
+        );
+      }),
+      map((resume) => {
 
-    return this.http
-      .get(BASE_GIST)
-      .pipe(
-        tap((resume: IResume) => {
-
-          this.personal = {
+        return {
+          personal: {
             name: resume.name,
             avatar: resume.avatar,
             dob: resume.dob,
@@ -40,33 +49,21 @@ export class ResumeService {
             phone: resume.phone,
             description: resume.description,
             position: resume.position
-          };
+          },
+          experience: resume.items.find(el => el.name === ResumeCategoryTypes.experience),
+          portfolio: resume.items.find(el => el.name === ResumeCategoryTypes.portfolio),
+          education: resume.items.find(el => el.name === ResumeCategoryTypes.education),
+          skills: resume.items.find(el => el.name === ResumeCategoryTypes.skills),
+          social: resume.items.find(el => el.name === ResumeCategoryTypes.social)
+        };
 
-          this.experiences = resume.items.find(el => el.name === ResumeCategoryTypes.experience);
-          this.portfolio = resume.items.find(el => el.name === ResumeCategoryTypes.portfolio);
-          this.education = resume.items.find(el => el.name === ResumeCategoryTypes.education);
-          this.skills = resume.items.find(el => el.name === ResumeCategoryTypes.skills);
-          this.social = resume.items.find(el => el.name === ResumeCategoryTypes.social);
+      }),
+      shareReplay()
+    );
+  }
 
-          this.allCategories = [
-            this.experiences,
-            this.portfolio,
-            this.education,
-            this.skills,
-            this.social
-          ];
-
-          this.links = [];
-
-          this.allCategories
-            .forEach(element => {
-              if (element.items.length) {
-                this.links.push(element.name);
-              }
-            });
-
-        })
-      );
+  getResume(): Observable<ResumeGrouping> {
+    return this.resume$;
 
   }
 
