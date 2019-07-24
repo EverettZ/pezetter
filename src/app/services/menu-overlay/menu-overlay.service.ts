@@ -1,8 +1,9 @@
-import { Injectable, Inject } from '@angular/core';
+
+import { Injectable } from '@angular/core';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { MenuOverlayRef } from './menu-overlay-ref';
-import { MenuComponent } from '../../shared/menu/menu.component';
+import { MenuComponent } from 'src/app/modules/shared/components/menu/menu.component';
 
 interface MenuDialogConfig {
     panelClass?: string;
@@ -27,7 +28,7 @@ export class MenuOverlayService {
 
         // Returns an OverlayRef which is a PortalHost
         const overlayRef = this.createOverlay(dialogConfig);
-        
+
         overlayRef.backdropClick()
             .subscribe(() => {
                 overlayRef.dispose();
