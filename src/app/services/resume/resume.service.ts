@@ -57,7 +57,7 @@ export class ResumeService {
           ];
 
           this.links = [];
-          
+
           this.allCategories
             .forEach(element => {
               if (element.items.length) {

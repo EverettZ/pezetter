@@ -1,8 +1,7 @@
 
 import { Component } from '@angular/core';
-import { textFade } from '../animations/text-fade';
-import { ResumeService } from '../../services/resume/resume.service';
-import { IResumeCategory } from '../models/resume-model';
+import { textFade } from 'src/app/shared/animations/text-fade';
+import { ResumeService } from 'src/app/services/resume/resume.service';
 
 @Component({
   selector: 'pez-menu',
@@ -21,6 +20,6 @@ export class MenuComponent {
     this.links = this._resume.links;
 
   }
-  
+
 
 }

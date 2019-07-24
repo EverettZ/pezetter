@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ServicesModule } from './../../services/services.module';
 import { RouterModule } from '@angular/router';
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -9,11 +10,13 @@ import { TextDecodeComponent } from './components/text-decode/text-decode.compon
 import { ParallaxerDirective } from './directives/parallaxer.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatButtonModule } from '@angular/material/button';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
 @NgModule({
+  entryComponents: [
+    MenuComponent
+  ],
   declarations: [
     AvatarComponent,
     MenuComponent,
@@ -22,18 +25,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     MatButtonModule,
     RouterModule,
     OverlayModule,
-    ServicesModule
+    ServicesModule,
+    HttpClientModule
   ],
   exports: [
     LayoutsModule,
     AvatarComponent,
     MenuComponent,
     TextDecodeComponent,
-    ParallaxerDirective
+    ParallaxerDirective,
+    HttpClientModule
   ]
 })
 export class SharedModule { }

@@ -7,7 +7,7 @@
     </a>
   </div>
     <div *ngFor="let route of links" class="col-btn col-sm-10 col-md-8">
-      <a mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="route">
+      <a mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="['user', route]">
         <h3 class="align-middle text-truncate">
           {{route}}
         </h3>

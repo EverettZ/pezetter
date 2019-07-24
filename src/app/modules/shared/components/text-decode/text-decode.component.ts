@@ -1,5 +1,5 @@
-import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
-import { textFade } from '../animations/text-fade';
+import { textFade } from './../../../../shared/animations/text-fade';
+import { Component, Input, AfterViewInit } from '@angular/core';
 let count = 0;
 @Component({
   selector: 'pez-text-decode',
