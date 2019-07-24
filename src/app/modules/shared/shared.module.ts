@@ -1,3 +1,5 @@
+import { RouterModule } from '@angular/router';
+import { AvatarComponent } from './components/avatar/avatar.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -5,12 +7,16 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AvatarComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
-    LayoutsModule
+    LayoutsModule,
+    AvatarComponent
   ]
 })
 export class SharedModule { }

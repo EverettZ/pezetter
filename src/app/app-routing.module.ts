@@ -7,26 +7,38 @@ import { ResumeResolverService } from './services/resume-resolver/resume-resolve
 import { PersonalComponent } from './personal/personal.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+// const routes: Routes = [
+//   {
+//     path: '',
+//     component: HomeComponent,
+//     children: [
+//       {
+//         path: ':category',
+//         component: ResumeComponent,
+//         resolve: {
+//           ResumeResolverService
+//         }
+//       },
+//       {
+//         path: '',
+//         component: PersonalComponent,
+//         resolve: {
+//           ResumeResolverService
+//         }
+//       }
+//     ]
+//   },
+//   { path: '**', component: PageNotFoundComponent }
+// ];
+
 const routes: Routes = [
   {
-    path: '',
-    component: HomeComponent,
-    children: [
-      {
-        path: ':category',
-        component: ResumeComponent,
-        resolve: {
-          ResumeResolverService
-        }
-      },
-      {
-        path: '',
-        component: PersonalComponent,
-        resolve: {
-          ResumeResolverService
-        }
-      }
-    ]
+    path: 'user',
+    loadChildren: './modules/user/user.module#UserModule',
+  },
+  {
+    path: 'admin',
+    loadChildren: './modules/admin/admin.module#AdminModule',
   },
   { path: '**', component: PageNotFoundComponent }
 ];

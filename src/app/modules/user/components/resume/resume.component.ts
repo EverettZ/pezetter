@@ -1,4 +1,4 @@
-import { IResumeCategory, IResumePersonal } from '../shared/models/resume-model';
+import { IResumeCategory, IResumePersonal } from './../../../../shared/models/resume-model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class ResumeComponent implements OnInit {
         this.category = data.category;
         this.personal = data.personal;
         this.links = data.links;
-        
+
       });
 
   }
