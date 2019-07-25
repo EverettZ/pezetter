@@ -1,5 +1,5 @@
 import { textFade } from './../../../../utils/animations/text-fade';
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { Component, Input, AfterViewInit, HostBinding, HostListener } from '@angular/core';
 let count = 0;
 @Component({
   selector: 'pez-text-decode',
@@ -40,7 +40,6 @@ export class TextDecodeComponent implements AfterViewInit {
   }
 
   titleChars: string[] = [];
-
 
   ngAfterViewInit() {
 

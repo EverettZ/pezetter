@@ -9,12 +9,16 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './components/admin/admin.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { ResumeBuilderComponent } from './components/resume-builder/resume-builder.component';
 
 
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    LoginComponent,
+    ResumeBuilderComponent
   ],
   imports: [
     CommonModule,

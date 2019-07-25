@@ -4,7 +4,7 @@ import { ResumeCategoryTypes } from './../../utils/models/resume-model';
 import { IResume } from '../../utils/models/resume-model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, map, take, shareReplay } from 'rxjs/operators';
+import { switchMap, map, take, shareReplay, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -28,6 +28,11 @@ export class ResumeService {
 
 
     this.user$ = this.afs.doc<User>(`users/${environment.userCollectionId}`).valueChanges().pipe(
+      tap((val) => {
+        console.log('HERE', val);
+      }, err => {
+        console.log('ERROR', err);
+      }),
       take(1),
       shareReplay()
     );
