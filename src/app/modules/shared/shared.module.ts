@@ -10,6 +10,7 @@ import { TextDecodeComponent } from './components/text-decode/text-decode.compon
 import { ParallaxerDirective } from './directives/parallaxer.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -29,7 +30,8 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,
     OverlayModule,
     ServicesModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ],
   exports: [
     LayoutsModule,
@@ -37,7 +39,9 @@ import { MatButtonModule } from '@angular/material/button';
     MenuComponent,
     TextDecodeComponent,
     ParallaxerDirective,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class SharedModule { }

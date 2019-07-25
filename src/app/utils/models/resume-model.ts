@@ -23,11 +23,11 @@ export interface  IResumePersonal {
 }
 
 export enum ResumeCategoryItemDataType {
-    Image = "image",
-    Text = "text",
-    Link = "link",
-    Location = "location",
-    Date = "date"
+    Image = 'image',
+    Text = 'text',
+    Link = 'link',
+    Location = 'location',
+    Date = 'date'
 }
 
 export interface IResume {
@@ -55,3 +55,5 @@ export enum ResumeCategoryTypes {
     portfolio = 'portfolio',
     personal = 'personal'
 }
+
+

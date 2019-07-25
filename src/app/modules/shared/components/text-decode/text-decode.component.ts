@@ -4,7 +4,7 @@ import { textFade } from '../animations/text-fade';
 
 =======
 import { textFade } from './../../../../utils/animations/text-fade';
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { Component, Input, AfterViewInit, HostBinding, HostListener } from '@angular/core';
 let count = 0;
 >>>>>>> c1ea2a954356d124f5111ced849480f174cd9496:src/app/modules/shared/components/text-decode/text-decode.component.ts
 @Component({
@@ -46,7 +46,6 @@ export class TextDecodeComponent implements AfterViewInit {
   }
 
   titleChars: string[] = [];
-
 
   ngAfterViewInit() {
 
