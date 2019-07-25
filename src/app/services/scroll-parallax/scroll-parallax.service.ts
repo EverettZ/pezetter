@@ -1,8 +1,8 @@
-import { element } from 'protractor';
-import { Injectable, HostListener, ElementRef } from '@angular/core';
-import { ParallaxerElementRef, Parallaxer, ParallaxerConfig } from '../../directives/parallaxer.config';
+import { Injectable, ElementRef } from '@angular/core';
+
 import { fromEvent } from 'rxjs';
-import { throttle, throttleTime, tap } from 'rxjs/operators';
+import { throttleTime, tap } from 'rxjs/operators';
+import { ParallaxerElementRef, ParallaxerConfig, Parallaxer } from 'src/app/modules/shared/directives/parallaxer.config';
 
 
 @Injectable({
@@ -21,7 +21,7 @@ export class ScrollParallaxService {
     wheelMoves.pipe(
       throttleTime(100),
       tap((ev: any) => {
-        
+
         this.shiftElements(ev.deltaY >= 0);
 
       })

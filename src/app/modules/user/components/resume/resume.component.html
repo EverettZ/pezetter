@@ -1,0 +1,39 @@
+<br>
+<div class="row justify-content-center align-items-center">
+  <div class="col-12">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <pez-avatar [avatar]="personal.avatar"></pez-avatar>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row" *ngIf="category?.items">
+  <div class="col-12">
+    <div class="row">
+      <div *ngFor="let item of category.items" class="col-sm-12">
+        <h3>
+          {{item.title}}
+        </h3>
+        <h4>
+          {{item.subTitle}}
+        </h4>
+        <ul>
+          <li *ngFor="let val of item.data">
+            <a *ngIf="val.type == 'link'; else notLink;" [href]="val.value" target="_blank">
+              <p>
+                {{val.value}}
+              </p>
+            </a>
+            <ng-template #notLink>
+              <p>
+                {{val.value}}
+              </p>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
