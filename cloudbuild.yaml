@@ -9,5 +9,5 @@ steps:
     args: [ 'run', 'build', '--prod' ]
 
   # Deploy
-  -name: 'gcr.io/$_PROJECT_ID/firebase'
+  - name: 'gcr.io/$_PROJECT_ID/firebase'
   args: ['deploy']
