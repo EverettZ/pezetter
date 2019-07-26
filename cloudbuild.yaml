@@ -1,13 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-  args:
-  - kms
-  - decrypt
-  - --ciphertext-file=.env.enc
-  - --plaintext-file=.env
-  - --location=global
-  - --keyring=pezetterKeyRing
-  - --key=cloudbuild-env
+    args: ['kms', 'decrypt', '--ciphertext-file=.env.enc', '--plaintext-file=.env', '--location=global', '--keyring=pezetterKeyRing', '--key=cloudbuild-env']
 
   # Install node packages
   - name: 'gcr.io/cloud-builders/npm:current'
