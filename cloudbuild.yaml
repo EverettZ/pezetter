@@ -7,3 +7,7 @@ steps:
   # Build productive files
   - name: 'gcr.io/cloud-builders/npm'
     args: [ 'run', 'build', '--prod' ]
+
+  # Deploy
+  -name: 'gcr.io/$_PROJECT_ID/firebase'
+  args: ['deploy']
