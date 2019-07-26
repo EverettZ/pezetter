@@ -1,5 +1,4 @@
 steps:
-  steps:
   - name: 'gcr.io/cloud-builders/npm'
     entrypoint: 'node'
     args: ['--version']
