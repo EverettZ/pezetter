@@ -1,14 +1,10 @@
 steps:
-  - name: node:10.16.0
-    entrypoint: npm
-    args: ['install']
-
   # Install node packages
-  - name: 'gcr.io/cloud-builders/npm'
+  - name: 'gcr.io/cloud-builders/npm:node-10.16.0'
     args: [ 'install' ]
 
   # Build productive files
-  - name: 'gcr.io/cloud-builders/npm'
+  - name: 'gcr.io/cloud-builders/npm:node-10.16.0'
     args: [ 'run', 'build', '--prod' ]
 
   # Deploy
