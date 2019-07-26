@@ -1,11 +1,7 @@
 steps:
-- name: node:10.15.1
-  entrypoint: npm
-  args: ['install']
-
-  # Install firebase
-  - name: 'gcr.io/cloud-builders/npm'
-    args: [ 'install', '-g', 'firebase-tools' ]
+  - name: node:10.15.1
+    entrypoint: npm
+    args: ['install']
 
   # Install node packages
   - name: 'gcr.io/cloud-builders/npm'
