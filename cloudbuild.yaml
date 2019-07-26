@@ -1,4 +1,7 @@
 steps:
+  - name: node:10.16.0
+    entrypoint: npm
+    args: ['install']
 
   # Install node packages
   - name: 'gcr.io/cloud-builders/npm'
