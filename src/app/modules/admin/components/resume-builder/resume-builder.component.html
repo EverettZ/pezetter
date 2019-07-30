@@ -6,10 +6,10 @@
 <ng-container *ngIf="auth.user$ | async as user">
   <div class="row">
     <div class="col-12">
-      <pre>{{user | json}}</pre>
-      <h4>
+      <!-- <pre>{{user | json}}</pre> -->
+      <h3>
         {{user.displayName}}
-      </h4>
+      </h3>
       <button mat-raised-button (click)="auth.signOut()">Sign out</button>
     </div>
   </div>
@@ -22,22 +22,30 @@
 
 <section class="container">
   <form *ngIf="group" [formGroup]="group">
-    <div formGroupName="personalGroup">
+
+    <div formGroupName="personal" class="border p-3 mb-5">
+
+      <h3>Personal</h3>
+
       <ng-container *ngFor="let pQuestion of personalQuestions">
 
-        <label [attr.for]="pQuestion.key">{{pQuestion.label}}</label>
+        <pez-resume-builder-question [question]="pQuestion" [group]="group.controls['personal']"></pez-resume-builder-question>
 
-        <div [ngSwitch]="pQuestion.controlType">
-
-          <input [id]="pQuestion.key"  *ngSwitchCase="'textbox'" [formControlName]="pQuestion.key" [type]="pQuestion.type">
-
-          <select [id]="pQuestion.key" *ngSwitchCase="'dropdown'" [formControlName]="pQuestion.key">
-            <option *ngFor="let opt of pQuestion.options" [value]="opt.key">{{opt.value}}</option>
-          </select>
-
-          <textarea [id]="pQuestion.key" *ngSwitchCase="'textarea'" [formControlName]="pQuestion.key" rows="4" cols="50"></textarea>
-        </div>
       </ng-container>
+
     </div>
+
+
+    <div formGroupName="education" class="border p-3 mb-5">
+
+      <h3>Personal</h3>
+      <pre></pre>
+      <ng-container *ngFor="let edGroup of group.controls['education'].controls">
+        <pre>{{edGroup.value | json}}</pre>
+      </ng-container>
+
+    </div>
+
+
   </form>
 </section>

@@ -4,12 +4,11 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ResumeService } from 'src/app/services/resume/resume.service';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { TextareaQuestion } from '../../utils/question-textarea';
 import { QuestionControlService } from '../../services/question-control/question-control.service';
 import { PERSONAL_QUESTIONS } from '../../constants/personal-questions';
 import { IResumeCategory } from 'src/app/utils/models/resume-model';
-import { ResumeCategoryQuestions } from '../../models/resume-category-questions.model';
 
 @Component({
   selector: 'pez-resume-builder',
@@ -19,8 +18,8 @@ import { ResumeCategoryQuestions } from '../../models/resume-category-questions.
 export class ResumeBuilderComponent implements OnInit {
 
   group: FormGroup;
-  personalGroup: FormGroup;
   personalQuestions: QuestionBase<any>[] = PERSONAL_QUESTIONS;
+
 
   constructor(public auth: AuthService, private resume: ResumeService, private fb: FormBuilder, private qcs: QuestionControlService) { }
 
@@ -45,12 +44,13 @@ export class ResumeBuilderComponent implements OnInit {
               categoryGroup: category.items.map((item, itemIndex) => {
 
                 const itemDataQs = item.data.map((itemData, itemDataIndex) => {
-                  return new TextareaQuestion({
+                  const dataQ = new TextareaQuestion({
                     key: `${itemDataIndex}`,
                     label: `Data field #${itemDataIndex + 1}`,
                     order: itemDataIndex,
                     value: itemData.value
                   });
+                  return dataQ;
                 });
 
                 const itemDataQsGroup = this.qcs.toFormArray(itemDataQs);
@@ -81,6 +81,7 @@ export class ResumeBuilderComponent implements OnInit {
                   value: item.title,
                 });
 
+
                 return this.fb.group({
                   title: this.qcs.toFormControl(title),
                   subTitle: this.qcs.toFormControl(subTitle),
@@ -100,9 +101,7 @@ export class ResumeBuilderComponent implements OnInit {
           q.value = res.personal[q.key];
         });
 
-        this.personalGroup = this.qcs.toFormGroup(this.personalQuestions);
-
-        const result = { personalGroup: this.personalGroup };
+        const result = { personal: this.qcs.toFormGroup(this.personalQuestions) };
 
         categoryGroups.forEach(group => {
           result[group.key] = new FormArray(group.categoryGroup);

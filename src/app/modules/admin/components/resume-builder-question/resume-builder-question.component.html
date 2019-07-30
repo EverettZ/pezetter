@@ -1,0 +1,24 @@
+<div [formGroup]="group">
+  <ng-container [ngSwitch]="question.controlType">
+    <mat-form-field *ngSwitchCase="'textbox'">
+      <mat-label [attr.for]="question.key">{{question.label}}</mat-label>
+      <input [required]="question.required" matInput [id]="question.key" [formControlName]="question.key" [type]="question.type">
+      <mat-error *ngIf="group.get(question.key).hasError('required')">This question is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'dropdown'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <mat-select [id]="question.key" [formControlName]="question.key">
+        <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="group.get(question.key).hasError('required')">This question is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'textarea'">
+      <label [attr.for]="question.key">{{question.label}}</label>
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [id]="question.key" [formControlName]="question.key" rows="4" cols="50"></textarea>
+      <mat-error *ngIf="group.get(question.key).hasError('required')">This question is required</mat-error>
+    </mat-form-field>
+  </ng-container>
+
+</div>

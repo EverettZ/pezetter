@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { ResumeBuilderComponent } from './components/resume-builder/resume-builder.component';
+import { ResumeBuilderQuestionComponent } from './components/resume-builder-question/resume-builder-question.component';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -20,7 +22,8 @@ import { ResumeBuilderComponent } from './components/resume-builder/resume-build
   declarations: [
     AdminComponent,
     LoginComponent,
-    ResumeBuilderComponent
+    ResumeBuilderComponent,
+    ResumeBuilderQuestionComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +35,8 @@ import { ResumeBuilderComponent } from './components/resume-builder/resume-build
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   providers: [
     QuestionControlService
