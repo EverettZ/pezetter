@@ -21,11 +21,12 @@ export class ResumeBuilderComponent implements OnInit {
   group: FormGroup;
   personalGroup: FormGroup;
   personalQuestions: QuestionBase<any>[] = PERSONAL_QUESTIONS;
-  resumeCategories: ResumeCategoryQuestions[] = [];
 
   constructor(public auth: AuthService, private resume: ResumeService, private fb: FormBuilder, private qcs: QuestionControlService) { }
 
   ngOnInit() {
+    // TODO: add tracking for resume categories and there nested groups (maybe just map the questions out, save that value, then create the nested formgroups/formarrays)
+
     this.resume.resume$.pipe(
       tap((res) => {
 
