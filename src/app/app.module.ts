@@ -57,6 +57,14 @@ if ( location.hostname !== 'localhost' ) {
     AngularFireAuthModule, // auth
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
+  providers: [
+    { provide: 'LOCALSTORAGE', useFactory: getLocalStorage }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+export function getLocalStorage() {
+  return (typeof window !== 'undefined') ? window.localStorage : null;
+}

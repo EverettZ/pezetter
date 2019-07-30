@@ -11,7 +11,8 @@ import { ParallaxerDirective } from './directives/parallaxer.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -31,7 +32,9 @@ import { MatIconModule } from '@angular/material/icon';
     OverlayModule,
     ServicesModule,
     HttpClientModule,
-    MatIconModule
+    MatTooltipModule,
+    MatIconModule,
+    MatBadgeModule
   ],
   exports: [
     LayoutsModule,

@@ -1,25 +1,31 @@
 img {
-    width: 100%;
-    display: block;
-    border-radius: .5em;
+  width: 100%;
+  display: block;
+  border-radius: .5em;
 }
 
 .mat-button {
-    border-radius: .5em;
-    padding: .5em;
+  width: 100%;
+  border-radius: .5em;
+  padding: .5em;
 
+  .mat-icon {
+    position: absolute;
+    color: gray;
+    left: calc(50% - 12px);
+    bottom: .25em;
+    transition: all linear .2s;
+  }
+
+  &:hover {
     .mat-icon {
-        position: absolute;
-        color: gray;
-        left: calc(50% - 12px);
-        bottom: .25em;
-        transition: all linear .2s;
+      color: white;
+      transform: scale(1.2);
     }
+  }
 
-    &:hover {
-        .mat-icon {
-            color: white;
-            transform: scale(1.2);
-        }
-    }
+  .mat-badge-content {
+    top: 0;
+    right: 0;
+  }
 }

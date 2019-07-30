@@ -1,8 +1,6 @@
-import { MenuOverlayRef } from './../../../../services/menu-overlay/menu-overlay-ref';
 import { MenuOverlayService } from './../../../../services/menu-overlay/menu-overlay.service';
-import { NavigationEnd, Router, Event } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
-import { take, filter } from 'rxjs/operators';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { LocalStorageEnum } from 'src/app/utils/models/local-storage-enum';
 
 @Component({
   selector: 'pez-avatar',
@@ -12,26 +10,43 @@ import { take, filter } from 'rxjs/operators';
 export class AvatarComponent implements OnInit {
 
   @Input() avatar: string;
+  showBadge = true;
+  tooltipText = 'Click to open menu';
 
-  constructor(private router: Router, private menuDialog: MenuOverlayService) { }
+  constructor(private menuDialog: MenuOverlayService, @Inject('LOCALSTORAGE') private localStorage: Storage) { }
 
   ngOnInit() {
+
+    this.showBadge = !!this.localStorage.getItem(LocalStorageEnum.HideAvatarBadge);
+
   }
 
 
   openMenu() {
 
-    const dialogRef: MenuOverlayRef = this.menuDialog.open();
+    this.menuDialog.open();
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      take(1)
-    ).subscribe((event: Event) => {
+  }
 
-      dialogRef.close();
+  hideBadge() {
 
-    });
+    if (this.showBadge) {
 
+      this.localStorage.setItem(LocalStorageEnum.HideAvatarBadge, 'true');
+      this.showBadge = false;
+
+
+    }
+
+    if (this.tooltipText.length) {
+
+      setTimeout(() => {
+
+        this.tooltipText = '';
+
+      }, 5000);
+
+    }
 
   }
 

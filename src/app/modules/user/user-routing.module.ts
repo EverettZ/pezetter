@@ -12,6 +12,13 @@ const routes: Routes = [
     component: PublicLayoutComponent,
     children: [
       {
+        path: 'home',
+        component: PersonalComponent,
+        resolve: {
+          ResumeResolverService
+        }
+      },
+      {
         path: ':category',
         component: ResumeComponent,
         resolve: {
@@ -20,10 +27,8 @@ const routes: Routes = [
       },
       {
         path: '',
-        component: PersonalComponent,
-        resolve: {
-          ResumeResolverService
-        }
+        redirectTo: 'home',
+        pathMatch: 'full'
       }
     ]
   }

@@ -1,5 +1,7 @@
 import { textFade } from './../../../../utils/animations/text-fade';
-import { Component, Input, AfterViewInit, HostBinding, HostListener } from '@angular/core';
+import { Component, Input, AfterViewInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+
 let count = 0;
 @Component({
   selector: 'pez-text-decode',
@@ -41,6 +43,10 @@ export class TextDecodeComponent implements AfterViewInit {
 
   titleChars: string[] = [];
 
+  constructor(@Inject(DOCUMENT) private document: Document) {
+
+  }
+
   ngAfterViewInit() {
 
     this.decodeText();
@@ -57,7 +63,7 @@ export class TextDecodeComponent implements AfterViewInit {
   decodeText() {
 
     // get nodelist
-    const text = document.getElementsByClassName(this.decodeClass)[0];
+    const text = this.document.getElementsByClassName(this.decodeClass)[0];
 
     // assign the placeholder array its places
     const state = [];
@@ -148,7 +154,9 @@ export class TextDecodeComponent implements AfterViewInit {
 
   shuffle(array) {
 
-    let currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
 
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {

@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { textFade } from 'src/app/utils/animations/text-fade';
 import { ResumeService } from 'src/app/services/resume/resume.service';
+import { MenuOverlayService } from 'src/app/services/menu-overlay/menu-overlay.service';
 
 @Component({
   selector: 'pez-menu',
@@ -15,11 +16,16 @@ export class MenuComponent {
 
   links: string[] = [];
 
-  constructor(private _resume: ResumeService) {
+  constructor(private resumeService: ResumeService, private menuDialog: MenuOverlayService) {
 
-    this.links = this._resume.links;
+    this.links = this.resumeService.links;
 
   }
+
+  closeMenu() {
+    this.menuDialog.close();
+  }
+
 
 
 }

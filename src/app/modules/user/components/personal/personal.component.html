@@ -1,43 +1,28 @@
-<br>
-
-<div class="container-fluid">
-  <div class="row header-r">
-    <div class="col-xs-12 col-sm-4 col-lg-3">
-      <pez-avatar class="avatar-img" [avatar]="personal.avatar"></pez-avatar>
+<div class="row mb-3">
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-2 mb-md-auto">
+    <pez-avatar class="avatar-img" [avatar]="personal.avatar"></pez-avatar>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 m-auto">
+    <div class="row">
+      <div class="col-12 text-center">
+        <pez-text-decode *ngFor="let split of splitName" [value]="split"></pez-text-decode>
+      </div>
     </div>
-    <div class="col-xs-12 col-sm-8 col-lg-9 m-auto">
-      <div class="row">
-        <div class="col-12">
-          <pez-text-decode *ngFor="let split of splitName" [value]="split"></pez-text-decode>
-        </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <a mat-button href="mailto:{{personal.email}}">{{personal.email}}</a>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <a mat-button href="mailto:{{personal.email}}">{{personal.email}}</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <a mat-button href="tel:+{{personal.phone}}">{{personal.phone}}</a>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <a mat-button href="tel:+{{personal.phone}}">{{personal.phone}}</a>
       </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-12">
-      <p>{{personal.description}}</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-6" *ngFor="let link of links">
-      <div class="link-button">
-        <a uppercase mat-stroked-button routerLinkActive="active-link" [routerLink]="link" color="primary">{{link}}</a>
-      </div>
-    </div>
-  </div>
-
 </div>
 
-<br>
+<div class="row mb-3">
+  <div class="col-12">
+    <p>{{personal.description}}</p>
+  </div>
+</div>
