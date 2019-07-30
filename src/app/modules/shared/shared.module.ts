@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
   entryComponents: [
@@ -34,7 +34,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HttpClientModule,
     MatTooltipModule,
     MatIconModule,
-    MatBadgeModule
+    MatBadgeModule,
+    A11yModule
   ],
   exports: [
     LayoutsModule,

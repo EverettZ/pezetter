@@ -1,0 +1,12 @@
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  &.dark-backdrop {
+      background: #000;
+      opacity: 0.85 !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 800px;
+  }
+}

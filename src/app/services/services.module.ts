@@ -10,20 +10,22 @@ import { RequestCacheWithMap, RequestCache } from './request-cache/request-cache
 import { CachingInterceptor } from './interceptors/caching-interceptor';
 
 import { NoopInterceptor } from './interceptors/noop-interceptor';
+import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
 
 @NgModule({
-    imports: [
-        HttpClientModule
-    ],
-    providers: [
-        ScrollParallaxService,
-        ResumeService,
-        MenuOverlayService,
-        { provide: 'Window', useValue: window},
-        { provide: RequestCache, useClass: RequestCacheWithMap },
-        { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: EnsureHttpsInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
-    ]
+  imports: [
+    HttpClientModule
+  ],
+  providers: [
+    ScrollParallaxService,
+    ResumeService,
+    MenuOverlayService,
+    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
+    { provide: 'Window', useValue: window },
+    { provide: RequestCache, useClass: RequestCacheWithMap },
+    { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: EnsureHttpsInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
+  ]
 })
 export class ServicesModule { }

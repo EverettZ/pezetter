@@ -1,24 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 $grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px);
 
-.card-spacing {
-    margin-bottom: 30px;
-}
-
-.full-height {
-    height: 100%;
-}
-
-.padding {
-    padding: 16px;
-}
-
-.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
-    &.dark-backdrop {
-        background: #000;
-        opacity: 0.85 !important;
-    }
-}
 
 @font-face {
   font-display: auto;

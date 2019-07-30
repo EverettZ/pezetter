@@ -1,37 +1,44 @@
-<div class="row justify-content-center align-items-center">
-  <div class="col-12">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <pez-avatar [avatar]="personal.avatar"></pez-avatar>
+<pez-header-layout>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-auto text-center">
+      <pez-avatar class="avatar-img" [avatar]="personal.avatar"></pez-avatar>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <a [routerLink]="['../', category.name]">
+        <h1 class="text-capitalize">{{category.name}}</h1>
+      </a>
+    </div>
+  </div>
+</pez-header-layout>
+<section class="container">
+  <div class="row" *ngIf="category?.items as items">
+    <div class="col-12">
+      <div class="row">
+        <div *ngFor="let item of items" class="col-sm-12 col-lg-6">
+          <h4 class="text-center">
+            {{item.title}}
+          </h4>
+          <h5 class="text-center">
+            {{item.subTitle}}
+          </h5>
+          <ul>
+            <li *ngFor="let val of item.data">
+              <a *ngIf="val.type == 'link'; else notLink;" [href]="val.value" target="_blank">
+                <p>
+                  {{val.value}}
+                </p>
+              </a>
+              <ng-template #notLink>
+                <p>
+                  {{val.value}}
+                </p>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row" *ngIf="category?.items as items">
-  <div class="col-12">
-    <div class="row">
-      <div *ngFor="let item of items" class="col-sm-12 col-lg-6">
-        <h3>
-          {{item.title}}
-        </h3>
-        <h4>
-          {{item.subTitle}}
-        </h4>
-        <ul>
-          <li *ngFor="let val of item.data">
-            <a *ngIf="val.type == 'link'; else notLink;" [href]="val.value" target="_blank">
-              <p>
-                {{val.value}}
-              </p>
-            </a>
-            <ng-template #notLink>
-              <p>
-                {{val.value}}
-              </p>
-            </ng-template>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+</section>

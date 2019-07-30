@@ -1,17 +1,19 @@
-<div [@textFade] class="row justify-content-center align-items-center">
-  <div class="col-btn col-sm-10 col-md-8">
-    <a (click)="closeMenu()" mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="['/', 'user', 'home']">
-      <h3 class="align-middle text-truncate">
-        home
-      </h3>
-    </a>
-  </div>
-    <div *ngFor="let route of links" class="col-btn col-sm-10 col-md-8">
+<menu cdkTrapFocus cdkFocusRegionStart>
+  <ul  [@textFade] class="row justify-content-center align-items-center">
+    <li class="col-btn col-sm-10 col-md-8">
+      <a cdkFocusInitial (click)="closeMenu()" mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="['/', 'user', 'home']">
+        <h3 class="align-middle text-truncate text-capitalize">
+          home
+        </h3>
+      </a>
+    </li>
+    <li *ngFor="let route of links" class="col-btn col-sm-10 col-md-8">
       <a (click)="closeMenu()" mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="['/','user', route]">
-        <h3 class="align-middle text-truncate">
+        <h3 class="align-middle text-truncate text-capitalize">
           {{route}}
         </h3>
       </a>
-    </div>
+    </li>
 
-</div>
+  </ul>
+</menu>
