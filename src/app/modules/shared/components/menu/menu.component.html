@@ -9,11 +9,6 @@
 <div class="container">
   <ul cdkTrapFocus cdkFocusRegionStart [@textFade] class="row justify-content-center align-items-center">
     <li class="col-btn col-12">
-      <!-- <a cdkFocusInitial (click)="closeMenu()" mat-raised-button routerLinkActive="active-link" class="big-btn justify-content-center align-items-center" [routerLink]="['/', 'user', 'home']">
-        <h3 class="align-middle text-truncate text-capitalize">
-          home
-        </h3>
-      </a> -->
       <ng-container *ngTemplateOutlet="menuButton;context:{route:'home'}"></ng-container>
     </li>
     <li *ngFor="let r of links" class="col-btn col-12">
