@@ -1,9 +1,5 @@
 <pez-header-layout>
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-auto text-center">
-      <pez-avatar class="avatar-img" [avatar]="personal.avatar"></pez-avatar>
-    </div>
-  </div>
+  <pez-avatar [avatar]="personal.avatar"></pez-avatar>
   <div class="row">
     <div class="col-12 text-center">
       <a [routerLink]="['/', 'user', 'home']">

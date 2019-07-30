@@ -23,7 +23,13 @@ export class MenuComponent {
   }
 
   closeMenu() {
-    this.menuDialog.close();
+
+    setTimeout(() => {
+
+      this.menuDialog.close();
+
+    }, 100);
+
   }
 
 
