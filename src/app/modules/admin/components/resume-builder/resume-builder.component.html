@@ -19,3 +19,25 @@
     </div>
   </div>
 </ng-container>
+
+<section class="container">
+  <form *ngIf="group" [formGroup]="group">
+    <div formGroupName="personalGroup">
+      <ng-container *ngFor="let pQuestion of personalQuestions">
+
+        <label [attr.for]="pQuestion.key">{{pQuestion.label}}</label>
+
+        <div [ngSwitch]="pQuestion.controlType">
+
+          <input [id]="pQuestion.key"  *ngSwitchCase="'textbox'" [formControlName]="pQuestion.key" [type]="pQuestion.type">
+
+          <select [id]="pQuestion.key" *ngSwitchCase="'dropdown'" [formControlName]="pQuestion.key">
+            <option *ngFor="let opt of pQuestion.options" [value]="opt.key">{{opt.value}}</option>
+          </select>
+
+          <textarea [id]="pQuestion.key" *ngSwitchCase="'textarea'" [formControlName]="pQuestion.key" rows="4" cols="50"></textarea>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+</section>

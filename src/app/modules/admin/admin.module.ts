@@ -1,3 +1,5 @@
+import { QuestionControlService } from './services/question-control/question-control.service';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -31,6 +33,9 @@ import { ResumeBuilderComponent } from './components/resume-builder/resume-build
     MatFormFieldModule,
     MatInputModule,
     MatCardModule
+  ],
+  providers: [
+    QuestionControlService
   ]
 })
 export class AdminModule { }
