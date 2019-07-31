@@ -36,7 +36,7 @@ export class AuthService {
                 return {
                   ...u,
                   resume: u.resume.path
-                }
+                };
               })
             );
 
@@ -62,6 +62,11 @@ export class AuthService {
     // return this.updateUserData(credential.user);
   }
 
+  async signOut() {
+
+    await this.afAuth.auth.signOut();
+
+  }
 
 
 }
