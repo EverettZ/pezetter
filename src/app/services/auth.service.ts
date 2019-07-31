@@ -46,8 +46,7 @@ export class AuthService {
           if(!user) {
             this.router.navigate(['admin', 'login']);
           }
-        }),
-        shareReplay()
+        })
       );
 
     }

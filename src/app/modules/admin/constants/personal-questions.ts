@@ -4,10 +4,16 @@ import { TextareaQuestion } from '../utils/question-textarea';
 
 export const PERSONAL_QUESTIONS: QuestionBase<any>[] = [
   new TextboxQuestion({
+    key: 'name',
+    label: 'Name',
+    required: true,
+    order: 0
+  }),
+  new TextboxQuestion({
     key: 'avatar',
     label: 'Avatar URL',
     required: true,
-    order: 0
+    order: 10
   }),
   new TextboxQuestion({
     key: 'dob',
