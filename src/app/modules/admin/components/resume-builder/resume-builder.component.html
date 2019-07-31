@@ -1,45 +1,87 @@
-<div class="row justify-content-between align-items-center p-3">
-  <div class="col">
-    <h2>Resume builder</h2>
-  </div>
-  <div class="col-auto">
-    <button mat-raised-button (click)="auth.signOut()">Sign out</button>
-  </div>
-</div>
-<!-- <ng-container *ngIf="auth.user$ | async as user">
-  <div class="row">
-    <div class="col-12">
-      <button mat-raised-button (click)="auth.updateResume(user.uid)">update</button>
+<pez-header-layout>
+
+  <div class="row justify-content-between align-items-center p-1">
+    <div class="col">
+      <h2>Resume builder</h2>
+    </div>
+    <div class="col-auto">
+      <div class="row">
+        <div class="col-6">
+          <button mat-raised-button (click)="auth.signOut()">Sign out</button>
+        </div>
+        <div class="col-6">
+          <a mat-raised-button routerLink="/user/home">User</a>
+        </div>
+      </div>
     </div>
   </div>
-</ng-container> -->
+
+</pez-header-layout>
 
 <section class="container">
-  <form *ngIf="group" [formGroup]="group">
 
-    <div formGroupName="personal" class="border p-3 mb-5">
+  <form *ngIf="categories && qcs.group" [formGroup]="qcs.group" (ngSubmit)="submitChanges()">
 
-      <h3>Personal</h3>
+    <ng-container *ngFor="let category of categories">
 
-      <ng-container *ngFor="let pQuestion of personalQuestions">
+      <div [formGroupName]="category.name">
+        <h2>{{category.name}}</h2>
 
-        <pez-resume-builder-question [question]="pQuestion" [group]="group.controls['personal']"></pez-resume-builder-question>
+        <pez-question-category *ngFor="let cQuestion of category.questions" [questionCategory]="cQuestion" [group]="qcs.group.get(category.name)"></pez-question-category>
 
-      </ng-container>
+      </div>
 
+    </ng-container>
+
+
+
+
+
+    <!-- <div formGroupName="personal" class="row border rounded mb-3">
+      <div class="col-12 p-0">
+
+        <div class="category-header p-3 mb-3 border-bottom rounded-top">
+
+          <h3 class="m-0">Personal</h3>
+
+        </div>
+
+      </div>
+      <div class="col-12 p-3">
+
+        <ng-container *ngFor="let pQuestion of personalQuestions">
+
+          <pez-resume-builder-question [question]="pQuestion" [group]="group.controls['personal']"></pez-resume-builder-question>
+
+        </ng-container>
+
+      </div>
     </div>
 
+    <div formGroupName="education" class="row border rounded mb-3">
+      <div class="col-12 p-0">
+        <div class="category-header p-3 mb-3 border-bottom  rounded-top">
 
-    <div formGroupName="education" class="border p-3 mb-5">
+          <h3 class="m-0">Personal</h3>
 
-      <h3>Personal</h3>
-      <pre></pre>
-      <ng-container *ngFor="let edGroup of group.controls['education'].controls">
-        <pre>{{edGroup.value | json}}</pre>
-      </ng-container>
+        </div>
 
+      </div>
+      <div class="col-12 p-3">
+
+        <pre></pre>
+        <ng-container *ngFor="let edGroup of group.controls['education'].controls">
+          <pre>{{edGroup.value | json}}</pre>
+        </ng-container>
+
+      </div>
+    </div> -->
+
+    <div class="row justify-content-end align-items-center mb-3">
+      <div class="col-12 text-right p-0">
+        <button mat-raised-button type="submit" [disabled]="qcs.group.invalid">Submit changes</button>
+      </div>
     </div>
-
 
   </form>
 </section>

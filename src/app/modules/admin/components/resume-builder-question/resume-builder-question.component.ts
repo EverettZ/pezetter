@@ -16,7 +16,7 @@ export class ResumeBuilderQuestionComponent implements OnInit {
 
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
-  constructor(private _ngZone: NgZone) { }
+  constructor(private ngZone: NgZone) { }
 
   ngOnInit() {
   }
@@ -24,7 +24,7 @@ export class ResumeBuilderQuestionComponent implements OnInit {
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(
+    this.ngZone.onStable.pipe(
       take(1)
     ).subscribe(() => this.autosize.resizeToFitContent(true));
   }

@@ -1,0 +1,7 @@
+<!-- <h3>{{questionCategory.name}}</h3> -->
+<ng-container *ngIf="questionCategory.question as question">
+  <pez-resume-builder-question [question]="question" [group]="group"></pez-resume-builder-question>
+</ng-container>
+<ng-container *ngFor="let qc of questionCategory.questions">
+  <pez-question-category [questionCategory]="qc" [group]="group"></pez-question-category>
+</ng-container>

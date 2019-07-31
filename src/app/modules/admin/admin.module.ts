@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ResumeBuilderComponent } from './components/resume-builder/resume-builder.component';
 import { ResumeBuilderQuestionComponent } from './components/resume-builder-question/resume-builder-question.component';
 import {MatSelectModule} from '@angular/material/select';
+import { QuestionCategoryComponent } from './components/question-category/question-category.component';
 
 
 
@@ -23,7 +24,8 @@ import {MatSelectModule} from '@angular/material/select';
     AdminComponent,
     LoginComponent,
     ResumeBuilderComponent,
-    ResumeBuilderQuestionComponent
+    ResumeBuilderQuestionComponent,
+    QuestionCategoryComponent
   ],
   imports: [
     CommonModule,

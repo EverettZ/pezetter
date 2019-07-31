@@ -1,15 +1,7 @@
-import { IResumeCategory } from './resume-model';
+import { IResumeCategory, IResumePersonal } from './resume-model';
 
 export interface ResumeGrouping {
-  personal: {
-    name: string;
-    avatar: string;
-    dob: Date;
-    email: string;
-    phone: string;
-    description: string;
-    position: string;
-  };
+  personal: IResumePersonal;
   experience: IResumeCategory;
   portfolio: IResumeCategory;
   education: IResumeCategory;
