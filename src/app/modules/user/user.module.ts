@@ -5,13 +5,15 @@ import { ResumeComponent } from './components/resume/resume.component';
 import { RouterModule } from '@angular/router';
 import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { UserComponent } from './components/user/user.component';
 
 
 
 @NgModule({
   declarations: [
     PersonalComponent,
-    ResumeComponent
+    ResumeComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,

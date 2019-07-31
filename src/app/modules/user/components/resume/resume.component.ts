@@ -1,7 +1,9 @@
-import { IResumeCategory, IResumePersonal } from './../../../../utils/models/resume-model';
+import { IResumeCategory } from './../../../../utils/models/resume-model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { ResumeService } from 'src/app/services/resume/resume.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'pez-resume',
@@ -10,25 +12,19 @@ import { map } from 'rxjs/operators';
 })
 export class ResumeComponent implements OnInit {
 
-  category: IResumeCategory;
-  personal: IResumePersonal;
-  links: string[] = [];
+  category$: Observable<IResumeCategory>;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private resume: ResumeService) { }
 
   ngOnInit() {
 
-    this.route.data
+    this.category$ = this.route.data
       .pipe(
-        map(data => data.ResumeResolverService)
-      )
-      .subscribe((data: { category: IResumeCategory, personal: IResumePersonal, links: string[] }) => {
-
-        this.category = data.category;
-        this.personal = data.personal;
-        this.links = data.links;
-
-      });
+        map(data => data.CategoryResolverService),
+        tap((category: IResumeCategory) => {
+          this.resume.currCategory = category;
+        })
+      );
 
   }
 

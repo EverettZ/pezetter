@@ -1,15 +1,5 @@
-<pez-header-layout>
-  <pez-avatar [avatar]="personal.avatar"></pez-avatar>
-  <div class="row">
-    <div class="col-12 text-center">
-      <a [routerLink]="['../', category.name]">
-        <h1 class="text-capitalize">{{category.name}}</h1>
-      </a>
-    </div>
-  </div>
-</pez-header-layout>
 <section class="container">
-  <div class="row" *ngIf="category?.items as items">
+  <div class="row" *ngIf="(category$ | async).items as items">
     <div class="col-12">
       <div class="row">
         <div *ngFor="let item of items" class="col-sm-12 col-lg-6">

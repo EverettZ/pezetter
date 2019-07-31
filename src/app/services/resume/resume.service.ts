@@ -1,6 +1,6 @@
 import { User } from './../../utils/models/user.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { ResumeCategoryTypes } from './../../utils/models/resume-model';
+import { ResumeCategoryTypes, IResumeCategory } from './../../utils/models/resume-model';
 import { IResume } from '../../utils/models/resume-model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +19,7 @@ export class ResumeService {
   resume$: Observable<ResumeGrouping>;
   userRef: AngularFirestoreDocument<User>;
   resumeRef: AngularFirestoreDocument<any>;
+  currCategory: IResumeCategory;
 
   links: string[] = [
     ResumeCategoryTypes.experience, ResumeCategoryTypes.portfolio,

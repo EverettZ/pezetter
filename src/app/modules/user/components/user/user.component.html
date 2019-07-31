@@ -1,0 +1,44 @@
+<pre>{{categoryPersonalData$ | async | json}}</pre>
+<pez-header-layout>
+  <ng-container *ngIf="categoryPersonalData$ | async as data; else personalRoute;">
+    <pez-avatar [avatar]="data.personal.avatar"></pez-avatar>
+    <div class="row">
+      <div class="col-12 text-center">
+        <a [routerLink]="['../', data.category.name]">
+          <h1 class="text-capitalize">{{data.category.name}}</h1>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #personalRoute>
+    <ng-container *ngIf="(personal$ | async) as personal">
+      {{personal}}
+      <pez-avatar [avatar]="personal.avatar"></pez-avatar>
+      <div class="row">
+        <div class="col-12 text-center">
+          <a [routerLink]="['/', 'user', 'home']">
+            <h1 class="text-center">{{personal.name}}</h1>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 text-center">
+              <a mat-button href="mailto:{{personal.email}}">{{personal.email}}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center">
+              <a mat-button href="tel:+{{personal.phone}}">{{personal.phone}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-template>
+</pez-header-layout>
+<section class="container">
+  <router-outlet></router-outlet>
+</section>

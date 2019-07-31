@@ -1,32 +1,6 @@
-<pez-header-layout>
-  <pez-avatar [avatar]="personal.avatar"></pez-avatar>
-  <div class="row">
-    <div class="col-12 text-center">
-      <a [routerLink]="['/', 'user', 'home']">
-        <h1 class="text-center">{{personal.name}}</h1>
-      </a>
-    </div>
+<div class="row mb-3">
+  <div class="col-12">
+    <h3>About me</h3>
+    <p *ngIf="personal$ | async as personal">{{personal.description}}</p>
   </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="row">
-        <div class="col-12 text-center">
-          <a mat-button href="mailto:{{personal.email}}">{{personal.email}}</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center">
-          <a mat-button href="tel:+{{personal.phone}}">{{personal.phone}}</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</pez-header-layout>
-<section class="container">
-  <div class="row mb-3">
-    <div class="col-12">
-      <h3>About me</h3>
-      <p>{{personal.description}}</p>
-    </div>
-  </div>
-</section>
+</div>

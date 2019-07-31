@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { IResumePersonal } from 'src/app/utils/models/resume-model';
+import { Observable } from 'rxjs';
+import { ResumeService } from 'src/app/services/resume/resume.service';
 
 @Component({
   selector: 'pez-personal',
@@ -14,30 +15,15 @@ import { IResumePersonal } from 'src/app/utils/models/resume-model';
 })
 export class PersonalComponent implements OnInit {
 
-  personal: IResumePersonal;
-  splitName: string[];
-  links: string[] = [];
-  showPhone = false;
-  age = 0;
+  personal$: Observable<IResumePersonal>;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private resume: ResumeService) { }
 
   ngOnInit() {
 
-    this.route.data
-      .pipe(
-        map(data => data.ResumeResolverService)
-      )
-      .subscribe((data: { personal: IResumePersonal, links: string[] }) => {
-
-        this.personal = data.personal;
-        this.links = data.links;
-        this.splitName = data.personal.name.split(' ');
-        const ageDifMs = Date.now() - new Date(this.personal.dob).getTime();
-        const ageDate = new Date(ageDifMs); // miliseconds from epoch
-        this.age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-      });
+    this.personal$ = this.resume.getResume().pipe(
+      map(r => r.personal)
+    );
 
   }
 
