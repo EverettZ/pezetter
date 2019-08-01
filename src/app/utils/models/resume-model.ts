@@ -31,14 +31,7 @@ export enum ResumeCategoryItemDataType {
   Date = 'date'
 }
 
-export interface IResume {
-  name: string;
-  dob: Date;
-  email: string;
-  phone: string;
-  avatar: string;
-  position: string;
-  description: string;
+export interface IResume extends IResumePersonal {
   items: IResumeCategory[];
 }
 

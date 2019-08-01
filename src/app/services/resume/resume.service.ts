@@ -16,6 +16,7 @@ import { ResumeGrouping } from 'src/app/utils/models/resume-group.model';
 export class ResumeService {
 
   user$: Observable<User>;
+  resumeBase$: Observable<IResume>;
   resume$: Observable<ResumeGrouping>;
   userRef: AngularFirestoreDocument<User>;
   resumeRef: AngularFirestoreDocument<any>;
@@ -34,12 +35,15 @@ export class ResumeService {
       take(1)
     );
 
-    this.resume$ = this.user$.pipe(
+    this.resumeBase$ = this.user$.pipe(
       switchMap(user => {
         return this.afs.doc<IResume>(`users/${environment.userCollectionId}/${user.resume.path}`).valueChanges().pipe(
           take(1)
         );
-      }),
+      })
+    );
+
+    this.resume$ = this.resumeBase$.pipe(
       map((resume) => {
 
         return {

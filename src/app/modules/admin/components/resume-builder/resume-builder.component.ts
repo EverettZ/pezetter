@@ -27,95 +27,11 @@ export class ResumeBuilderComponent implements OnInit {
   ngOnInit() {
     // TODO: add tracking for resume categories and there nested groups (maybe just map the questions out, save that value, then create the nested formgroups/formarrays)
 
-    this.resume.resume$.pipe(
+    this.resume.resumeBase$.pipe(
       take(1),
       tap((res) => {
 
-
-        Object.keys(res)
-          .forEach(key => {
-
-            const category: IResumeCategory = res[key];
-
-            if (key !== 'personal') {
-
-              this.qcs.setCategoryQuestions(category);
-
-            } else {
-
-              this.qcs.setPersonalQuestions(res.personal);
-
-            }
-
-            // return {
-            //   ...{ key },
-            //   categoryGroup: category.items.map((item, itemIndex) => {
-
-            //     const itemDataQs = item.data.map((itemData, itemDataIndex) => {
-            //       const dataQ = new TextareaQuestion({
-            //         key: `${itemDataIndex}`,
-            //         label: `Data field #${itemDataIndex + 1}`,
-            //         order: itemDataIndex,
-            //         value: itemData.value,
-            //         modifier: itemData.type
-            //       });
-            //       return dataQ;
-            //     });
-
-            //     const itemDataQsGroup = this.qcs.toFormArray(itemDataQs);
-
-            //     const start = new TextboxQuestion({
-            //       key: `start${itemIndex}`,
-            //       type: 'date',
-            //       label: 'Start date',
-            //       value: item.start
-            //     });
-
-            //     const end = new TextboxQuestion({
-            //       key: `end${itemIndex}`,
-            //       type: 'date',
-            //       label: 'End date',
-            //       value: item.end
-            //     });
-
-            //     const subTitle = new TextboxQuestion({
-            //       key: `subTitle${itemIndex}`,
-            //       label: 'Subtitle',
-            //       value: item.subTitle,
-            //     });
-
-            //     const title = new TextboxQuestion({
-            //       key: `title${itemIndex}`,
-            //       label: 'Title',
-            //       value: item.title,
-            //     });
-
-
-            //     return this.fb.group({
-            //       title: this.qcs.toFormControl(title),
-            //       subTitle: this.qcs.toFormControl(subTitle),
-            //       start: this.qcs.toFormControl(start),
-            //       end: this.qcs.toFormControl(end),
-            //       data: itemDataQsGroup
-            //     });
-
-            //   })
-            // };
-
-          });
-
-        this.categories = this.qcs.getAllQuestionCategories();
-
-
-        // const result = { personal: this.qcs.toFormGroup(this.personalQuestions) };
-
-        // categoryGroups.forEach(group => {
-        //   result[group.key] = new FormArray(group.categoryGroup);
-        // });
-
-        // this.group = new FormGroup(result);
-
-        // console.log(this.group.value);
+        console.log(this.qcs.traverseResume(res, ''));
 
       })
     ).subscribe();

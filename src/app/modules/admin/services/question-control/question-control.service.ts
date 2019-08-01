@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { QuestionBase } from '../../utils/question-base';
-import { IResumeCategory, IResumePersonal } from 'src/app/utils/models/resume-model';
+import { IResumeCategory, IResumePersonal, IResume } from 'src/app/utils/models/resume-model';
 import { ResumeGrouping } from 'src/app/utils/models/resume-group.model';
 import { PERSONAL_QUESTIONS } from '../../constants/personal-questions';
 import { TextareaQuestion } from '../../utils/question-textarea';
@@ -21,6 +21,39 @@ export class QuestionControlService {
   group: FormGroup;
 
   constructor() { }
+
+  traverseResume(x, level) {
+    if (this.isArray(x)) {
+      this.traverseArray(x, level);
+    } else if ((typeof x === 'object') && (x !== null)) {
+      this.traverseObject(x, level);
+    } else {
+      level = { ...level, x };
+      // console.log('EVERETT', level + x);
+    }
+    return level;
+  }
+
+  isArray(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+  }
+
+  traverseArray(arr, level) {
+    console.log(level + "<array>");
+    arr.forEach((x) => {
+      this.traverseResume(x, level + "  ");
+    });
+  }
+
+  traverseObject(obj, level) {
+    console.log(level + "<object>");
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        console.log(level + "  " + key + ":");
+        this.traverseResume(obj[key], level + "    ");
+      }
+    }
+  }
 
   getAllQuestionCategories() {
 
@@ -82,7 +115,7 @@ export class QuestionControlService {
 
   setCategoryQuestions(category: IResumeCategory) {
 
-    this[category.name] = {name: category.name, questions: []};
+    this[category.name] = { name: category.name, questions: [] };
     let qs: QuestionCategory[] = [];
 
     category.items.forEach((item, itemIndex) => {
