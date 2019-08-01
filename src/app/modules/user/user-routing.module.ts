@@ -1,5 +1,3 @@
-import { CategoryResolverService } from './services/category-resolver/category-resolver.service';
-import { ContainerResolverService } from './services/container-resolver/container-resolver.service';
 import { PublicLayoutComponent } from './../shared/layouts/components/public-layout/public-layout.component';
 import { ResumeResolverService } from './../../services/resume-resolver/resume-resolver.service';
 import { NgModule } from '@angular/core';
@@ -17,9 +15,6 @@ const routes: Routes = [
       {
         path: '',
         component: UserComponent,
-        resolve: {
-          ContainerResolverService
-        },
         children: [
           {
             path: 'home',
@@ -27,10 +22,7 @@ const routes: Routes = [
           },
           {
             path: ':category',
-            component: ResumeComponent,
-            resolve: {
-              CategoryResolverService
-            }
+            component: ResumeComponent
           },
           {
             path: '',

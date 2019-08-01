@@ -25,6 +25,8 @@ export class PersonalComponent implements OnInit {
       map(r => r.personal)
     );
 
+    this.resume.currCategory = null;
+
   }
 
 }

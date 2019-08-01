@@ -1,30 +1,28 @@
-<section class="container">
-  <div class="row" *ngIf="(category$ | async).items as items">
-    <div class="col-12">
-      <div class="row">
-        <div *ngFor="let item of items" class="col-sm-12 col-lg-6">
-          <h4 class="text-center">
-            {{item.title}}
-          </h4>
-          <h5 class="text-center">
-            {{item.subTitle}}
-          </h5>
-          <ul>
-            <li *ngFor="let val of item.data">
-              <a *ngIf="val.type == 'link'; else notLink;" [href]="val.value" target="_blank">
-                <p>
-                  {{val.value}}
-                </p>
-              </a>
-              <ng-template #notLink>
-                <p>
-                  {{val.value}}
-                </p>
-              </ng-template>
-            </li>
-          </ul>
-        </div>
+<div class="row" *ngIf="category$ | async as category">
+  <div class="col-12">
+    <div class="row">
+      <div *ngFor="let item of category.items" class="col-sm-12 col-lg-6">
+        <h4 class="text-center">
+          {{item.title}}
+        </h4>
+        <h5 class="text-center">
+          {{item.subTitle}}
+        </h5>
+        <ul>
+          <li *ngFor="let val of item.data">
+            <a *ngIf="val.type == 'link'; else notLink;" [href]="val.value" target="_blank">
+              <p>
+                {{val.value}}
+              </p>
+            </a>
+            <ng-template #notLink>
+              <p>
+                {{val.value}}
+              </p>
+            </ng-template>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-</section>
+</div>

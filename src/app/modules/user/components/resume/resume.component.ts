@@ -18,13 +18,11 @@ export class ResumeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.category$ = this.route.data
-      .pipe(
-        map(data => data.CategoryResolverService),
-        tap((category: IResumeCategory) => {
-          this.resume.currCategory = category;
-        })
-      );
+    this.category$ = this.resume.getResume().pipe(
+      map(resume => {
+        return resume[this.route.snapshot.params.category];
+      })
+    );
 
   }
 

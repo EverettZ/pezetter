@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IResumeCategory, IResumePersonal } from 'src/app/utils/models/resume-model';
-import { ActivatedRoute } from '@angular/router';
-import { map, share, filter, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { map, share, filter, tap, switchMap, } from 'rxjs/operators';
+import { Observable, combineLatest, of } from 'rxjs';
+import { ResumeService } from 'src/app/services/resume/resume.service';
 
 @Component({
   selector: 'pez-user',
@@ -11,30 +12,40 @@ import { Observable } from 'rxjs';
 })
 export class UserComponent implements OnInit {
 
-  categoryPersonalData$: Observable<IResumeCategory>;
   personal$: Observable<IResumePersonal>;
+  category$: Observable<IResumeCategory>;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router, public resume: ResumeService) {
 
-  ngOnInit() {
+    const resume$ = this.resume.getResume();
 
-    const data$ = this.route.data.pipe(
-      tap(okay => {
-        console.log('user component data', okay)
-      }),
-      map(data => data.ContainerResolverService),
-      filter(data => !!data)
-    );
-
-    this.personal$ = data$.pipe(
-      map(data => {
-        return data.personal;
+    this.personal$ = resume$.pipe(
+      map(r => {
+        return r.personal;
       })
     );
 
-    this.categoryPersonalData$ = data$.pipe(
-      filter(data => !!data.personal && !!data.category)
+    this.category$ = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      switchMap(() => {
+
+        if (this.route.firstChild && this.route.firstChild.snapshot.params && this.route.firstChild.snapshot.params.category) {
+
+          const category = this.route.firstChild.snapshot.params.category;
+          return resume$.pipe(
+            map((r => r[category]))
+          );
+
+        }
+
+        return of(null);
+
+      })
     );
+
+  }
+
+  ngOnInit() {
 
 
   }
