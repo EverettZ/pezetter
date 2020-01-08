@@ -1,0 +1,21 @@
+
+<mat-toolbar>
+    <span>
+        Pezume
+    </span>
+    <span class="flex-fill"></span>
+
+    <!-- If logged in, show avatar button -->
+    <button mat-icon-button aria-label="User settings">
+        <mat-icon>
+            face
+        </mat-icon>
+    </button>
+
+    <!-- Else, show login button -->
+    <a [routerLink]="['/login']" mat-icon-button aria-label="Login">
+        <mat-icon>
+            account_circle
+        </mat-icon>
+    </a>
+</mat-toolbar>
