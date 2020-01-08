@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResumeService } from '../../../../shared/services/resume/resume.service';
-import Resume from '../../../../shared/models/control.model';
+import Resume from '../../../../shared/models/resume.model';
 import { Observable } from 'rxjs';
 
 @Component({

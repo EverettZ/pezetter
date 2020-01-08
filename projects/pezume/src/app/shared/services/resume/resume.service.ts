@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { RESUME_MOCK } from './mock';
-import Resume from '../../models/control.model';
+import Resume from '../../models/resume.model';
 import { resumeToForms } from '../../utilities/resume-helpers';
 
 @Injectable({

@@ -1,4 +1,4 @@
-import Resume from '../models/control.model';
+import Resume from '../models/resume.model';
 import { FormControl, Validators, FormArray, FormGroup, AbstractControl } from '@angular/forms';
 export function resumeToForms(resume: Resume) {
     const group = {
@@ -17,21 +17,21 @@ export function resumeToForms(resume: Resume) {
             subtitle: new FormControl(currPage.subtitle)
         };
         const pageGroups = {}
-        Object.keys(currPage.groups).forEach((pageGroupKey) => {
-            const currPageGroup = currPage.groups[pageGroupKey];
+        Object.keys(currPage.cards).forEach((pageGroupKey) => {
+            const currPageGroup = currPage.cards[pageGroupKey];
             const pageGroupForm = {
                 title: new FormControl(currPageGroup.title, [Validators.required]),
                 subtitle: new FormControl(currPageGroup.subtitle),
             };
             const controls = {}
-            Object.keys(currPageGroup.controls).forEach((pageGroupControlKey) => {
-                const currPageGroupControl = currPageGroup.controls[pageGroupControlKey];
+            Object.keys(currPageGroup.items).forEach((pageGroupControlKey) => {
+                const currPageGroupControl = currPageGroup.items[pageGroupControlKey];
                 controls[pageGroupControlKey] = new FormControl(currPageGroupControl.value)
             })
-            pageGroupForm['controls'] = new FormGroup(controls);
+            pageGroupForm['items'] = new FormGroup(controls);
             pageGroups[pageGroupKey] = new FormGroup(pageGroupForm);
         });
-        pageForm['groups'] = new FormGroup(pageGroups);
+        pageForm['cards'] = new FormGroup(pageGroups);
         pages[pageKey] = new FormGroup(pageForm);
     });
     group['pages'] = new FormGroup(pages);

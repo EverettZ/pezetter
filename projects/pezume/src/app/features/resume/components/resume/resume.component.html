@@ -1,13 +1,17 @@
 <pez-full-layout>
     <ng-container *ngIf="($resume | async) as resume; else loading;">
         <div class="row justify-content-start">
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-                <img (click)="resumeService.editResume(resume)" [src]="resume.avatarUrl" width="100%" alt="">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-3">
+                <pez-avatar (click)="resumeService.editResume(resume)" [src]="resume.avatarUrl" alt="User avatar">
+                </pez-avatar>
+                <!-- <div class="d-flex justify-content-center align-items-center">
+                </div> -->
+                <!-- <img (click)="resumeService.editResume(resume)" [src]="resume.avatarUrl" width="100%" alt=""> -->
             </div>
             <div class="col d-flex align-items-center">
                 <div class="flex-fill">
                     <h1 *ngIf="resume.title">{{resume.title}}</h1>
-                    <h2 *ngIf="resume.subtitle">{{resume.subtitle}}</h2>
+                    <h3 *ngIf="resume.subtitle">{{resume.subtitle}}</h3>
                 </div>
             </div>
         </div>
@@ -22,17 +26,34 @@
                     <mat-tab *ngFor="let page of resume.pages | keyvalue" [label]="page.value.title | titlecase">
                         <h4 *ngIf="page.value.title">{{page.value.title}}</h4>
                         <h5 *ngIf="page.value.subtitle">{{page.value.subtitle}}</h5>
-                        <div *ngFor="let group of page.value.groups | keyvalue">
-                            <mat-card>
+                        <div class="card-columns">
+                            <mat-card class="card" *ngFor="let card of page.value.cards | keyvalue">
                                 <mat-card-header>
-                                    <mat-card-title *ngIf="group.value.title">{{group.value.title}}</mat-card-title>
-                                    <mat-card-subtitle *ngIf="group.value.subtitle">{{group.value.subtitle}}
+                                    <mat-card-title *ngIf="card.value.title">{{card.value.title}}</mat-card-title>
+                                    <mat-card-subtitle *ngIf="card.value.subtitle">
+                                        {{card.value.subtitle}}
+                                        <div *ngIf="card.value.startDate">
+                                            <ng-container *ngIf="card.value.endDate; else noEnd;">
+                                                <time>{{card.value.startDate | date:'MMMM y'}}</time> -
+                                                <time>{{card.value.endDate | date:'MMMM y'}}</time>
+                                            </ng-container>
+                                            <ng-template #noEnd>
+                                                <time>{{card.value.startDate | date:'MMMM y'}}</time> - Present
+                                            </ng-template>
+                                        </div>
                                     </mat-card-subtitle>
                                 </mat-card-header>
                                 <mat-card-content>
                                     <ul>
-                                        <li *ngFor="let c of group.value.controls | keyvalue">
-                                            {{c.value.value}}
+                                        <li *ngFor="let item of card.value.items | keyvalue">
+                                            <ng-container [ngSwitch]="item.value.type">
+                                                <ng-container *ngSwitchCase="inputTypes.Date">
+                                                    <time>{{item.value.value | date:'MMMM y'}}</time>
+                                                </ng-container>
+                                                <ng-container *ngSwitchDefault>
+                                                    {{item.value.value}}
+                                                </ng-container>
+                                            </ng-container>
                                         </li>
                                     </ul>
                                 </mat-card-content>

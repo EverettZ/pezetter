@@ -1,4 +1,4 @@
-import Resume from "../../models/control.model";
+import Resume from "../../models/resume.model";
 import { InputTypes } from '../../models/input-types';
 
 export const RESUME_MOCK: Resume = {
@@ -15,12 +15,14 @@ export const RESUME_MOCK: Resume = {
             order: 0,
             title: "education",
             subtitle: "",
-            groups: {
+            cards: {
                 "assdd342d": {
                     order: 0,
                     title: "George Mason",
                     subtitle: "Electronic Transaction Systems",
-                    controls: {
+                    startDate: new Date(),
+                    endDate: new Date(),
+                    items: {
                         "98z123h": {
                             type: InputTypes.TextArea,
                             value: "Web, Mobile, and API"
@@ -32,14 +34,18 @@ export const RESUME_MOCK: Resume = {
                         "98a1z12323h": {
                             type: InputTypes.TextArea,
                             value: "Developed and aided in the design of a new mobile wallet application built with Ionic 3 and Angular 5."
+                        },
+                        "98a1fz12323h": {
+                            type: InputTypes.Date,
+                            value: new Date()
                         }
                     }
                 },
-                "98123731sz2d324": {
+                "98123731sz2dd324": {
                     order: 10,
                     title: "University of Kentucky",
                     subtitle: "Parsons",
-                    controls: {
+                    items: {
                         "9z8123h": {
                             type: InputTypes.TextArea,
                             value: "Web and API"
@@ -53,6 +59,63 @@ export const RESUME_MOCK: Resume = {
                             value: "Planned and designed beginnings of organization wide component library in react."
                         }
                     }
+                },
+                "9812g3731sz2d324": {
+                    order: 20,
+                    title: "Uniasdadsversity of Kenadsasdtucky",
+                    subtitle: "Pardasdsasad asdsons",
+                    items: {
+                        "9zaa8123h": {
+                            type: InputTypes.TextArea,
+                            value: "Web and API"
+                        },
+                        "9812addscs3h": {
+                            type: InputTypes.TextArea,
+                            value: "Network protocol mapping"
+                        },
+                        "9811hh232c3h": {
+                            type: InputTypes.TextArea,
+                            value: "Planned and designed beginnings of organization wide component library in react."
+                        }
+                    }
+                },
+                "9812a3731sza2d324": {
+                    order: 30,
+                    title: "Unisdaversity of Kentucky",
+                    subtitle: "Paasdasrsons",
+                    items: {
+                        "9z81g23h": {
+                            type: InputTypes.TextArea,
+                            value: "Web and API"
+                        },
+                        "9812sadcs3h": {
+                            type: InputTypes.TextArea,
+                            value: "Network protocol mapping"
+                        },
+                        "98a11232c3h": {
+                            type: InputTypes.TextArea,
+                            value: "Planned and designed beginnings of organization wide component library in react."
+                        }
+                    }
+                },
+                "98123731ssz2d324": {
+                    order: 40,
+                    title: "Universasdity of Kentucky",
+                    subtitle: "Parsasdons",
+                    items: {
+                        "9z81d23h": {
+                            type: InputTypes.TextArea,
+                            value: "Web and API"
+                        },
+                        "9812sadcs3h": {
+                            type: InputTypes.TextArea,
+                            value: "Network protocol mapping"
+                        },
+                        "981g1232c3h": {
+                            type: InputTypes.TextArea,
+                            value: "Planned and designed beginnings of organization wide component library in react."
+                        }
+                    }
                 }
             }
         },
@@ -60,12 +123,12 @@ export const RESUME_MOCK: Resume = {
             order: 0,
             title: "experience",
             subtitle: "",
-            groups: {
+            cards: {
                 "aassdd342d": {
                     order: 0,
                     title: "Software Engineer",
                     subtitle: "Electronic Transaction Systems",
-                    controls: {
+                    items: {
                         "98fz123h": {
                             type: InputTypes.TextArea,
                             value: "Web, Mobile, and API"
@@ -84,7 +147,7 @@ export const RESUME_MOCK: Resume = {
                     order: 10,
                     title: "Software Developer 1",
                     subtitle: "Parsons",
-                    controls: {
+                    items: {
                         "9z812f3h": {
                             type: InputTypes.TextArea,
                             value: "Web and API"

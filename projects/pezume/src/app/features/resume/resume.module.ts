@@ -6,6 +6,7 @@ import { ResumeComponent } from './components/resume/resume.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FullLayoutModule } from '../../shared/layouts/full-layout/full-layout.module';
 import { MatCardModule } from '@angular/material/card';
+import { AvatarModule } from '../../shared/ui/avatar/avatar.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MatCardModule } from '@angular/material/card';
     ResumeRoutingModule,
     MatTabsModule,
     FullLayoutModule,
-    MatCardModule
+    MatCardModule,
+    AvatarModule
   ]
 })
 export class ResumeModule { }

@@ -5,29 +5,27 @@
     <pre>
         grid, list, size... toggling
     </pre>
-    <div class="row">
-        <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let res of $resumes | async">
-            <mat-card>
-                <mat-card-header>
-                    <img mat-card-avatar [src]="res.avatarUrl" alt="">
-                    <mat-card-title>{{res.title}}</mat-card-title>
-                    <mat-card-subtitle>{{res.subtitle}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        {{res.about}}
-                    </p>
-                </mat-card-content>
-                <mat-card-actions class="d-flex justify-content-end">
-                    <!-- <div class="col-auto">
+    <div class="card-columns">
+        <mat-card class="card" *ngFor="let res of $resumes | async">
+            <mat-card-header>
+                <img mat-card-avatar [src]="res.avatarUrl" alt="">
+                <mat-card-title>{{res.title}}</mat-card-title>
+                <mat-card-subtitle>{{res.subtitle}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    {{res.about}}
+                </p>
+            </mat-card-content>
+            <mat-card-actions class="d-flex justify-content-end">
+                <!-- <div class="col-auto">
                         <a [routerLink]="['/']" [disabled]="loading" mat-button>Cancel</a>
                     </div> -->
-                    <div class="col-auto">
-                        <a [routerLink]="['/resume', res.id]"  mat-flat-button color="primary">View</a>
-                    </div>
-                </mat-card-actions>
-            </mat-card>
-        </div>
+                <div class="col-auto">
+                    <a [routerLink]="['/resume', res.id]" mat-flat-button color="primary">View</a>
+                </div>
+            </mat-card-actions>
+        </mat-card>
     </div>
 
 </pez-full-layout>
