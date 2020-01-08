@@ -1,0 +1,45 @@
+import Resume from '../models/control.model';
+import { FormControl, Validators, FormArray, FormGroup, AbstractControl } from '@angular/forms';
+export function resumeToForms(resume: Resume) {
+    const group = {
+        title: new FormControl(resume.title, [Validators.required]),
+        subtitle: new FormControl(resume.subtitle, [Validators.required]),
+        email: new FormControl(resume.email, [Validators.required, Validators.email]),
+        phone: new FormControl(resume.phone, [Validators.required]),
+        about: new FormControl(resume.about, [Validators.required, Validators.maxLength(500)])
+    };
+
+    const pages = {};
+    Object.keys(resume.pages).forEach((pageKey) => {
+        const currPage = resume.pages[pageKey];
+        const pageForm = {
+            title: new FormControl(currPage.title, [Validators.required]),
+            subtitle: new FormControl(currPage.subtitle)
+        };
+        const pageGroups = {}
+        Object.keys(currPage.groups).forEach((pageGroupKey) => {
+            const currPageGroup = currPage.groups[pageGroupKey];
+            const pageGroupForm = {
+                title: new FormControl(currPageGroup.title, [Validators.required]),
+                subtitle: new FormControl(currPageGroup.subtitle),
+            };
+            const controls = {}
+            Object.keys(currPageGroup.controls).forEach((pageGroupControlKey) => {
+                const currPageGroupControl = currPageGroup.controls[pageGroupControlKey];
+                controls[pageGroupControlKey] = new FormControl(currPageGroupControl.value)
+            })
+            pageGroupForm['controls'] = new FormGroup(controls);
+            pageGroups[pageGroupKey] = new FormGroup(pageGroupForm);
+        });
+        pageForm['groups'] = new FormGroup(pageGroups);
+        pages[pageKey] = new FormGroup(pageForm);
+    });
+    group['pages'] = new FormGroup(pages);
+    const fGroup = new FormGroup(group);
+    console.log(fGroup.value);
+    return fGroup;
+}
+
+export function formsToResume() {
+
+}

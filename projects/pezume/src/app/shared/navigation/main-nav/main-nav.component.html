@@ -1,19 +1,19 @@
 
 <mat-toolbar>
-    <span>
+    <a [routerLink]="['/']">
         Pezume
-    </span>
+    </a>
     <span class="flex-fill"></span>
 
     <!-- If logged in, show avatar button -->
-    <button mat-icon-button aria-label="User settings">
+    <button *ngIf="authService.currUser" mat-icon-button aria-label="User settings">
         <mat-icon>
             face
         </mat-icon>
     </button>
 
     <!-- Else, show login button -->
-    <a [routerLink]="['/login']" mat-icon-button aria-label="Login">
+    <a *ngIf="!authService.currUser" [routerLink]="['/login']" mat-icon-button aria-label="Login">
         <mat-icon>
             account_circle
         </mat-icon>

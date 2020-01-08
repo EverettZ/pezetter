@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavModule } from './shared/navigation/main-nav/main-nav.module';
 import { LayoutModule } from '@angular/cdk/layout';
+import { HomeModule } from './features/home/home.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     AppRoutingModule,
     BrowserAnimationsModule,
     MainNavModule,
-    LayoutModule
+    LayoutModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,22 @@
+<pez-focused-layout>
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <mat-card [class.mat-elevation-z0]="viewService.$handsetPortrait | async">
+            <div class="icon-ctr d-flex justify-content-center">
+                <mat-icon>
+                    account_circle
+                </mat-icon>
+            </div>
+            <mat-card-content class="d-flex flex-column">
+                <pez-login-form [parentForm]="loginForm"></pez-login-form>
+            </mat-card-content>
+            <mat-card-actions class="d-flex justify-content-end" [class.flex-column-reverse]="viewService.$handsetPortrait | async">
+                <div class="col-auto">
+                    <a [routerLink]="['/']" [disabled]="loading" mat-button>Cancel</a>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" [disabled]="loading" mat-flat-button color="primary" [class.mb-2]="viewService.$handsetPortrait | async">Login</button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</pez-focused-layout>

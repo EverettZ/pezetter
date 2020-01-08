@@ -1,0 +1,47 @@
+<pez-full-layout>
+    <ng-container *ngIf="($resume | async) as resume; else loading;">
+        <div class="row justify-content-start">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                <img (click)="resumeService.editResume(resume)" [src]="resume.avatarUrl" width="100%" alt="">
+            </div>
+            <div class="col d-flex align-items-center">
+                <div class="flex-fill">
+                    <h1 *ngIf="resume.title">{{resume.title}}</h1>
+                    <h2 *ngIf="resume.subtitle">{{resume.subtitle}}</h2>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="resume.about" class="row">
+            <div class="col-12">
+                <p>{{resume.about}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-tab-group mat-align-tabs="center">
+                    <mat-tab *ngFor="let page of resume.pages | keyvalue" [label]="page.value.title | titlecase">
+                        <h4 *ngIf="page.value.title">{{page.value.title}}</h4>
+                        <h5 *ngIf="page.value.subtitle">{{page.value.subtitle}}</h5>
+                        <div *ngFor="let group of page.value.groups | keyvalue">
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title *ngIf="group.value.title">{{group.value.title}}</mat-card-title>
+                                    <mat-card-subtitle *ngIf="group.value.subtitle">{{group.value.subtitle}}
+                                    </mat-card-subtitle>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <ul>
+                                        <li *ngFor="let c of group.value.controls | keyvalue">
+                                            {{c.value.value}}
+                                        </li>
+                                    </ul>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #loading>LOADING</ng-template>
+</pez-full-layout>
