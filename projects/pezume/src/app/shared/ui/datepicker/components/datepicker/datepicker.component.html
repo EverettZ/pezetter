@@ -1,0 +1,3 @@
+<input (focus)="propagateTouched()"   (dateChange)="dateChange(dateValue)" [(ngModel)]="dateValue" [matDatepicker]="myDatepicker" placeholder="date">
+<mat-datepicker-toggle  [for]="myDatepicker"></mat-datepicker-toggle>
+<mat-datepicker (opened)="propagateTouched()" #myDatepicker></mat-datepicker>

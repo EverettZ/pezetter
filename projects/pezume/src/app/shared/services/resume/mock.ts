@@ -45,6 +45,8 @@ export const RESUME_MOCK: Resume = {
                     order: 10,
                     title: "University of Kentucky",
                     subtitle: "Parsons",
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z8123h": {
                             type: InputTypes.TextArea,
@@ -64,6 +66,8 @@ export const RESUME_MOCK: Resume = {
                     order: 20,
                     title: "Uniasdadsversity of Kenadsasdtucky",
                     subtitle: "Pardasdsasad asdsons",
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9zaa8123h": {
                             type: InputTypes.TextArea,
@@ -83,6 +87,8 @@ export const RESUME_MOCK: Resume = {
                     order: 30,
                     title: "Unisdaversity of Kentucky",
                     subtitle: "Paasdasrsons",
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z81g23h": {
                             type: InputTypes.TextArea,
@@ -102,6 +108,8 @@ export const RESUME_MOCK: Resume = {
                     order: 40,
                     title: "Universasdity of Kentucky",
                     subtitle: "Parsasdons",
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z81d23h": {
                             type: InputTypes.TextArea,
@@ -128,6 +136,8 @@ export const RESUME_MOCK: Resume = {
                     order: 0,
                     title: "Software Engineer",
                     subtitle: "Electronic Transaction Systems",
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "98fz123h": {
                             type: InputTypes.TextArea,
@@ -147,6 +157,8 @@ export const RESUME_MOCK: Resume = {
                     order: 10,
                     title: "Software Developer 1",
                     subtitle: "Parsons",
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z812f3h": {
                             type: InputTypes.TextArea,

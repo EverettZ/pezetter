@@ -1,11 +1,11 @@
 export enum InputTypes {
-    Text,
-    Number,
-    Date,
-    TextArea,
-    Email,
-    Tel,
-    Image,
-    Link
+    Text = 'text',
+    Number = 'number',
+    Date = 'date',
+    TextArea = 'textarea',
+    Email = 'email',
+    Tel = 'tel',
+    Image = 'image',
+    Link = 'link'
 }
 

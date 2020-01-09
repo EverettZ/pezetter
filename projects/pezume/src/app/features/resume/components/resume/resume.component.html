@@ -25,28 +25,34 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
-                    <mat-tab-group mat-align-tabs="center" formGroupName="pages">
+                <div class="col-12" [formGroup]="resumeForm.get('pages')" #pagesForm="ngForm">
+                    <mat-tab-group mat-align-tabs="center" >
                         <mat-tab *ngFor="let page of resume.pages | keyvalue:valueAscOrder"
-                            [label]="page.value.title | titlecase" [formGroupName]="page.key">
+                            [label]="page.value.title | titlecase" #pageForm="ngForm" [formGroup]="pagesForm.form.controls[page.key]">
                             <pre>{{page.key}}</pre>
+                            <!-- <pre>{{pagesGroup.formGroup.value}}</pre> -->
 
                             <ng-container *ngIf="editting; else pageViewMode;">
+
                                 <mat-form-field>
                                     <input formControlName="title" matInput placeholder="Title">
                                 </mat-form-field>
+
                                 <mat-form-field>
                                     <input formControlName="order" type="number" matInput placeholder="Sort Order">
                                 </mat-form-field>
+
                             </ng-container>
 
                             <ng-template #pageViewMode>
                                 <h4 *ngIf="page.value.title">{{page.value.title}}</h4>
                             </ng-template>
 
-                            <div class="card-columns" formGroupName="cards">
+                            <div class="card-columns" #cardsGroup="ngForm" [formGroup]="pageForm.form.controls['cards']">
+
                                 <mat-card class="card" *ngFor="let card of page.value.cards | keyvalue:valueAscOrder"
-                                    [formGroupName]="card.key">
+                                    #cardGroup="ngForm" [formGroup]="cardsGroup.form.controls[card.key]">
+
                                     <pre>{{card.key}}</pre>
                                     <ng-container *ngIf="editting; else viewMode;">
                                         <mat-card-content>
@@ -56,16 +62,38 @@
                                             <mat-form-field>
                                                 <input formControlName="subtitle" matInput placeholder="Title">
                                             </mat-form-field>
-                                            <!-- start date -->
-                                            <!-- end date -->
+                                            
+                                            <pez-datepicker  formControlName="startDate"></pez-datepicker>
+                                            <code>{{cardGroup.form.controls['startDate'].value}}</code>
+                                            <code>{{cardGroup.form.controls['startDate'].touched}}</code>
+                                            <!-- <pez-datepicker [group]="cardGroup.form" controlName="endDate"></pez-datepicker> -->
 
                                             <ul formGroupName="items">
-                                                <li *ngFor="let item of card.value.items | keyvalue"
-                                                    >
+                                                <li *ngFor="let item of card.value.items | keyvalue">
                                                     <pre>{{item.key}}</pre>
-                                                    <mat-form-field>
-                                                        <input [formControlName]="item.key" matInput [placeholder]="item.value.type">
-                                                    </mat-form-field>
+
+                                                    <ng-container [ngSwitch]="item.value.type">
+                                                        <ng-container *ngSwitchCase="inputTypes.Date">
+                                                            <input [formControlName]="item.key"
+                                                                [matDatepicker]="myDatepicker">
+                                                            <mat-datepicker-toggle [for]="myDatepicker">
+                                                            </mat-datepicker-toggle>
+                                                            <mat-datepicker #myDatepicker></mat-datepicker>
+                                                        </ng-container>
+                                                        <ng-container *ngSwitchCase="inputTypes.TextArea">
+                                                            <mat-form-field>
+                                                                <textarea [formControlName]="item.key" matInput
+                                                                    [placeholder]="item.value.type"></textarea>
+                                                            </mat-form-field>
+                                                        </ng-container>
+                                                        <ng-container *ngSwitchDefault>
+
+                                                            <mat-form-field>
+                                                                <input [formControlName]="item.key" matInput
+                                                                    [placeholder]="item.value.type">
+                                                            </mat-form-field>
+                                                        </ng-container>
+                                                    </ng-container>
                                                 </li>
                                             </ul>
 
@@ -106,17 +134,22 @@
                                     </ng-template>
 
                                 </mat-card>
-                                <button *ngIf="editting" mat-raised-button color="secondary">
+
+                                <button *ngIf="editting" class="card" mat-raised-button color="secondary">
                                     Add card&nbsp;
                                     <mat-icon>add_circle</mat-icon>
                                 </button>
+
                             </div>
+
                         </mat-tab>
+
                         <mat-tab *ngIf="editting">
                             <ng-template mat-tab-label>
                                 <mat-icon>add_circle</mat-icon>
                             </ng-template>
                         </mat-tab>
+
                     </mat-tab-group>
                 </div>
             </div>

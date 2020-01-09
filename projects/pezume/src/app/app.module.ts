@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavModule } from './shared/navigation/main-nav/main-nav.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeModule } from './features/home/home.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HomeModule } from './features/home/home.module';
     BrowserAnimationsModule,
     MainNavModule,
     LayoutModule,
-    HomeModule
+    HomeModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
