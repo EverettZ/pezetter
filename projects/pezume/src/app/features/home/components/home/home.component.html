@@ -1,31 +1,56 @@
 <pez-full-layout>
-    <pre>
-        Search with filter, tags, etc...
-    </pre>
-    <pre>
-        grid, list, size... toggling
-    </pre>
-    <div class="card-columns">
-        <mat-card class="card" *ngFor="let res of $resumes | async">
-            <mat-card-header>
-                <img mat-card-avatar [src]="res.avatarUrl" alt="">
-                <mat-card-title>{{res.title}}</mat-card-title>
-                <mat-card-subtitle>{{res.subtitle}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    {{res.about}}
-                </p>
-            </mat-card-content>
-            <mat-card-actions class="d-flex justify-content-end">
-                <!-- <div class="col-auto">
-                        <a [routerLink]="['/']" [disabled]="loading" mat-button>Cancel</a>
-                    </div> -->
-                <div class="col-auto">
-                    <a [routerLink]="['/resume', res.id]" mat-flat-button color="primary">View</a>
-                </div>
-            </mat-card-actions>
-        </mat-card>
+    <br>
+    <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field class="btn-block mb-4">
+                    <mat-chip-list #chipList aria-label="Resume search">
+                        <mat-chip *ngFor="let term of searchTerms" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(term)">
+                            {{term.name}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input formControlName="search" placeholder="Search resumes" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-chip-list>
+                    <mat-hint>Press enter add a search term</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="card-columns">
+                <mat-card class="card" *ngFor="let res of $resumes | async">
+                    <mat-card-header>
+                        <img mat-card-avatar [src]="res.avatarUrl" alt="">
+                        <mat-card-title>{{res.title}}</mat-card-title>
+                        <mat-card-subtitle>{{res.subtitle}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            {{res.about}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions class="d-flex justify-content-end">
+                        <!-- <div class="col-auto">
+                                <a [routerLink]="['/']" [disabled]="loading" mat-button>Cancel</a>
+                            </div> -->
+                        <div class="col-auto">
+                            <a [routerLink]="['/resume', res.id]" mat-flat-button color="primary">View</a>
+                        </div>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
     </div>
 
 </pez-full-layout>

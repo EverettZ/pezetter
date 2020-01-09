@@ -23,7 +23,7 @@ export class ResumeService {
   }
 
   editResume(resume:Resume) {
-    resumeToForms(resume);
+    return resumeToForms(resume);
   }
 
 }

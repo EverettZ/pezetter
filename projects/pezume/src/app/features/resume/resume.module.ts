@@ -7,6 +7,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FullLayoutModule } from '../../shared/layouts/full-layout/full-layout.module';
 import { MatCardModule } from '@angular/material/card';
 import { AvatarModule } from '../../shared/ui/avatar/avatar.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,13 @@ import { AvatarModule } from '../../shared/ui/avatar/avatar.module';
     MatTabsModule,
     FullLayoutModule,
     MatCardModule,
-    AvatarModule
+    AvatarModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule
   ]
 })
 export class ResumeModule { }

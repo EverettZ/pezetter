@@ -14,7 +14,8 @@ export function resumeToForms(resume: Resume) {
         const currPage = resume.pages[pageKey];
         const pageForm = {
             title: new FormControl(currPage.title, [Validators.required]),
-            subtitle: new FormControl(currPage.subtitle)
+            subtitle: new FormControl(currPage.subtitle),
+            order: new FormControl(currPage.order)
         };
         const pageGroups = {}
         Object.keys(currPage.cards).forEach((pageGroupKey) => {
@@ -22,7 +23,14 @@ export function resumeToForms(resume: Resume) {
             const pageGroupForm = {
                 title: new FormControl(currPageGroup.title, [Validators.required]),
                 subtitle: new FormControl(currPageGroup.subtitle),
+                order: new FormControl(currPageGroup.order)
             };
+            if(currPageGroup.startDate) {
+                pageGroupForm['startDate'] = new FormControl(currPageGroup.startDate)
+            }
+            if(currPageGroup.endDate) {
+                pageGroupForm['endDate'] = new FormControl(currPageGroup.endDate)
+            }
             const controls = {}
             Object.keys(currPageGroup.items).forEach((pageGroupControlKey) => {
                 const currPageGroupControl = currPageGroup.items[pageGroupControlKey];
@@ -35,11 +43,8 @@ export function resumeToForms(resume: Resume) {
         pages[pageKey] = new FormGroup(pageForm);
     });
     group['pages'] = new FormGroup(pages);
-    const fGroup = new FormGroup(group);
-    console.log(fGroup.value);
-    return fGroup;
-}
-
-export function formsToResume() {
-
+    console.log(resume)
+    console.log(new FormGroup(group).value)
+    console.log(new FormGroup(group))
+    return new FormGroup(group);
 }

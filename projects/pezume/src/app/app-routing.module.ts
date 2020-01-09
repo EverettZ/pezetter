@@ -10,15 +10,25 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule)
+    loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule),
+    data: {
+      animation: 'login',
+      hideLogin: true
+    }
   },
   {
     path: 'browse',
-    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
+    data: {
+      animation: 'browse'
+    }
   },
   {
     path: 'resume/:id',
-    loadChildren: () => import('./features/resume/resume.module').then(m => m.ResumeModule)
+    loadChildren: () => import('./features/resume/resume.module').then(m => m.ResumeModule),
+    data: {
+      animation: 'resume'
+    }
   }
 ];
 

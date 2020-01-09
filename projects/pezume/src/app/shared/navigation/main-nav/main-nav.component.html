@@ -1,22 +1,31 @@
+<nav>
+    <mat-toolbar>
+        <span>
+            <a [routerLink]="['/browse']">pezume</a>
+            <ng-container *ngIf="resumeService.selected">
+                // {{resumeService.selected.title}}
+            </ng-container>
+        </span>
+        <span class="flex-fill"></span>
 
-<mat-toolbar>
-    <span>
-        <a [routerLink]="['/']">pezume</a>
-        // Everett Zettersten
-    </span>
-    <span class="flex-fill"></span>
+        <!-- If logged in, show avatar button -->
+        <ng-container *ngIf="authService.currUser">
+            <button mat-icon-button aria-label="User settings">
+                <mat-icon>
+                    exit_to_app
+                </mat-icon>
+            </button>
+            <!-- TODO: settings button -->
+        </ng-container>
 
-    <!-- If logged in, show avatar button -->
-    <button *ngIf="authService.currUser" mat-icon-button aria-label="User settings">
-        <mat-icon>
-            face
-        </mat-icon>
-    </button>
+        <!-- Else, show login button -->
+        <ng-container *ngIf="!authService.currUser && !hideLogin">
+            <a [routerLink]="['/login']" mat-button aria-label="Login">
+                Login
+                <mat-icon>lock_open</mat-icon>
+            </a>
+        </ng-container>
 
-    <!-- Else, show login button -->
-    <a *ngIf="!authService.currUser" [routerLink]="['/login']" mat-icon-button aria-label="Login">
-        <mat-icon>
-            account_circle
-        </mat-icon>
-    </a>
-</mat-toolbar>
+
+    </mat-toolbar>
+</nav>

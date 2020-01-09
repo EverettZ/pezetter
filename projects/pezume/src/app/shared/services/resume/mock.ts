@@ -20,8 +20,8 @@ export const RESUME_MOCK: Resume = {
                     order: 0,
                     title: "George Mason",
                     subtitle: "Electronic Transaction Systems",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "98z123h": {
                             type: InputTypes.TextArea,
@@ -37,7 +37,7 @@ export const RESUME_MOCK: Resume = {
                         },
                         "98a1fz12323h": {
                             type: InputTypes.Date,
-                            value: new Date()
+                            value: Date.now()
                         }
                     }
                 },

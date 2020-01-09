@@ -1,5 +1,4 @@
 <div class="d-flex flex-column" [formGroup]="parentForm">
-    <pre>{{ parentForm.errors | json}}</pre>
     <mat-form-field>
         <input matInput [formControl]="username" type="text" placeholder="Username">
         <mat-error *ngIf="username.hasError('email')">Email format required</mat-error>
