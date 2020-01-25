@@ -1,26 +1,11 @@
 <pez-focused-layout>
-    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-sm-12">
-                <mat-card [class.mat-elevation-z0]="viewService.$handsetPortrait | async">
-                    <div class="icon-ctr d-flex justify-content-center">
-                        <mat-icon>
-                            account_circle
-                        </mat-icon>
-                    </div>
-                    <mat-card-content class="d-flex flex-column">
-                        <pez-login-form [parentForm]="loginForm"></pez-login-form>
-                    </mat-card-content>
-                    <mat-card-actions class="d-flex justify-content-end"
-                        [class.flex-column]="viewService.$handsetPortrait | async">
-                        <a [class.btn-block]="viewService.$handsetPortrait | async" [class.mr-2]="!(viewService.$handsetPortrait | async)" [routerLink]="['/browse']"
-                            [disabled]="loading" mat-button>Browse</a>
-                        <button [class.btn-block]="viewService.$handsetPortrait | async" type="submit"
-                            [disabled]="loading" mat-flat-button color="primary"
-                            [class.mb-2]="viewService.$handsetPortrait | async">Login</button>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-xs-12">
+            <!-- <ngx-auth-firebaseui [providers]="[providers.Google, providers.Facebook]" (onSuccess)="loggedIn($event)" (onError)="printError()">
+            </ngx-auth-firebaseui> -->
+            <ngx-auth-firebaseui [providers]="[providers.Google, providers.Facebook]" goBackURL="/browse" appearance="legacy" (onSuccess)="loggedIn($event)" (onError)="printError()"></ngx-auth-firebaseui>
+            <!-- <ngx-auth-firebaseui-providers [providers]="[providers.Google, providers.Facebook]"></ngx-auth-firebaseui-providers> -->
+
         </div>
-    </form>
+    </div>
 </pez-focused-layout>

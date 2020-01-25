@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit, HostBinding, Input } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
-import { fromEvent } from 'rxjs';
+import { AuthService } from '../../../services/auth/auth.service';
+import { fromEvent, Observable } from 'rxjs';
 import { throttleTime, map, pairwise, distinctUntilChanged, share, filter } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ResumeService } from '../../services/resume/resume.service';
+import { ResumeService } from '../../../services/resume/resume.service';
 import { Router } from '@angular/router';
 
 enum Direction {
@@ -45,7 +45,22 @@ export class MainNavComponent implements OnInit, AfterViewInit {
 
   isVisible = true;
 
-  constructor(public authService: AuthService, public resumeService: ResumeService) { }
+  loggedIn$: Observable<boolean>;
+  showLogin$: Observable<boolean>;
+
+  constructor(public authService: AuthService, public resumeService: ResumeService) {
+    this.loggedIn$ = authService.user$.pipe(
+      map((user) => {
+        return user ? true : false;
+      }),
+      share()
+    );
+    this.showLogin$ = this.loggedIn$.pipe(
+      map((loggedIn) => {
+        return !loggedIn && !this.hideLogin;
+      })
+    )
+   }
 
   ngOnInit() {
   }

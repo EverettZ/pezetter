@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ResumeRoutingModule } from './resume-routing.module';
 import { ResumeComponent } from './components/resume/resume.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FullLayoutModule } from '../../shared/layouts/full-layout/full-layout.module';
+import { FullLayoutModule } from '../../shared/ui/layouts/full-layout/full-layout.module';
 import { MatCardModule } from '@angular/material/card';
 import { AvatarModule } from '../../shared/ui/avatar/avatar.module';
 import { MatButtonModule } from '@angular/material/button';

@@ -1,8 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
+import { LoggedOutComponent } from './components/logged-out/logged-out.component';
+import { UserComponent } from './components/user/user.component';
+import { LoggedInGuard } from 'ngx-auth-firebaseui';
 
-const routes: Routes = [{ path: '', component: LoginComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login',
+  },
+  {
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: 'logged-out', component: LoggedOutComponent
+  },
+  {
+    path: 'user', component: UserComponent, canActivate: [LoggedInGuard]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

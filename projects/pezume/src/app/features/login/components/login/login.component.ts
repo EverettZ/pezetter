@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewService } from '../../../../shared/services/view/view.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
+import { AuthProvider, Theme, AuthProcessService } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'pez-login',
@@ -11,28 +12,27 @@ import { AuthService } from '../../../../shared/services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  isActive = true;
-  loginForm: FormGroup;
-  loading = false;
 
-  constructor(public viewService: ViewService, private authService: AuthService, private router: Router) { }
+  themes = Theme;
+  providers = AuthProvider;
+  
+  constructor(public viewService: ViewService, private authService: AuthService, private auth: AuthProcessService, private router: Router) { }
 
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      username: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required]),
-    })
   }
 
-  onSubmit() {
-    this.loginForm.markAllAsTouched();
-    if(this.loginForm.valid) {
-      this.loading = true;
-      this.authService.login(this.loginForm.value).subscribe((resp) => {
-        this.loading = false;
-        this.router.navigate(["/"]);
-      });
-    }
+  loggedIn(event) {
+    console.log(event);
+    // this.authService.setUser({ 
+    //   uid: event.uid,
+    //   displayName: event.displayName 
+    // });
+    console.log(this.auth.user)
+    this.router.navigate(['/browse'])
+  }
+
+  printError(event) {
+    console.error(event);
   }
 
 }

@@ -25,7 +25,12 @@
             "aot": false,
             "assets": [
               "projects/pezume/src/favicon.ico",
-              "projects/pezume/src/assets"
+              "projects/pezume/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-auth-firebaseui/assets/",
+                "output": "projects/pezume/src/assets/"
+              }
             ],
             "styles": [
               "./node_modules/bootstrap/scss/bootstrap.scss",
@@ -125,6 +130,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "pezume"
 }

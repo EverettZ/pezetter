@@ -1,15 +1,15 @@
 import Resume from "../../models/resume.model";
 import { InputTypes } from '../../models/input-types';
 
-export const RESUME_MOCK: Resume = {
-    id: "0",
-    title: "Everett Zettersten",
-    subtitle: "Full Stack Developer",
-    order: 0,
-    avatarURL: "https://avatars0.githubusercontent.com/u/2085059?s=400&u=5b7e833fa5f41f5cc9266043dfbda472eb026491&v=4",
-    email: "everett@zettersten.com",
-    phone: "(703) 475-3433",
-    about: "A results-driven, user experience-focused, articulate and analytical Software Engineer with a passion for emerging tech in the web development space. Desires to innovate with exciting technical solutions and to continue to learn the full stack of web development in an Agile way. Brings advanced knowledge of Object-Oriented JavaScript, modern JS libraries, CSS, HTML 5, AngularJS, and Angular",
+export const EMPTY_RESUME: Resume = {
+    // id: "0",
+    // title: "Everett Zettersten",
+    // subtitle: "Full Stack Developer",
+    // order: 0,
+    // avatarUrl: "https://avatars0.githubusercontent.com/u/2085059?s=400&u=5b7e833fa5f41f5cc9266043dfbda472eb026491&v=4",
+    // email: "everett@zettersten.com",
+    // phone: "(703) 475-3433",
+    // about: "A results-driven, user experience-focused, articulate and analytical Software Engineer with a passion for emerging tech in the web development space. Desires to innovate with exciting technical solutions and to continue to learn the full stack of web development in an Agile way. Brings advanced knowledge of Object-Oriented JavaScript, modern JS libraries, CSS, HTML 5, AngularJS, and Angular",
     pages: {
         "128790847x12h3": {
             order: 0,

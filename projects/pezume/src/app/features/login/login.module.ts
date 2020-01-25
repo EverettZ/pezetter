@@ -7,15 +7,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
-import { FocusedLayoutModule } from '../../shared/layouts/focused-layout/focused-layout.module';
+import { FocusedLayoutModule } from '../../shared/ui/layouts/focused-layout/focused-layout.module';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { LoggedOutComponent } from './components/logged-out/logged-out.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    LoginFormComponent
+    LoggedOutComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     FocusedLayoutModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    NgxAuthFirebaseUIModule
   ]
 })
 export class LoginModule { }
