@@ -5,8 +5,8 @@ export interface GenType<V> {
     [key: string]: V;
 }
 export interface ResumeDateRange {
-    startDate?: Date;
-    endDate?: Date;
+    startDate?: number;
+    endDate?: number;
 }
 
 export interface ItemValue<T> {
@@ -15,14 +15,14 @@ export interface ItemValue<T> {
 }
 
 export interface ResumeBase {
-    title?: string;
-    subtitle?: string;
+    title: string;
+    subtitle: string;
     order?: number;
     id?: string;
 }
 
 export interface ResumePreview extends ResumeBase {
-    about?: string;
+    about: string;
     avatarURL?: string;
     bannerUrl?: string;
 }
@@ -32,7 +32,7 @@ export interface ResumePage extends ResumeBase {
 }
 
 export interface ResumeCard extends ResumeBase, ResumeDateRange {
-    items: GenType<Item<string | number | Date>>;
+    items: GenType<Item<string | number>>;
 }
 
 

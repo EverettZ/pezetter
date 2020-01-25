@@ -20,8 +20,8 @@ export const RESUME_MOCK: Resume = {
                     order: 0,
                     title: "George Mason",
                     subtitle: "Electronic Transaction Systems",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "98z123h": {
                             type: InputTypes.TextArea,
@@ -37,7 +37,7 @@ export const RESUME_MOCK: Resume = {
                         },
                         "98a1fz12323h": {
                             type: InputTypes.Date,
-                            value: new Date()
+                            value: Date.now()
                         }
                     }
                 },
@@ -45,8 +45,8 @@ export const RESUME_MOCK: Resume = {
                     order: 10,
                     title: "University of Kentucky",
                     subtitle: "Parsons",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z8123h": {
                             type: InputTypes.TextArea,
@@ -66,8 +66,8 @@ export const RESUME_MOCK: Resume = {
                     order: 20,
                     title: "Uniasdadsversity of Kenadsasdtucky",
                     subtitle: "Pardasdsasad asdsons",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9zaa8123h": {
                             type: InputTypes.TextArea,
@@ -87,8 +87,8 @@ export const RESUME_MOCK: Resume = {
                     order: 30,
                     title: "Unisdaversity of Kentucky",
                     subtitle: "Paasdasrsons",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z81g23h": {
                             type: InputTypes.TextArea,
@@ -108,8 +108,8 @@ export const RESUME_MOCK: Resume = {
                     order: 40,
                     title: "Universasdity of Kentucky",
                     subtitle: "Parsasdons",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z81d23h": {
                             type: InputTypes.TextArea,
@@ -136,8 +136,8 @@ export const RESUME_MOCK: Resume = {
                     order: 0,
                     title: "Software Engineer",
                     subtitle: "Electronic Transaction Systems",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "98fz123h": {
                             type: InputTypes.TextArea,
@@ -157,8 +157,8 @@ export const RESUME_MOCK: Resume = {
                     order: 10,
                     title: "Software Developer 1",
                     subtitle: "Parsons",
-                    startDate: new Date(),
-                    endDate: new Date(),
+                    startDate: Date.now(),
+                    endDate: Date.now(),
                     items: {
                         "9z812f3h": {
                             type: InputTypes.TextArea,

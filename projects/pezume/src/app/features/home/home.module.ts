@@ -16,7 +16,8 @@ import { AddResumeComponent } from './components/add-resume/add-resume.component
 import { ResumeCardComponent } from './components/resume-card/resume-card.component';
 import { MaxLengthEtcDirective } from '../../shared/directives/max-length-etc/max-length-etc.directive';
 import { MaxLengthEtcPipe } from '../../shared/pipe/max-length-etc/max-length-etc.pipe';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { MaxLengthEtcPipe } from '../../shared/pipe/max-length-etc/max-length-et
     ReactiveFormsModule,
     MatIconModule,
     FormsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule,
+    MatPaginatorModule
   ]
 })
 export class HomeModule { }

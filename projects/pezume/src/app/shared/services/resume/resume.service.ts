@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, from } from 'rxjs';
 import { RESUME_MOCK } from './mock';
 import Resume from '../../models/resume.model';
 import { resumeToForms } from '../../utilities/resume-helpers';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QuerySnapshot, DocumentData } from '@angular/fire/firestore';
 import { EMPTY_RESUME } from './empty-resume';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,34 @@ export class ResumeService {
   ) { }
 
   getResume(id: string) {
-    return of(RESUME_MOCK);
+    return from(this.afs.collection('resumes')
+      .doc(id).ref
+      .get()
+      .then((doc) => {
+        return doc.data() as Resume;
+      })
+    )
   }
 
-  getResumes() {
-    return of([RESUME_MOCK]);
+  getResumes(page = 0, pageSize = 10) {
+    // return of([RESUME_MOCK]);
+    return from(this.afs.collection('resumes').ref
+      .orderBy('created')
+      .startAfter(page)
+      .limit(pageSize)
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => {
+          const data = doc.data() as Resume;
+          const result: Resume = {
+            ...data,
+            subtitle: "asdasdasdasd",
+            about: "asdkajhkjhasd",
+            id: doc.id
+          }
+          return result;
+        })
+      }))
   }
 
   editResume(resume: Resume) {
@@ -38,10 +62,7 @@ export class ResumeService {
       created: new Date(),
       ...EMPTY_RESUME
     }
-    this.afs.collection('resumes').add(resume)
-      .then((docRef) => {
-        console.log(docRef.id);
-      })
+    return this.afs.collection('resumes').add(resume)
   }
 
 }
