@@ -57,7 +57,8 @@ export class ResumeService {
     this.selected$ = this.selectedResumeDoc
       .valueChanges()
       .pipe(
-        share()
+        share(),
+        // take(1)
       )
   }
 
@@ -65,7 +66,8 @@ export class ResumeService {
     this.selectedPages$ = this.selectedResumeDoc.collection<ResumePage>(Collections.PAGES)
       .valueChanges()
       .pipe(
-        share()
+        share(),
+        // take(1)
       );
   }
 
@@ -81,31 +83,15 @@ export class ResumeService {
         .limit(this.query.limit)
     });
 
+    this.mapAndUpdate(first);
+
     this.resumePreviews$ = this._resumePreviews.asObservable().pipe(
+      // take(1),
       tap((vals) => {
         console.log(vals);
       })
     );
-    this.mapAndUpdate(first);
 
-
-
-    // this.resumePreviews = this.afs.collection(Collections.RESUMES).ref
-    //   .orderBy('created')
-    //   .startAfter(page)
-    //   .limit(pageSize)
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     return querySnapshot.docs.map((doc) => {
-    //       const data = doc.data() as ResumePreview;
-    //       return {
-    //         ...data,
-    //         id: doc.id
-    //       };
-    //     })
-    //   });
-
-    // return from(resumes)
   }
 
   next() {
@@ -138,12 +124,12 @@ export class ResumeService {
     this.query.limit = pageSize;
     this.query.start = pageIndex;
 
-    if(pageIndex === oldStart || oldLimit != pageSize) {
+    if (pageIndex === oldStart || oldLimit != pageSize) {
       this.query.start = 0;
       this.initResumePreviews();
     } else if (pageIndex < oldStart) {
       this.previous()
-    }  else {
+    } else {
       this.next()
     }
   }
@@ -171,8 +157,9 @@ export class ResumeService {
 
     return col.snapshotChanges()
       .pipe(
+        take(1),
         tap((arr) => {
-
+          console.log('SNAP CHANGE')
           const values = arr.map(snap => {
             const data = snap.payload.doc.data();
             const doc = snap.payload.doc;
@@ -190,7 +177,6 @@ export class ResumeService {
           }
 
         }),
-        take(1)
       ).subscribe();
   }
 
