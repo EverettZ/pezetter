@@ -26,11 +26,14 @@ export class HomeComponent implements OnInit {
   get search() {
     return this.searchForm.get("search");
   }
-  constructor(private resumeService: ResumeService) { }
+  constructor(public resumeService: ResumeService) { 
+    this.resumeService.initResumePreviews();
+    this.resumes$ = this.resumeService.resumePreviews$;
+  }
 
   ngOnInit() {
-    this.resumes$ = this.resumeService.getResumePreviews();
-    this.resumeService.selected = null;
+    // this.resumes$ = this.resumeService.getResumePreviews();
+    this.resumeService.selected$ = null;
     this.searchForm = new FormGroup({
       search: new FormControl('')
     })

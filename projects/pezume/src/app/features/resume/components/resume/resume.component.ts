@@ -29,21 +29,15 @@ export class ResumeComponent implements OnInit {
     public resumeService: ResumeService,
     private auth: AuthProcessService
   ) {
-
+    
     this.resumeId = this.route.snapshot.paramMap.get("id");
+
+    this.resumeService.setResume(this.resumeId);
+    this.resume$= this.resumeService.selected$;
   
-    this.resume$ = this.resumeService.getResume(`${this.resumeId}`).pipe(
-      // take(1),
-      // share(),
-      tap((resume) => {
-        this.resumeService.selected = resume;
-        // this.resumeForm = this.resumeService.editResume(resume)
-      })
-    );
-  
-    this.pages$ = this.resumeService.getResumePages(this.resumeId).pipe(
-      share()
-    );
+    this.resumeService.setResumePages();
+    this.pages$ = this.resumeService.selectedPages$;
+
   
   
     this.canEdit$ = this.resume$.pipe(

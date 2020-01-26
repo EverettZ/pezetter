@@ -1,70 +1,197 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable, of, BehaviorSubject } from 'rxjs';
 import Resume, { ResumePreview, GenType } from '../../models/resume.model';
 import { resumeToForms } from '../../utilities/resume-helpers';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { EMPTY_RESUME } from './empty-resume';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Collections } from '../../constants/collections';
 import { ResumePage } from '../../models/resume.model';
 import { collections } from 'ngx-auth-firebaseui/module/services/firestore-sync.service';
 import { AuthProcessService } from 'ngx-auth-firebaseui';
-import { map } from 'rxjs/operators';
+import { map, tap, take, share } from 'rxjs/operators';
+import { QueryConfig } from '../../models/resume-query.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResumeService {
 
-  selected: ResumePreview;
+
+  private _done = new BehaviorSubject(false);
+  private _loading = new BehaviorSubject(false);
+  private _resumePreviews: BehaviorSubject<any[]> = new BehaviorSubject([])
+
+  query: QueryConfig;
+
+  selected$: Observable<ResumePreview>;
+  selectedPages$: Observable<ResumePage[]>;
+  resumePreviews$: Observable<any[]>;
+  done$: Observable<boolean> = this._done.asObservable();
+  loading$: Observable<boolean> = this._loading.asObservable();
+
+  resumeCollection: AngularFirestoreCollection<ResumePreview>;
+  selectedResumeDoc: AngularFirestoreDocument<ResumePreview>;
 
   constructor(
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth,
     private auth: AuthProcessService
-  ) { }
+  ) {
+    this.resumeCollection = this.afs.collection<ResumePreview>(Collections.RESUMES);
+    this.query = {
+      path: Collections.RESUMES,
+      field: 'about',
+      limit: 10,
+      reverse: false,
+      start: 0,
+      size: 0
+    }
+  }
 
-  getResume(id: string) {
-    return this.afs.collection(Collections.RESUMES)
-      .doc(id).valueChanges().pipe(
-        map((doc) => {
-          console.log("RESUME CHANGE", doc);
-          return doc as ResumePreview
-        })
+  setResume(id: string) {
+
+    this.selectedResumeDoc = this.resumeCollection
+      .doc<ResumePreview>(id);
+
+    this.selected$ = this.selectedResumeDoc
+      .valueChanges()
+      .pipe(
+        share()
       )
-
   }
 
-  getResumePages(resumeId: string): Observable<ResumePage[]> {
-    return from(this.afs.collection(`${Collections.RESUMES}/${resumeId}/${Collections.PAGES}`).ref
-      .get()
-      .then((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => {
-          const data = doc.data() as ResumePage;
-          return data;
-        });
+  setResumePages() {
+    this.selectedPages$ = this.selectedResumeDoc.collection<ResumePage>(Collections.PAGES)
+      .valueChanges()
+      .pipe(
+        share()
+      );
+  }
+
+  initResumePreviews() {
+
+    const first = this.afs.collection<ResumePreview>(this.query.path, ref => {
+      ref.get().then((val) => {
+        this.query.size = val.size
       })
-    )
+      return ref
+        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+        .startAfter(this.query.start)
+        .limit(this.query.limit)
+    });
+
+    this.resumePreviews$ = this._resumePreviews.asObservable().pipe(
+      tap((vals) => {
+        console.log(vals);
+      })
+    );
+    this.mapAndUpdate(first);
+
+
+
+    // this.resumePreviews = this.afs.collection(Collections.RESUMES).ref
+    //   .orderBy('created')
+    //   .startAfter(page)
+    //   .limit(pageSize)
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     return querySnapshot.docs.map((doc) => {
+    //       const data = doc.data() as ResumePreview;
+    //       return {
+    //         ...data,
+    //         id: doc.id
+    //       };
+    //     })
+    //   });
+
+    // return from(resumes)
   }
 
-  getResumePreviews(page = 0, pageSize = 10) {
+  next() {
+    const cursor = this.getLastCursor();
+    const next = this.afs.collection<ResumePreview>(this.query.path, ref => {
+      // this.query.size = ref.firestore
+      return ref
+        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+        .startAfter(cursor)
+        .limit(this.query.limit)
+    });
+    this.mapAndUpdate(next);
+  }
 
-    const resumes = this.afs.collection(Collections.RESUMES).ref
-      .orderBy('created')
-      .startAfter(page)
-      .limit(pageSize)
-      .get()
-      .then((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => {
-          const data = doc.data() as ResumePreview;
-          return {
-            ...data,
-            id: doc.id
-          };
-        })
-      });
+  previous() {
+    const cursor = this.getFirstCursor();
+    const prev = this.afs.collection<ResumePreview>(this.query.path, ref => {
+      // this.query.size = ref.firestore
+      return ref
+        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+        .endBefore(cursor)
+        .limitToLast(this.query.limit)
+    });
+    this.mapAndUpdate(prev);
+  }
 
-    return from(resumes)
+  paginate(pageIndex: number, pageSize: number) {
+    const oldStart = this.query.start;
+    const oldLimit = this.query.limit;
+    this.query.limit = pageSize;
+    this.query.start = pageIndex;
+
+    if(pageIndex === oldStart || oldLimit != pageSize) {
+      this.query.start = 0;
+      this.initResumePreviews();
+    } else if (pageIndex < oldStart) {
+      this.previous()
+    }  else {
+      this.next()
+    }
+  }
+
+  private getLastCursor() {
+    const current = this._resumePreviews.value;
+    if (current.length) {
+      return current[current.length - 1].doc;
+    }
+    return null;
+  }
+  private getFirstCursor() {
+    const current = this._resumePreviews.value;
+    if (current.length) {
+      return current[0].doc;
+    }
+    return null;
+  }
+
+  private mapAndUpdate(col: AngularFirestoreCollection<ResumePreview>) {
+
+    if (this._done.value || this._loading.value) { return };
+
+    this._loading.next(true);
+
+    return col.snapshotChanges()
+      .pipe(
+        tap((arr) => {
+
+          const values = arr.map(snap => {
+            const data = snap.payload.doc.data();
+            const doc = snap.payload.doc;
+            return {
+              ...data,
+              doc
+            };
+          });
+
+          this._resumePreviews.next(values);
+          this._loading.next(false);
+
+          if (!values.length) {
+            this._done.next(true);
+          }
+
+        }),
+        take(1)
+      ).subscribe();
   }
 
   getResumes(page = 0, pageSize = 10) {
