@@ -34,15 +34,6 @@ export class AddResumeComponent implements OnInit {
 
   addResume() {
 
-    const addResumeResult = from(this.resumeService.intializeNewResume()).pipe(
-      map((result) => {
-        if (result && result.id) {
-          return result.id;
-        }
-        return false;
-      })
-    )
-
     const snackBarResult = this.canAdd$.pipe(
       switchMap((canAdd) => {
         if (!canAdd) {
@@ -51,7 +42,14 @@ export class AddResumeComponent implements OnInit {
             mapTo(false)
           );
         }
-        return addResumeResult;
+        return this.resumeService.intializeNewResume().pipe(
+          map((result) => {
+            if (result && result.id) {
+              return result.id;
+            }
+            return false;
+          })
+        );
       })
     );
 

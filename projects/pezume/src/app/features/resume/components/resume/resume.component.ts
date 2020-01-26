@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ResumeService } from '../../../../shared/services/resume/resume.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
-import Resume, { ResumeCard, ResumeBase } from 'projects/pezume/src/app/shared/models/resume.model';
-import { mergeMap, map, tap, share } from 'rxjs/operators';
-import { AuthService } from '../../../../shared/services/auth/auth.service';
+import { Observable } from 'rxjs';
+import { map, tap, share, take } from 'rxjs/operators';
 import { InputTypes } from '../../../../shared/models/input-types';
 import { KeyValue } from '@angular/common';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { ResumePage, ResumePreview, ResumeBase } from '../../../../shared/models/resume.model';
+import { AuthProcessService } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'pez-resume',
@@ -17,33 +17,52 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ResumeComponent implements OnInit {
 
   inputTypes = InputTypes;
-  $resume: Observable<Resume>;
-  $canEdit: Observable<boolean>;
+  resume$: Observable<ResumePreview>;
+  pages$: Observable<ResumePage[]>;
+  canEdit$: Observable<boolean>;
   resumeForm: FormGroup;
   editting = false;
+  resumeId: string;
+
   constructor(
     private route: ActivatedRoute,
     public resumeService: ResumeService,
-    private authService: AuthService
+    private auth: AuthProcessService
   ) {
-   }
 
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get("id");
-    this.$resume = this.resumeService.getResume(`${id}`).pipe(
-      share(),
+    this.resumeId = this.route.snapshot.paramMap.get("id");
+  
+    this.resume$ = this.resumeService.getResume(`${this.resumeId}`).pipe(
+      // take(1),
+      // share(),
       tap((resume) => {
         this.resumeService.selected = resume;
-        this.resumeForm = this.resumeService.editResume(resume)
+        // this.resumeForm = this.resumeService.editResume(resume)
       })
     );
-    this.$canEdit = this.$resume.pipe(
-      // map((resume) => this.authService.currUser && resume.id === this.authService.currUser)
-      map((resume) => true),
+  
+    this.pages$ = this.resumeService.getResumePages(this.resumeId).pipe(
+      share()
+    );
+  
+  
+    this.canEdit$ = this.resume$.pipe(
+      share(),
+      map((resume) => this.auth.user && this.auth.user.uid === resume.userId),
+      take(1)
     );
   }
-  
-  editResume(resume: Resume){
+
+  ngOnInit() {
+
+
+  }
+
+  updateResumePhoto(photoURL: string) {
+    this.resumeService.updateResumePhoto(photoURL, this.resumeId);
+  }
+
+  editResume(resume: ResumePreview) {
     // this.resumeForm = this.resumeService.editResume(resume)
     this.editting = !this.editting;
   }

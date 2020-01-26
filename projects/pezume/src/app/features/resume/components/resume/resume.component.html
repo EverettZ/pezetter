@@ -1,15 +1,85 @@
 <pez-full-layout>
-    <ng-container *ngIf="($resume | async) as resume; else loading;">
-        <form *ngIf="resumeForm" [formGroup]="resumeForm">
+    <!-- <ng-container>
+        <button (click)="editResume(resume)" mat-fab color="primary">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </ng-container> -->
+    <ng-container *ngIf="(resume$ | async) as resume; else resumePreviewLoading;">
+
+
+            <!-- Photo, title, and subtitle -->
             <div class="row justify-content-start">
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-3">
-                    <pez-avatar [src]="resume.avatarURL" alt="User avatar"></pez-avatar>
+                <div *ngIf="resume.photoURL" class="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-3">
+                    <pez-avatar [src]="resume.photoURL" alt="User avatar"></pez-avatar>
+                    <ng-container *ngIf="editting">
+                        <pez-image-uploader (onSuccess)="updateResumePhoto($event)"></pez-image-uploader>
+                    </ng-container>
                 </div>
                 <div class="col d-flex align-items-center">
                     <div class="flex-fill">
                         <div class="d-flex ">
                             <h1 *ngIf="resume.title" class="d-inline mr-3">{{resume.title}}</h1>
-                            <ng-container *ngIf="$canEdit | async">
+                            <ng-container>
+                                <button (click)="editResume(resume)" mat-fab color="primary">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </ng-container>
+                        </div>
+                        <h3 *ngIf="resume.subtitle">{{resume.subtitle}}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About -->
+            <div *ngIf="resume.about" class="row">
+                <div class="col-12">
+                    <p>{{resume.about}}</p>
+                </div>
+            </div>
+
+    </ng-container>
+    <ng-template #resumePreviewLoading>USER INFO SKELETON</ng-template>
+
+    <!-- Pages -->
+    <ng-container *ngIf="(pages$ | async) as pages; else pagesLoading">
+        <div class="row">
+            <div class="col-12">
+                <ng-container *ngIf="pages.length; else noPages">
+                    <mat-tab-group mat-align-tabs="center">
+                        <mat-tab *ngFor="let page of pages" [label]="page.title | titlecase">
+                            <pre>{{page | json}}</pre>
+
+                            <!-- Cards -->
+                            <pez-card-columns>
+                                <pez-resume-page-card *ngFor="let card of page.cards" [card]="card">
+                                </pez-resume-page-card>
+                                <div *ngIf="!page.cards.length" fallback>
+                                    No data to display
+                                </div>
+                            </pez-card-columns>
+
+                        </mat-tab>
+                    </mat-tab-group>
+                </ng-container>
+                <ng-template #noPages>
+                    <h4><em>This user hasnt added any additional details</em></h4>
+                </ng-template>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #loading>PAGES SKELETON</ng-template>
+
+    <!-- <ng-container *ngIf="(resume$ | async) as resume; else loading;">
+        <form *ngIf="resumeForm" [formGroup]="resumeForm">
+            <div class="row justify-content-start">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 p-3">
+                    <pez-avatar [src]="resume.photoURL" alt="User avatar"></pez-avatar>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <div class="flex-fill">
+                        <div class="d-flex ">
+                            <h1 *ngIf="resume.title" class="d-inline mr-3">{{resume.title}}</h1>
+                            <ng-container *ngIf="canEdit$ | async">
                                 <button (click)="editResume(resume)" mat-fab color="primary">
                                     <mat-icon>edit</mat-icon>
                                 </button>
@@ -27,10 +97,9 @@
             <div class="row">
                 <div class="col-12" [formGroup]="resumeForm.get('pages')" #pagesForm="ngForm">
                     <mat-tab-group mat-align-tabs="center" >
-                        <mat-tab *ngFor="let page of resume.pages | keyvalue:valueAscOrder"
+                        <mat-tab *ngFor="let page of pages$ | async | keyvalue:valueAscOrder"
                             [label]="page.value.title | titlecase" #pageForm="ngForm" [formGroup]="pagesForm.form.controls[page.key]">
                             <pre>{{page.key}}</pre>
-                            <!-- <pre>{{pagesGroup.formGroup.value}}</pre> -->
 
                             <ng-container *ngIf="editting; else pageViewMode;">
 
@@ -66,7 +135,6 @@
                                             <pez-datepicker  formControlName="startDate"></pez-datepicker>
                                             <code>{{cardGroup.form.controls['startDate'].value}}</code>
                                             <code>{{cardGroup.form.controls['startDate'].touched}}</code>
-                                            <!-- <pez-datepicker [group]="cardGroup.form" controlName="endDate"></pez-datepicker> -->
 
                                             <ul formGroupName="items">
                                                 <li *ngFor="let item of card.value.items | keyvalue">
@@ -155,5 +223,5 @@
             </div>
         </form>
     </ng-container>
-    <ng-template #loading>LOADING</ng-template>
+    <ng-template #loading>LOADING</ng-template> -->
 </pez-full-layout>

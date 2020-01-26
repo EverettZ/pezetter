@@ -14,10 +14,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DatepickerModule } from '../../shared/ui/datepicker/datepicker.module';
+import { ResumePageCardComponent } from './components/resume-page-card/resume-page-card.component';
+import { CardColumnsModule } from '../../shared/ui/card-columns/card-columns.module';
+import { FileUploaderModule } from '../../shared/ui/file-uploader/file-uploader.module';
 
 @NgModule({
   declarations: [
-    ResumeComponent
+    ResumeComponent,
+    ResumePageCardComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,9 @@ import { DatepickerModule } from '../../shared/ui/datepicker/datepicker.module';
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    DatepickerModule
+    DatepickerModule,
+    CardColumnsModule,
+    FileUploaderModule
   ]
 })
 export class ResumeModule { }

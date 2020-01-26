@@ -18,17 +18,20 @@ export interface ResumeBase {
     title: string;
     subtitle: string;
     order?: number;
-    id?: string;
 }
 
 export interface ResumePreview extends ResumeBase {
     about: string;
-    avatarURL?: string;
+    photoURL: string;
     bannerUrl?: string;
+    userId: string;
+    created: number;
+    id: string;
 }
 
 export interface ResumePage extends ResumeBase {
-    cards: GenType<ResumeCard>;
+    cards: ResumeCard[];
+    id: string;
 }
 
 export interface ResumeCard extends ResumeBase, ResumeDateRange {
@@ -42,7 +45,7 @@ export interface Item<T> extends ItemValue<T> {
 export interface Resume extends ResumePreview {
     email?: string;
     phone?: string;
-    pages: GenType<ResumePage>;
+    pages: ResumePage[];
 }
 export interface ResumeFormGroupBase {
     title: FormControl;
@@ -54,7 +57,7 @@ export interface ResumeForm extends ResumeFormGroupBase {
     email: FormControl;
     phone: FormControl;
     about: FormControl;
-    avatarURL: FormControl;
+    photoURL: FormControl;
     bannerUrl: FormControl;
     pages: FormGroup;
 }

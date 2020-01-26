@@ -13,6 +13,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MaxLengthEtcDirective } from './shared/directives/max-length-etc/max-length-etc.directive';
 import { MaxLengthEtcPipe } from './shared/pipe/max-length-etc/max-length-etc.pipe';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MaxLengthEtcPipe } from './shared/pipe/max-length-etc/max-length-etc.pi
     MatNativeDateModule,
     AngularFireModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     NgxAuthFirebaseUIModule.forRoot(
       {
         apiKey: 'AIzaSyBVacySy-aJ3fBd6UI8HA_W63pjqqY-5Jg',

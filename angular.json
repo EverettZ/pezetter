@@ -29,7 +29,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/ngx-auth-firebaseui/assets/",
-                "output": "projects/pezume/src/assets/"
+                "output": "./assets/"
               }
             ],
             "styles": [

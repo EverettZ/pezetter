@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { ResumePreview } from '../../../../shared/models/resume.model';
 
 @Component({
   selector: 'pez-home',
@@ -13,7 +14,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 })
 export class HomeComponent implements OnInit {
 
-  $resumes: Observable<Resume[]>;
+  resumes$: Observable<ResumePreview[]>;
   searchForm: FormGroup;
   searchTerms: SearchTerm[] = [];
   visible = true;
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
   constructor(private resumeService: ResumeService) { }
 
   ngOnInit() {
-    this.$resumes = this.resumeService.getResumes();
+    this.resumes$ = this.resumeService.getResumePreviews();
     this.resumeService.selected = null;
     this.searchForm = new FormGroup({
       search: new FormControl('')
