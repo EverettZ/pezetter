@@ -7,16 +7,23 @@ import { EMPTY_RESUME } from './empty-resume';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Collections } from '../../constants/collections';
 import { ResumePage } from '../../models/resume.model';
-import { collections } from 'ngx-auth-firebaseui/module/services/firestore-sync.service';
 import { AuthProcessService } from 'ngx-auth-firebaseui';
 import { map, tap, take, share } from 'rxjs/operators';
 import { QueryConfig } from '../../models/resume-query.model';
+
+export const defaultQuery: QueryConfig = {
+    path: Collections.RESUMES,
+    field: 'about',
+    limit: 10,
+    reverse: false,
+    start: 0,
+    size: 0
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResumeService {
-
 
   private _done = new BehaviorSubject(false);
   private _loading = new BehaviorSubject(false);
@@ -39,14 +46,6 @@ export class ResumeService {
     private auth: AuthProcessService
   ) {
     this.resumeCollection = this.afs.collection<ResumePreview>(Collections.RESUMES);
-    this.query = {
-      path: Collections.RESUMES,
-      field: 'about',
-      limit: 10,
-      reverse: false,
-      start: 0,
-      size: 0
-    }
   }
 
   setResume(id: string) {
@@ -72,14 +71,16 @@ export class ResumeService {
   }
 
   initResumePreviews() {
+    
+    this.query = defaultQuery;
 
     const first = this.afs.collection<ResumePreview>(this.query.path, ref => {
       ref.get().then((val) => {
         this.query.size = val.size
-      })
+      });
       return ref
         .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-        .startAfter(this.query.start)
+        // .startAfter(this.query.start)
         .limit(this.query.limit)
     });
 
@@ -94,40 +95,69 @@ export class ResumeService {
 
   }
 
+
   next() {
+
     const cursor = this.getLastCursor();
+
     const next = this.afs.collection<ResumePreview>(this.query.path, ref => {
-      // this.query.size = ref.firestore
+
       return ref
         .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
         .startAfter(cursor)
-        .limit(this.query.limit)
+        .limit(this.query.limit);
+
     });
+
     this.mapAndUpdate(next);
   }
 
   previous() {
+
     const cursor = this.getFirstCursor();
+
     const prev = this.afs.collection<ResumePreview>(this.query.path, ref => {
-      // this.query.size = ref.firestore
+
       return ref
         .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
         .endBefore(cursor)
         .limitToLast(this.query.limit)
+
     });
+
     this.mapAndUpdate(prev);
+    
   }
 
-  paginate(pageIndex: number, pageSize: number) {
+  search(searchTerm: string) {
+
+    this.query.start = 0;
+
+    const first = this.afs.collection<ResumePreview>(this.query.path, ref => {
+      ref.get().then((val) => {
+        this.query.size = val.size
+      });
+      return ref
+        // .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+        // .startAfter(this.query.start)
+        .limit(this.query.limit)
+        .where(this.query.field, '==', searchTerm)
+    });
+
+    this.mapAndUpdate(first);
+  }
+
+  paginate(start: number, limit: number) {
+    console.log(limit);
     const oldStart = this.query.start;
     const oldLimit = this.query.limit;
-    this.query.limit = pageSize;
-    this.query.start = pageIndex;
+    this.query.limit = limit;
+    this.query.start = start;
 
-    if (pageIndex === oldStart || oldLimit != pageSize) {
+    if (start === oldStart || oldLimit != limit) {
       this.query.start = 0;
       this.initResumePreviews();
-    } else if (pageIndex < oldStart) {
+    } else if (start < oldStart) {
       this.previous()
     } else {
       this.next()
@@ -180,11 +210,11 @@ export class ResumeService {
       ).subscribe();
   }
 
-  getResumes(page = 0, pageSize = 10) {
+  getResumes(page = 0, limit = 10) {
     return from(this.afs.collection('resumes').ref
       .orderBy('created')
       .startAfter(page)
-      .limit(pageSize)
+      .limit(limit)
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs.map((doc) => {

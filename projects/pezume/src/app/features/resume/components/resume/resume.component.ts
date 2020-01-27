@@ -37,14 +37,13 @@ export class ResumeComponent implements OnInit {
   
     this.resumeService.setResumePages();
     this.pages$ = this.resumeService.selectedPages$;
-
-  
   
     this.canEdit$ = this.resume$.pipe(
       share(),
       map((resume) => this.auth.user && this.auth.user.uid === resume.userId),
       take(1)
     );
+    
   }
 
   ngOnInit() {

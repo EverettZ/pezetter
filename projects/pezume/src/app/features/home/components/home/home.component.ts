@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ResumeService } from '../../../../shared/services/resume/resume.service';
+import { ResumeService, defaultQuery } from '../../../../shared/services/resume/resume.service';
 import Resume from '../../../../shared/models/resume.model';
 import { Observable } from 'rxjs';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ResumePreview } from '../../../../shared/models/resume.model';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, share } from 'rxjs/operators';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'pez-home',
@@ -14,7 +17,6 @@ import { ResumePreview } from '../../../../shared/models/resume.model';
 })
 export class HomeComponent implements OnInit {
 
-  resumes$: Observable<ResumePreview[]>;
   searchForm: FormGroup;
   searchTerms: SearchTerm[] = [];
   visible = true;
@@ -22,25 +24,54 @@ export class HomeComponent implements OnInit {
   removable = true;
   addOnBlur = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA]
-
+  isSmall$: Observable<boolean>;
+  pageSizeOptions$: Observable<number[]>;
   get search() {
     return this.searchForm.get("search");
   }
-  constructor(public resumeService: ResumeService) { 
+  constructor(public resumeService: ResumeService, private breakpoint: BreakpointObserver) {
+
+    this.searchForm = new FormGroup({
+      search: new FormControl('', [Validators.minLength(1), Validators.maxLength(100)])
+    });
+
     this.resumeService.initResumePreviews();
-    this.resumes$ = this.resumeService.resumePreviews$;
+
+    this.isSmall$ = this.breakpoint.observe([
+      Breakpoints.Small
+    ]).pipe(
+      map((result) => {
+        return result.matches;
+      }),
+      share()
+    );
+
+    this.pageSizeOptions$ = this.isSmall$.pipe(
+      map((isSmall) => {
+
+        if (isSmall) {
+          this.resumeService.paginate(0, smallPageSizeOption[0]);
+          return smallPageSizeOption;
+        }
+
+        this.resumeService.paginate(0, defaultPageSizeOption[0]);
+        return defaultPageSizeOption;
+
+      }),
+      share()
+    );
   }
 
   ngOnInit() {
-    // this.resumes$ = this.resumeService.getResumePreviews();
     this.resumeService.selected$ = null;
-    this.searchForm = new FormGroup({
-      search: new FormControl('')
-    })
   }
 
   onSubmit() {
-    console.log("SUBMIT")
+    if (this.search.value.length) {
+      this.resumeService.search(this.search.value);
+    } else {
+      this.resumeService.initResumePreviews();
+    }
   }
 
 
@@ -66,9 +97,19 @@ export class HomeComponent implements OnInit {
       this.searchTerms.splice(index, 1);
     }
   }
-
+  pageEvent(ev: PageEvent) {
+    console.log(ev);
+  }
 }
 
 interface SearchTerm {
   name: string;
 }
+
+const smallPageSizeOption = [
+  2, 10, 25
+]
+
+const defaultPageSizeOption = [
+  10, 25, 50
+]
