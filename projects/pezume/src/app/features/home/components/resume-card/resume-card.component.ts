@@ -9,9 +9,10 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 export class ResumeCardComponent implements OnInit {
   @HostBinding('class.card') card = true;
   @Input() resume: ResumePreview;
+  @Input() currUserId: ResumePreview;
   constructor() { }
 
   ngOnInit() {
-  }
+  } 
 
 }

@@ -10,14 +10,16 @@ import { ResumePage } from '../../models/resume.model';
 import { AuthProcessService } from 'ngx-auth-firebaseui';
 import { map, tap, take, share } from 'rxjs/operators';
 import { QueryConfig } from '../../models/resume-query.model';
+import { SearchTerm } from '../../models/search-term.model';
 
 export const defaultQuery: QueryConfig = {
-    path: Collections.RESUMES,
-    field: 'about',
-    limit: 10,
-    reverse: false,
-    start: 0,
-    size: 0
+  path: Collections.RESUMES,
+  field: 'about',
+  limit: 10,
+  reverse: false,
+  start: 0,
+  size: 0,
+  search: ''
 }
 
 @Injectable({
@@ -45,6 +47,7 @@ export class ResumeService {
     private afAuth: AngularFireAuth,
     private auth: AuthProcessService
   ) {
+    this.query = defaultQuery;
     this.resumeCollection = this.afs.collection<ResumePreview>(Collections.RESUMES);
   }
 
@@ -71,20 +74,6 @@ export class ResumeService {
   }
 
   initResumePreviews() {
-    
-    this.query = defaultQuery;
-
-    const first = this.afs.collection<ResumePreview>(this.query.path, ref => {
-      ref.get().then((val) => {
-        this.query.size = val.size
-      });
-      return ref
-        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-        // .startAfter(this.query.start)
-        .limit(this.query.limit)
-    });
-
-    this.mapAndUpdate(first);
 
     this.resumePreviews$ = this._resumePreviews.asObservable().pipe(
       // take(1),
@@ -118,30 +107,45 @@ export class ResumeService {
 
     const prev = this.afs.collection<ResumePreview>(this.query.path, ref => {
 
+
       return ref
         .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
         .endBefore(cursor)
-        .limitToLast(this.query.limit)
+        .limitToLast(this.query.limit);
 
     });
 
     this.mapAndUpdate(prev);
-    
+
   }
 
-  search(searchTerm: string) {
+  search(value: SearchTerm, updateSize = false) {
 
+    this.query.field = value.filterBy;
+    this.query.reverse = value.sortDescending;
+    this.query.search = value.search;
     this.query.start = 0;
 
     const first = this.afs.collection<ResumePreview>(this.query.path, ref => {
-      ref.get().then((val) => {
-        this.query.size = val.size
-      });
+
+      if (this.query.size === 0 || updateSize) {
+        ref.get().then((val) => {
+          this.query.size = val.size
+        });
+      }
+
+      if (this.query.search.length) {
+        return ref
+          .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+          .where(this.query.field, '==', this.query.search)
+          .limit(this.query.limit);
+      }
+
       return ref
-        // .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
         // .startAfter(this.query.start)
         .limit(this.query.limit)
-        .where(this.query.field, '==', searchTerm)
+
     });
 
     this.mapAndUpdate(first);
@@ -157,6 +161,7 @@ export class ResumeService {
     if (start === oldStart || oldLimit != limit) {
       this.query.start = 0;
       this.initResumePreviews();
+      this.search({ search: this.query.search, filterBy: this.query.field, sortDescending: this.query.reverse});
     } else if (start < oldStart) {
       this.previous()
     } else {
@@ -208,26 +213,6 @@ export class ResumeService {
 
         }),
       ).subscribe();
-  }
-
-  getResumes(page = 0, limit = 10) {
-    return from(this.afs.collection('resumes').ref
-      .orderBy('created')
-      .startAfter(page)
-      .limit(limit)
-      .get()
-      .then((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => {
-          const data = doc.data() as Resume;
-          const result: Resume = {
-            ...data,
-            subtitle: "asdasdasdasd",
-            about: "asdkajhkjhasd",
-            id: doc.id
-          }
-          return result;
-        })
-      }))
   }
 
   editResume(resume: Resume) {

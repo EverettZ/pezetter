@@ -5,4 +5,5 @@ export interface QueryConfig {
     reverse: boolean;
     start: number;
     size: number;
+    search: string;
 }

@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MatSelectModule, MatCheckboxModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -42,7 +42,9 @@ import { MaxLengthEtcPipe } from '../../shared/pipe/max-length-etc/max-length-et
     MatChipsModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    LayoutModule
+    LayoutModule,
+    MatSelectModule,
+    MatCheckboxModule
   ]
 })
 export class HomeModule { }
