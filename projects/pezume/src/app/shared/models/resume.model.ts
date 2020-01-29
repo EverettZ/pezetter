@@ -1,5 +1,6 @@
 import { InputTypes } from './input-types';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Visiblity } from '../constants/visibility';
 
 export interface GenType<V> {
     [key: string]: V;
@@ -27,6 +28,7 @@ export interface ResumePreview extends ResumeBase {
     userId: string;
     created: number;
     id: string;
+    visibility: Visiblity;
 }
 
 export interface ResumePage extends ResumeBase {

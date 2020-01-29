@@ -31,10 +31,10 @@
             </div>
         </div>
     </div>
-    <ng-container *ngIf="(pageSizeOptions$ | async) as pageSizeOptions">
-        <mat-paginator [disabled]="resumeService.loading$ | async " (page)="resumeService.paginate($event.pageIndex, $event.pageSize);"
+    <ng-container *ngIf="resumeService.query.size > 0">
+        <mat-paginator [disabled]="resumeService.loading$ | async " (page)="paginateChange($event);"
             [pageIndex]="resumeService.query.start" [length]="resumeService.query.size"
-            [pageSize]="resumeService.query.limit" [pageSizeOptions]="pageSizeOptions">
+            [pageSize]="resumeService.query.limit" [pageSizeOptions]="smallPageSizeOption">
         </mat-paginator>
     </ng-container>
 </pez-full-layout>

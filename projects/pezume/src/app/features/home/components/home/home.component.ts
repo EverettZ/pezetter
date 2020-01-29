@@ -1,11 +1,13 @@
+import { defaultQuery } from './../../../../shared/constants/default-resumes-query';
 import { SearchTerm } from './../../../../shared/models/search-term.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ResumeService } from '../../../../shared/services/resume/resume.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';;
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, share, distinctUntilChanged, debounceTime, startWith } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'pez-home',
@@ -13,6 +15,15 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+  smallPageSizeOption = [
+    2, 10, 25
+  ]
+
+  defaultPageSizeOption = [
+    10, 25, 50
+  ]
+
   filterByOptions = [
     {
       value: 'title',
@@ -31,6 +42,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   filter$: Observable<SearchTerm>;
   isSmall$: Observable<boolean>;
   pageSizeOptions$: Observable<number[]>;
+  // paginateChange$: Subject<PageEvent> = new Subject();
+  searchCount = 0;
 
   get search() {
     return this.searchForm.get("search");
@@ -43,8 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   constructor(public resumeService: ResumeService, private breakpoint: BreakpointObserver) {
-    let searchNum = 0;
-    console.log("HERE WE GO")
+
     this.searchForm = new FormGroup({
       search: new FormControl('', [Validators.minLength(1), Validators.maxLength(100)]),
       filterBy: new FormControl(this.filterByOptions[0].value, [Validators.required]),
@@ -61,8 +73,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       }),
       untilDestroyed(this)
     ).subscribe((result: SearchTerm) => {
-      this.resumeService.search(result, searchNum === 0)
-      searchNum++;
+      console.log('SEARCH!')
+      this.resumeService.query.start = defaultQuery.start;
+      this.resumeService.search(result, this.resumeService.query.start, this.resumeService.query.limit);
     });
 
 
@@ -75,20 +88,24 @@ export class HomeComponent implements OnInit, OnDestroy {
       share()
     );
 
-    this.pageSizeOptions$ = this.isSmall$.pipe(
-      map((isSmall) => {
+    // this.pageSizeOptions$ = this.isSmall$.pipe(
+    //   map((isSmall) => {
 
-        if (isSmall) {
-          this.resumeService.paginate(0, smallPageSizeOption[0]);
-          return smallPageSizeOption;
-        }
+    //     console.log('PAGE SIZE OPTIONS SEARCH')
 
-        this.resumeService.paginate(0, defaultPageSizeOption[0]);
-        return defaultPageSizeOption;
+    //     if (isSmall) {
+    //       this.resumeService.query.start = defaultQuery.start;
+    //       this.resumeService.search(this.searchForm.value, this.resumeService.query.start, this.resumeService.query.limit);
+    //       return smallPageSizeOption;
+    //     }
 
-      }),
-      share()
-    );
+    //     this.resumeService.query.start = defaultQuery.start;
+    //     this.resumeService.search(this.searchForm.value, this.resumeService.query.start, this.resumeService.query.limit);
+    //     return defaultPageSizeOption;
+
+    //   }),
+    //   share()
+    // );
   }
 
   ngOnInit() {
@@ -98,12 +115,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
+  paginateChange(ev: PageEvent) {
+    console.log('HOME >> PAGINATECHANGE')
+    this.resumeService.query.start = defaultQuery.start;
+    this.resumeService.search(this.searchForm.value, ev.pageIndex, ev.pageSize);
+    // this.resumeService.paginate(ev.pageIndex, ev.pageSize, )
+  }
+
 }
-
-const smallPageSizeOption = [
-  2, 10, 25
-]
-
-const defaultPageSizeOption = [
-  10, 25, 50
-]

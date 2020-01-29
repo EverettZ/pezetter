@@ -8,19 +8,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Collections } from '../../constants/collections';
 import { ResumePage } from '../../models/resume.model';
 import { AuthProcessService } from 'ngx-auth-firebaseui';
-import { map, tap, take, share } from 'rxjs/operators';
+import { map, tap, take, share, catchError } from 'rxjs/operators';
 import { QueryConfig } from '../../models/resume-query.model';
 import { SearchTerm } from '../../models/search-term.model';
+import { Visiblity } from '../../constants/visibility';
+import { PageEvent } from '@angular/material';
+import { defaultQuery } from '../../constants/default-resumes-query';
 
-export const defaultQuery: QueryConfig = {
-  path: Collections.RESUMES,
-  field: 'about',
-  limit: 10,
-  reverse: false,
-  start: 0,
-  size: 0,
-  search: ''
-}
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +41,6 @@ export class ResumeService {
     private afAuth: AngularFireAuth,
     private auth: AuthProcessService
   ) {
-    this.query = defaultQuery;
-    this.resumeCollection = this.afs.collection<ResumePreview>(Collections.RESUMES);
   }
 
   setResume(id: string) {
@@ -75,99 +67,95 @@ export class ResumeService {
 
   initResumePreviews() {
 
+    this.query = defaultQuery;
+    this.resumeCollection = this.afs.collection<ResumePreview>(this.query.path);
+
     this.resumePreviews$ = this._resumePreviews.asObservable().pipe(
-      // take(1),
+      share(),
       tap((vals) => {
-        console.log(vals);
+        console.log('resumePreviews UPDATE', vals);
       })
     );
 
   }
 
 
-  next() {
+  search(value: SearchTerm, start: number, limit: number) {
 
-    const cursor = this.getLastCursor();
+    const prevStart = this.query.start;
+    const prevSearch = this.query.search;
 
-    const next = this.afs.collection<ResumePreview>(this.query.path, ref => {
-
-      return ref
-        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-        .startAfter(cursor)
-        .limit(this.query.limit);
-
-    });
-
-    this.mapAndUpdate(next);
-  }
-
-  previous() {
-
-    const cursor = this.getFirstCursor();
-
-    const prev = this.afs.collection<ResumePreview>(this.query.path, ref => {
-
-
-      return ref
-        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-        .endBefore(cursor)
-        .limitToLast(this.query.limit);
-
-    });
-
-    this.mapAndUpdate(prev);
-
-  }
-
-  search(value: SearchTerm, updateSize = false) {
+    let getSize = this._resumePreviews.value.length === 0 || prevSearch !== value.search;
 
     this.query.field = value.filterBy;
     this.query.reverse = value.sortDescending;
     this.query.search = value.search;
-    this.query.start = 0;
+    this.query.start = start;
+    this.query.limit = limit;
 
-    const first = this.afs.collection<ResumePreview>(this.query.path, ref => {
+    const result = this.afs.collection<ResumePreview>(this.query.path, ref => {
 
-      if (this.query.size === 0 || updateSize) {
-        ref.get().then((val) => {
-          this.query.size = val.size
-        });
+      let baseResumeRef = ref
+        .where('visibility', '==', Visiblity.PUBLIC)
+
+      if (value.search.length) {
+
+        this.query.size = 0;
+        baseResumeRef = baseResumeRef
+          // .where(this.query.field, '==', this.query.search)
+          // .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
+          .limit(50);
+
+        return baseResumeRef;
+
       }
 
-      if (this.query.search.length) {
-        return ref
-          .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-          .where(this.query.field, '==', this.query.search)
+      baseResumeRef = baseResumeRef
+        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc');
+
+      if (start < prevStart) {
+
+        // PREV PAGE
+        const cursor = this.getFirstCursor();
+        baseResumeRef = baseResumeRef
+          .endBefore(cursor)
+          .limitToLast(this.query.limit);
+
+      } else if (start > prevStart) {
+
+        //  NEXT PAGE
+        const cursor = this.getLastCursor();
+        baseResumeRef = baseResumeRef
+          .startAfter(cursor)
           .limit(this.query.limit);
+
+      } else {
+
+        // No page change
+        baseResumeRef = baseResumeRef
+          .limit(this.query.limit);
+
       }
 
-      return ref
-        .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-        // .startAfter(this.query.start)
-        .limit(this.query.limit)
+      if (getSize) {
+
+        ref.where('visibility', '==', Visiblity.PUBLIC)
+          .get()
+          .then((val) => {
+            this.query.size = val.size;
+          });
+
+      }
+
+      return baseResumeRef;
 
     });
 
-    this.mapAndUpdate(first);
+
+    this.mapAndUpdate(result);
+
   }
 
-  paginate(start: number, limit: number) {
-    console.log(limit);
-    const oldStart = this.query.start;
-    const oldLimit = this.query.limit;
-    this.query.limit = limit;
-    this.query.start = start;
-
-    if (start === oldStart || oldLimit != limit) {
-      this.query.start = 0;
-      this.initResumePreviews();
-      this.search({ search: this.query.search, filterBy: this.query.field, sortDescending: this.query.reverse});
-    } else if (start < oldStart) {
-      this.previous()
-    } else {
-      this.next()
-    }
-  }
 
   private getLastCursor() {
     const current = this._resumePreviews.value;
@@ -176,6 +164,7 @@ export class ResumeService {
     }
     return null;
   }
+
   private getFirstCursor() {
     const current = this._resumePreviews.value;
     if (current.length) {
@@ -194,8 +183,7 @@ export class ResumeService {
       .pipe(
         take(1),
         tap((arr) => {
-          console.log('SNAP CHANGE')
-          const values = arr.map(snap => {
+          let values = arr.map(snap => {
             const data = snap.payload.doc.data();
             const doc = snap.payload.doc;
             return {
@@ -204,14 +192,36 @@ export class ResumeService {
             };
           });
 
+          if (this.query.search.length) {
+            values = values.filter((snap) => {
+              const searchVal = snap[this.query.field].toLowerCase();
+              return searchVal.includes(this.query.search.toLowerCase());
+            }).sort((a, b) => {
+              if (a[this.query.field] > b[this.query.field]) {
+                return this.query.reverse ? 1 : -1;
+              }
+              if (b[this.query.field] > b[this.query.field]) {
+                return this.query.reverse ? -1 : 1;
+              }
+              return 0;
+            })
+          }
+
           this._resumePreviews.next(values);
           this._loading.next(false);
 
           if (!values.length) {
-            this._done.next(true);
+            // this._done.next(true);
           }
 
+          return values;
+
         }),
+        catchError((err) => {
+          console.error("CAUGHT ERROR", err);
+          this._loading.next(false);
+          return of([])
+        })
       ).subscribe();
   }
 
@@ -228,7 +238,8 @@ export class ResumeService {
       created: Date.now(),
       photoURL: this.auth.user.photoURL,
       about: "Short description of yourself",
-      id: initDoc.id
+      id: initDoc.id,
+      visibility: Visiblity.PUBLIC
     }
     initDoc.set(resume);
     this.addResumePage(initDoc)

@@ -1,11 +1,13 @@
 import Resume, { ResumePreview } from "../../models/resume.model";
 import { InputTypes } from '../../models/input-types';
+import { Visiblity } from '../../constants/visibility';
 
 export const EMPTY_RESUME: ResumePreview = {
     // id: "0",
     title: "",
     subtitle: "",
     created: Date.now(),
+    visibility: Visiblity.PUBLIC,
     // order: 0,
     photoURL: "https://avatars0.githubusercontent.com/u/2085059?s=400&u=5b7e833fa5f41f5cc9266043dfbda472eb026491&v=4",
     // email: "everett@zettersten.com",
