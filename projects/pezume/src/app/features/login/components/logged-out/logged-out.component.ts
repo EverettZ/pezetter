@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
-import { AuthProcessService } from 'ngx-auth-firebaseui';
 
 @Component({
   selector: 'pez-logged-out',
@@ -9,10 +8,10 @@ import { AuthProcessService } from 'ngx-auth-firebaseui';
 })
 export class LoggedOutComponent implements OnInit {
 
-  constructor(private authService: AuthService, private auth: AuthProcessService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.auth.signOut();
+    this.authService.signOut();
   }
 
 }

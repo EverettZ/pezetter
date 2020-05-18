@@ -7,12 +7,10 @@ import { EMPTY_RESUME } from './empty-resume';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Collections } from '../../constants/collections';
 import { ResumePage } from '../../models/resume.model';
-import { AuthProcessService } from 'ngx-auth-firebaseui';
 import { map, tap, take, share, catchError } from 'rxjs/operators';
 import { QueryConfig } from '../../models/resume-query.model';
 import { SearchTerm } from '../../models/search-term.model';
 import { Visiblity } from '../../constants/visibility';
-import { PageEvent } from '@angular/material';
 import { defaultQuery } from '../../constants/default-resumes-query';
 
 
@@ -38,8 +36,7 @@ export class ResumeService {
 
   constructor(
     private afs: AngularFirestore,
-    private afAuth: AngularFireAuth,
-    private auth: AuthProcessService
+    private afAuth: AngularFireAuth
   ) {
   }
 
@@ -231,19 +228,24 @@ export class ResumeService {
 
   intializeNewResume() {
     const initDoc = this.afs.collection(Collections.RESUMES).ref.doc();
-    const resume: ResumePreview = {
-      userId: this.auth.user.uid,
-      title: this.auth.user.displayName,
-      subtitle: "Professional Title",
-      created: Date.now(),
-      photoURL: this.auth.user.photoURL,
-      about: "Short description of yourself",
-      id: initDoc.id,
-      visibility: Visiblity.PUBLIC
-    }
-    initDoc.set(resume);
-    this.addResumePage(initDoc)
-    return of(resume)
+    return this.afAuth.user.pipe(
+      map((user) => {
+        const resume: ResumePreview = {
+          userId: user.uid,
+          title: user.displayName,
+          subtitle: "Professional Title",
+          created: Date.now(),
+          photoURL: user.photoURL,
+          about: "Short description of yourself",
+          id: initDoc.id,
+          visibility: Visiblity.PUBLIC
+        }
+
+        initDoc.set(resume);
+        this.addResumePage(initDoc)
+        return resume;
+      })
+    );
   }
 
   addResumePage(resumeDoc: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>) {

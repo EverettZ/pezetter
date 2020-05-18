@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedOutComponent } from './components/logged-out/logged-out.component';
 import { UserComponent } from './components/user/user.component';
-import { LoggedInGuard } from 'ngx-auth-firebaseui';
 
 const routes: Routes = [
   {
@@ -18,7 +17,7 @@ const routes: Routes = [
     path: 'logged-out', component: LoggedOutComponent
   },
   {
-    path: 'user', component: UserComponent, canActivate: [LoggedInGuard]
+    path: 'user', component: UserComponent
   }
 ];
 

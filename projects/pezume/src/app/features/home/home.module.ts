@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatPaginatorModule, MatSelectModule, MatCheckboxModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -18,6 +17,9 @@ import { FocusedLayoutModule } from '../../shared/ui/layouts/focused-layout/focu
 import { AddResumeComponent } from './components/add-resume/add-resume.component';
 import { ResumeCardComponent } from './components/resume-card/resume-card.component';
 import { MaxLengthEtcPipe } from '../../shared/pipe/max-length-etc/max-length-etc.pipe';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [

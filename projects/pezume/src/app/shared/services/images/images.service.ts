@@ -1,22 +1,29 @@
 import { StorageCollections } from './../../constants/collections';
 import { Injectable } from '@angular/core';
-import { AuthProcessService } from 'ngx-auth-firebaseui';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { from } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImagesService {
   constructor(
-    private auth: AuthProcessService,
+    private auth: AngularFireAuth,
     private afstorage: AngularFireStorage
   ) { } 
 
   uploadImage(image: File) {
-    const namePrefix = this.auth.user ? this.auth.user.uid : `${Date.now()}`;
-    const storageRef = this.afstorage.ref(`${StorageCollections.IMAGES}/${namePrefix}_${image.name}`);
-    return from(storageRef.put(image))
+    return this.auth.user.pipe(
+      map(user => {
+        return user ? user.uid : `${Date.now()}`;
+      }),
+      mergeMap(namePrefix => {
+        const storageRef = this.afstorage.ref(`${StorageCollections.IMAGES}/${namePrefix}_${image.name}`);
+        return from(storageRef.put(image))
+      })
+    )
   }
 
 }

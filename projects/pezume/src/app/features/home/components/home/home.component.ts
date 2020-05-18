@@ -6,8 +6,7 @@ import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';;
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, share, distinctUntilChanged, debounceTime, startWith } from 'rxjs/operators';
-import { untilDestroyed } from 'ngx-take-until-destroy';
-import { PageEvent } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'pez-home',
@@ -70,8 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       debounceTime(500),
       distinctUntilChanged((prev, curr) => {
         return (prev.filterBy === curr.filterBy && prev.search === curr.search && prev.sortDescending === curr.sortDescending);
-      }),
-      untilDestroyed(this)
+      })
     ).subscribe((result: SearchTerm) => {
       console.log('SEARCH!')
       this.resumeService.query.start = defaultQuery.start;

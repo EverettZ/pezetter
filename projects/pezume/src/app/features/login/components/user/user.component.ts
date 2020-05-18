@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthProcessService } from 'ngx-auth-firebaseui';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'pez-user',
@@ -9,14 +9,14 @@ import { AuthProcessService } from 'ngx-auth-firebaseui';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private router: Router, private auth: AuthProcessService) { }
+  constructor(private router: Router, private auth: AngularFireAuth) { }
 
   ngOnInit() {
   }
 
   onSignOut() {
-    console.log(this.auth.config);
-    this.router.navigate([`${this.auth.config.authGuardFallbackURL}`]);
+    // console.log(this.auth.authState);
+    this.router.navigate([`login`]);
     
   }
 

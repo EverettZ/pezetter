@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ViewService } from '../../../../shared/services/view/view.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
-import { AuthProvider, Theme, AuthProcessService } from 'ngx-auth-firebaseui';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
+import { auth } from 'firebase/app';
 
 @Component({
   selector: 'pez-login',
@@ -14,13 +13,16 @@ import * as firebase from 'firebase';
 })
 export class LoginComponent implements OnInit {
 
-
-  themes = Theme;
-  providers = AuthProvider;
-  
-  constructor(public viewService: ViewService, private afAuth: AngularFireAuth, private authService: AuthService, private auth: AuthProcessService, private router: Router) { }
+  constructor(public viewService: ViewService,
+    private afAuth: AngularFireAuth,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
+  }
+
+  login() {
+    this.authService.googleSignin();
   }
 
   loggedIn(event) {
@@ -29,8 +31,8 @@ export class LoginComponent implements OnInit {
     //   uid: event.uid,
     //   displayName: event.displayName 
     // });
-    console.log(this.auth.user)
-    this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    console.log(this.afAuth.user)
+    // this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     this.router.navigate(['/browse'])
   }
 

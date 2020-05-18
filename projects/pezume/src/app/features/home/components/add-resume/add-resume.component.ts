@@ -1,10 +1,10 @@
 import { Component, OnInit, HostBinding, Input } from '@angular/core';
 import { ResumeService } from '../../../../shared/services/resume/resume.service';
 import { Router } from '@angular/router';
-import { AuthProcessService } from 'ngx-auth-firebaseui';
 import { Observable, of, from } from 'rxjs';
 import { map, tap, switchMap, mapTo, take } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'pez-add-resume',
@@ -18,11 +18,11 @@ export class AddResumeComponent implements OnInit {
   constructor(
     private resumeService: ResumeService,
     private router: Router,
-    private auth: AuthProcessService,
+    private auth: AngularFireAuth,
     private snackBar: MatSnackBar
   ) {
 
-    this.canAdd$ = auth.user$.pipe(
+    this.canAdd$ = auth.user.pipe(
       map((user) => {
         return user ? true : false;
       })
