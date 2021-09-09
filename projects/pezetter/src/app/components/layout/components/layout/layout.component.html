@@ -1,0 +1,9 @@
+<nav>
+  <ng-content select="[header]"></ng-content>
+</nav>
+<div class="background absolute top-0 left-0 h-full w-full -z-10 ">
+  <ng-content select="[background]"></ng-content>
+</div>
+<main class="grid grid-cols-1 gap-4 z-10">
+  <ng-content></ng-content>
+</main>

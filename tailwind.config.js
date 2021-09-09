@@ -7,12 +7,16 @@ module.exports = {
     mode: 'jit',
     purge: {
       content: [
-        './src/**/*.{html,ts,css,scss,sass,less,styl}',
+        './projects/**/src/**/*.{html,ts,css,scss,sass,less,styl}',
       ]
     },
     darkMode: 'class', // or 'media' or 'class'
     theme: {
-      extend: {},
+      extend: {
+        zIndex: {
+         '-10': '-10',
+        }
+      }
     },
     variants: {
       extend: {},

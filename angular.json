@@ -6,10 +6,6 @@
     "pezetter": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "inlineTemplate": true,
-          "inlineStyle": true
-        },
         "@schematics/angular:application": {
           "strict": true
         }
