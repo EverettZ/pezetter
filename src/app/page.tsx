@@ -1,16 +1,10 @@
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
-import { Button } from "@/components/ui/button"
 import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
 import { ModeToggle } from "@/components/mode-toggle"
 
 export default function Page() {
